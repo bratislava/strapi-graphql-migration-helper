@@ -1,7 +1,67 @@
-query Test {
-  categories {
+query Pages($start: Int) {
+  pages(start: $start, limit: 100) {
+    layout
+    listingImage {
+      id
+    }
     id
-    locale
     title
+    slug
+    sections {
+      ... on ComponentSectionsEventDetails {
+        __typename
+        id
+        price
+        partners {
+          id
+        }
+        dateFrom
+        dateTo
+        eventCategory {
+          id
+        }
+        eventCoverImage {
+          id
+        }
+        eventDescription
+        eventLocality {
+          id
+        }
+        eventTags {
+          id
+        }
+        eventTitle
+        guests {
+          id
+        }
+      }
+      ... on ComponentSectionsForm {
+        __typename
+        id
+      }
+    }
+    relatedBlogPosts {
+      id
+    }
+    published_at
+    promoted
+    pageCategory {
+      id
+    }
+    description
+    date_added
+    created_at
+    blogPosts {
+      id
+    }
+    Seo {
+      canonicalURL
+      id
+      keywords
+      metaDescription
+      metaRobots
+      metaTitle
+      metaViewport
+    }
   }
 }

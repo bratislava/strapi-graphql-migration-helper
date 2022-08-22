@@ -4783,18 +4783,80 @@ export type UpdateUserPayload = {
   user?: Maybe<UsersPermissionsUser>;
 };
 
-export type TestQueryVariables = Exact<{ [key: string]: never; }>;
+export type PagesQueryVariables = Exact<{
+  start?: InputMaybe<Scalars['Int']>;
+}>;
 
 
-export type TestQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: string, locale?: string | null, title?: string | null } | null> | null };
+export type PagesQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', layout?: Enum_Page_Layout | null, id: string, title?: string | null, slug?: string | null, published_at?: any | null, promoted?: boolean | null, description?: string | null, date_added?: any | null, created_at: any, listingImage?: { __typename?: 'UploadFile', id: string } | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename?: 'ComponentSectionsDocuments' } | { __typename: 'ComponentSectionsEventDetails', id: string, price: number, dateFrom?: any | null, dateTo?: any | null, eventDescription: string, eventTitle: string, partners?: Array<{ __typename?: 'ComponentSectionsParnters', id: string } | null> | null, eventCategory?: { __typename?: 'EventCategories', id: string } | null, eventCoverImage?: { __typename?: 'UploadFile', id: string } | null, eventLocality?: { __typename?: 'EventLocalities', id: string } | null, eventTags?: Array<{ __typename?: 'EventTags', id: string } | null> | null, guests?: Array<{ __typename?: 'ComponentGuestsGuest', id: string } | null> | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename?: 'ComponentSectionsFlatText' } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm', id: string } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsLocalityDetails' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename?: 'ComponentSectionsTable' } | { __typename?: 'ComponentSectionsVideo' } | null> | null, relatedBlogPosts?: Array<{ __typename?: 'BlogPost', id: string }> | null, pageCategory?: { __typename?: 'Category', id: string } | null, blogPosts?: Array<{ __typename?: 'BlogPost', id: string } | null> | null, Seo?: { __typename?: 'ComponentSeoSeo', canonicalURL?: string | null, id: string, keywords?: string | null, metaDescription?: string | null, metaRobots?: string | null, metaTitle?: string | null, metaViewport?: string | null } | null } | null> | null };
 
 
-export const TestDocument = gql`
-    query Test {
-  categories {
+export const PagesDocument = gql`
+    query Pages($start: Int) {
+  pages(start: $start, limit: 100) {
+    layout
+    listingImage {
+      id
+    }
     id
-    locale
     title
+    slug
+    sections {
+      ... on ComponentSectionsEventDetails {
+        __typename
+        id
+        price
+        partners {
+          id
+        }
+        dateFrom
+        dateTo
+        eventCategory {
+          id
+        }
+        eventCoverImage {
+          id
+        }
+        eventDescription
+        eventLocality {
+          id
+        }
+        eventTags {
+          id
+        }
+        eventTitle
+        guests {
+          id
+        }
+      }
+      ... on ComponentSectionsForm {
+        __typename
+        id
+      }
+    }
+    relatedBlogPosts {
+      id
+    }
+    published_at
+    promoted
+    pageCategory {
+      id
+    }
+    description
+    date_added
+    created_at
+    blogPosts {
+      id
+    }
+    Seo {
+      canonicalURL
+      id
+      keywords
+      metaDescription
+      metaRobots
+      metaTitle
+      metaViewport
+    }
   }
 }
     `;
@@ -4806,8 +4868,8 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    Test(variables?: TestQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<TestQuery>(TestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Test', 'query');
+    Pages(variables?: PagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PagesQuery>(PagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Pages', 'query');
     }
   };
 }

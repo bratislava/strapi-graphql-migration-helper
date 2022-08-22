@@ -10,7 +10,7 @@ import {GraphQLClient} from 'graphql-request';
 const v3LibraryClient = new GraphQLClient(
   'https://strapi-city-library.bratislava.sk/graphql'
 );
-const v4LibraryClient = new GraphQLClient('localhost:1337/graphql');
+const v4LibraryClient = new GraphQLClient('http://localhost:1338/graphql');
 
 export const sourceClient = v3LibrarySdk(v3LibraryClient);
 

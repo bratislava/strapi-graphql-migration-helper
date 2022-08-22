@@ -15,7 +15,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.getSdk = exports.TestDocument = exports.PublicationState = exports.Enum_Page_Layout = exports.Enum_Componentsectionsform_Type = exports.Enum_Componentblockstablerow_Valuealign = exports.Enum_Componentaccordionitemstablerow_Valuealign = exports.Enum_Componentaccordionitemsform_Type = void 0;
+exports.getSdk = exports.DeleteEventDocument = exports.MyMutationDocument = exports.PublicationState = exports.Enum_Page_Layout = exports.Enum_Componentsectionsform_Type = exports.Enum_Componentblockstablerow_Valuealign = exports.Enum_Componentaccordionitemstablerow_Valuealign = exports.Enum_Componentaccordionitemsform_Type = void 0;
 var graphql_tag_1 = require("graphql-tag");
 var Enum_Componentaccordionitemsform_Type;
 (function (Enum_Componentaccordionitemsform_Type) {
@@ -90,15 +90,19 @@ var PublicationState;
     PublicationState["Live"] = "LIVE";
     PublicationState["Preview"] = "PREVIEW";
 })(PublicationState = exports.PublicationState || (exports.PublicationState = {}));
-exports.TestDocument = (0, graphql_tag_1["default"])(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    query Test {\n  categories {\n    meta {\n      pagination {\n        total\n      }\n    }\n  }\n}\n    "], ["\n    query Test {\n  categories {\n    meta {\n      pagination {\n        total\n      }\n    }\n  }\n}\n    "])));
+exports.MyMutationDocument = (0, graphql_tag_1["default"])(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation MyMutation($data: EventInput!) {\n  createEvent(data: $data) {\n    data {\n      id\n    }\n  }\n}\n    "], ["\n    mutation MyMutation($data: EventInput!) {\n  createEvent(data: $data) {\n    data {\n      id\n    }\n  }\n}\n    "])));
+exports.DeleteEventDocument = (0, graphql_tag_1["default"])(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    mutation DeleteEvent {\n  deleteEvent(id: \"0\") {\n    data {\n      id\n    }\n  }\n}\n    "], ["\n    mutation DeleteEvent {\n  deleteEvent(id: \"0\") {\n    data {\n      id\n    }\n  }\n}\n    "])));
 var defaultWrapper = function (action, _operationName, _operationType) { return action(); };
 function getSdk(client, withWrapper) {
     if (withWrapper === void 0) { withWrapper = defaultWrapper; }
     return {
-        Test: function (variables, requestHeaders) {
-            return withWrapper(function (wrappedRequestHeaders) { return client.request(exports.TestDocument, variables, __assign(__assign({}, requestHeaders), wrappedRequestHeaders)); }, 'Test', 'query');
+        MyMutation: function (variables, requestHeaders) {
+            return withWrapper(function (wrappedRequestHeaders) { return client.request(exports.MyMutationDocument, variables, __assign(__assign({}, requestHeaders), wrappedRequestHeaders)); }, 'MyMutation', 'mutation');
+        },
+        DeleteEvent: function (variables, requestHeaders) {
+            return withWrapper(function (wrappedRequestHeaders) { return client.request(exports.DeleteEventDocument, variables, __assign(__assign({}, requestHeaders), wrappedRequestHeaders)); }, 'DeleteEvent', 'mutation');
         }
     };
 }
 exports.getSdk = getSdk;
-var templateObject_1;
+var templateObject_1, templateObject_2;

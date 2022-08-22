@@ -15,7 +15,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.getSdk = exports.TestDocument = exports.PublicationState = exports.Enum_Page_Layout = exports.Enum_Componentsectionsform_Type = exports.Enum_Componentblockstablerow_Valuealign = exports.Enum_Componentaccordionitemstablerow_Valuealign = exports.Enum_Componentaccordionitemsform_Type = void 0;
+exports.getSdk = exports.PagesDocument = exports.PublicationState = exports.Enum_Page_Layout = exports.Enum_Componentsectionsform_Type = exports.Enum_Componentblockstablerow_Valuealign = exports.Enum_Componentaccordionitemstablerow_Valuealign = exports.Enum_Componentaccordionitemsform_Type = void 0;
 var graphql_tag_1 = require("graphql-tag");
 var Enum_Componentaccordionitemsform_Type;
 (function (Enum_Componentaccordionitemsform_Type) {
@@ -91,13 +91,13 @@ var PublicationState;
     PublicationState["Live"] = "LIVE";
     PublicationState["Preview"] = "PREVIEW";
 })(PublicationState = exports.PublicationState || (exports.PublicationState = {}));
-exports.TestDocument = (0, graphql_tag_1["default"])(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    query Test {\n  categories {\n    id\n    locale\n    title\n  }\n}\n    "], ["\n    query Test {\n  categories {\n    id\n    locale\n    title\n  }\n}\n    "])));
+exports.PagesDocument = (0, graphql_tag_1["default"])(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    query Pages($start: Int) {\n  pages(start: $start, limit: 100) {\n    layout\n    listingImage {\n      id\n    }\n    id\n    title\n    slug\n    sections {\n      ... on ComponentSectionsEventDetails {\n        __typename\n        id\n        price\n        partners {\n          id\n        }\n        dateFrom\n        dateTo\n        eventCategory {\n          id\n        }\n        eventCoverImage {\n          id\n        }\n        eventDescription\n        eventLocality {\n          id\n        }\n        eventTags {\n          id\n        }\n        eventTitle\n        guests {\n          id\n        }\n      }\n      ... on ComponentSectionsForm {\n        __typename\n        id\n      }\n    }\n    relatedBlogPosts {\n      id\n    }\n    published_at\n    promoted\n    pageCategory {\n      id\n    }\n    description\n    date_added\n    created_at\n    blogPosts {\n      id\n    }\n    Seo {\n      canonicalURL\n      id\n      keywords\n      metaDescription\n      metaRobots\n      metaTitle\n      metaViewport\n    }\n  }\n}\n    "], ["\n    query Pages($start: Int) {\n  pages(start: $start, limit: 100) {\n    layout\n    listingImage {\n      id\n    }\n    id\n    title\n    slug\n    sections {\n      ... on ComponentSectionsEventDetails {\n        __typename\n        id\n        price\n        partners {\n          id\n        }\n        dateFrom\n        dateTo\n        eventCategory {\n          id\n        }\n        eventCoverImage {\n          id\n        }\n        eventDescription\n        eventLocality {\n          id\n        }\n        eventTags {\n          id\n        }\n        eventTitle\n        guests {\n          id\n        }\n      }\n      ... on ComponentSectionsForm {\n        __typename\n        id\n      }\n    }\n    relatedBlogPosts {\n      id\n    }\n    published_at\n    promoted\n    pageCategory {\n      id\n    }\n    description\n    date_added\n    created_at\n    blogPosts {\n      id\n    }\n    Seo {\n      canonicalURL\n      id\n      keywords\n      metaDescription\n      metaRobots\n      metaTitle\n      metaViewport\n    }\n  }\n}\n    "])));
 var defaultWrapper = function (action, _operationName, _operationType) { return action(); };
 function getSdk(client, withWrapper) {
     if (withWrapper === void 0) { withWrapper = defaultWrapper; }
     return {
-        Test: function (variables, requestHeaders) {
-            return withWrapper(function (wrappedRequestHeaders) { return client.request(exports.TestDocument, variables, __assign(__assign({}, requestHeaders), wrappedRequestHeaders)); }, 'Test', 'query');
+        Pages: function (variables, requestHeaders) {
+            return withWrapper(function (wrappedRequestHeaders) { return client.request(exports.PagesDocument, variables, __assign(__assign({}, requestHeaders), wrappedRequestHeaders)); }, 'Pages', 'query');
         }
     };
 }

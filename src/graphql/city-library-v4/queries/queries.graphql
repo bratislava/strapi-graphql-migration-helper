@@ -1,9 +1,15 @@
-query Test {
-  categories {
-    meta {
-      pagination {
-        total
-      }
+mutation MyMutation($data: EventInput!) {
+  createEvent(data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation DeleteEvent {
+  deleteEvent(id: "0") {
+    data {
+      id
     }
   }
 }

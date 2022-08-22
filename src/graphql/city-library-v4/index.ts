@@ -3403,19 +3403,33 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
-export type TestQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyMutationMutationVariables = Exact<{
+  data: EventInput;
+}>;
 
 
-export type TestQuery = { __typename?: 'Query', categories?: { __typename?: 'CategoryEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type MyMutationMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+
+export type DeleteEventMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export const TestDocument = gql`
-    query Test {
-  categories {
-    meta {
-      pagination {
-        total
-      }
+export type DeleteEventMutation = { __typename?: 'Mutation', deleteEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+
+
+export const MyMutationDocument = gql`
+    mutation MyMutation($data: EventInput!) {
+  createEvent(data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const DeleteEventDocument = gql`
+    mutation DeleteEvent {
+  deleteEvent(id: "0") {
+    data {
+      id
     }
   }
 }
@@ -3428,8 +3442,11 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    Test(variables?: TestQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<TestQuery>(TestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Test', 'query');
+    MyMutation(variables: MyMutationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MyMutationMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<MyMutationMutation>(MyMutationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'MyMutation', 'mutation');
+    },
+    DeleteEvent(variables?: DeleteEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteEventMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteEventMutation>(DeleteEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteEvent', 'mutation');
     }
   };
 }

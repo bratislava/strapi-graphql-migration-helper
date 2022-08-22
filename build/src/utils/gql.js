@@ -8,6 +8,6 @@ var graphql_request_1 = require("graphql-request");
 // note - even when working with the same Strapi instance as before, you may need to regenerate the gql types, as they may no longer be valid
 // the target client is usually on localhost with rights set up so that a public user can write to it freely - if using this t owritte directly o deployment, accesses need to be sorted out
 var v3LibraryClient = new graphql_request_1.GraphQLClient('https://strapi-city-library.bratislava.sk/graphql');
-var v4LibraryClient = new graphql_request_1.GraphQLClient('localhost:1337/graphql');
+var v4LibraryClient = new graphql_request_1.GraphQLClient('http://localhost:1338/graphql');
 exports.sourceClient = (0, index_1.getSdk)(v3LibraryClient);
 exports.targetClient = (0, index_2.getSdk)(v4LibraryClient);
