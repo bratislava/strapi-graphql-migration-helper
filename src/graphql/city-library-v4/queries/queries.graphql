@@ -1,0 +1,9 @@
+query Test {
+  categories {
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
+}

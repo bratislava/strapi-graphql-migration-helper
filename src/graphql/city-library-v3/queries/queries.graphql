@@ -1,0 +1,7 @@
+query Test {
+  categories {
+    id
+    locale
+    title
+  }
+}
