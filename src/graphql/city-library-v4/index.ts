@@ -3403,21 +3403,171 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
-export type MyMutationMutationVariables = Exact<{
+export type CreateSvkLocaleEventMutationVariables = Exact<{
   data: EventInput;
 }>;
 
 
-export type MyMutationMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+export type CreateSvkLocaleEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+
+export type CreateEnLocalizationEventMutationVariables = Exact<{
+  data: EventInput;
+  id: Scalars['ID'];
+}>;
+
+
+export type CreateEnLocalizationEventMutation = { __typename?: 'Mutation', createEventLocalization?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+
+export type EventsBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type EventsBySlugQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null }> } | null };
+
+export type PagesBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type PagesBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', sections?: Array<{ __typename: 'ComponentSectionsAccordion', id: string } | { __typename: 'ComponentSectionsColumnedText', id: string } | { __typename: 'ComponentSectionsCta', id: string } | { __typename: 'ComponentSectionsDivider', id: string } | { __typename: 'ComponentSectionsDocuments', id: string } | { __typename: 'ComponentSectionsEventDetails', id: string } | { __typename: 'ComponentSectionsExternalLinks', id: string } | { __typename: 'ComponentSectionsFaq', id: string } | { __typename: 'ComponentSectionsFlatText', id: string } | { __typename: 'ComponentSectionsFlatTextCenter', id: string } | { __typename: 'ComponentSectionsForm', id: string } | { __typename: 'ComponentSectionsGallery', id: string } | { __typename: 'ComponentSectionsLocalityDetails', id: string } | { __typename: 'ComponentSectionsSiteUsefullness', id: string } | { __typename: 'ComponentSectionsSubListing', id: string } | { __typename: 'ComponentSectionsSubpages', id: string } | { __typename: 'ComponentSectionsTable', id: string } | { __typename: 'ComponentSectionsVideo', id: string } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+
+export type CreateDefaultLocaleEventMutationVariables = Exact<{
+  data: EventInput;
+}>;
+
+
+export type CreateDefaultLocaleEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
 
 export type DeleteEventMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DeleteEventMutation = { __typename?: 'Mutation', deleteEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
 
+export type UpdatePageSectionsMutationVariables = Exact<{
+  sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']> | Scalars['PageSectionsDynamicZoneInput']>;
+  id: Scalars['ID'];
+}>;
 
-export const MyMutationDocument = gql`
-    mutation MyMutation($data: EventInput!) {
+
+export type UpdatePageSectionsMutation = { __typename?: 'Mutation', updatePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug?: string | null, title?: string | null } | null } | null } | null };
+
+
+export const CreateSvkLocaleEventDocument = gql`
+    mutation CreateSvkLocaleEvent($data: EventInput!) {
+  createEvent(data: $data, locale: "sk") {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const CreateEnLocalizationEventDocument = gql`
+    mutation CreateEnLocalizationEvent($data: EventInput!, $id: ID!) {
+  createEventLocalization(data: $data, id: $id, locale: "en") {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const EventsBySlugDocument = gql`
+    query EventsBySlug($slug: String) {
+  events(filters: {slug: {eq: $slug}}) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const PagesBySlugDocument = gql`
+    query PagesBySlug($slug: String, $locale: I18NLocaleCode) {
+  pages(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        sections {
+          ... on ComponentSectionsVideo {
+            __typename
+            id
+          }
+          ... on ComponentSectionsExternalLinks {
+            __typename
+            id
+          }
+          ... on ComponentSectionsDocuments {
+            __typename
+            id
+          }
+          ... on ComponentSectionsLocalityDetails {
+            __typename
+            id
+          }
+          ... on ComponentSectionsSubListing {
+            __typename
+            id
+          }
+          ... on ComponentSectionsFlatTextCenter {
+            __typename
+            id
+          }
+          ... on ComponentSectionsCta {
+            __typename
+            id
+          }
+          ... on ComponentSectionsColumnedText {
+            __typename
+            id
+          }
+          ... on ComponentSectionsDivider {
+            __typename
+            id
+          }
+          ... on ComponentSectionsEventDetails {
+            __typename
+            id
+          }
+          ... on ComponentSectionsAccordion {
+            __typename
+            id
+          }
+          ... on ComponentSectionsTable {
+            __typename
+            id
+          }
+          ... on ComponentSectionsSubpages {
+            __typename
+            id
+          }
+          ... on ComponentSectionsForm {
+            __typename
+            id
+          }
+          ... on ComponentSectionsSiteUsefullness {
+            __typename
+            id
+          }
+          ... on ComponentSectionsFlatText {
+            __typename
+            id
+          }
+          ... on ComponentSectionsFaq {
+            __typename
+            id
+          }
+          ... on ComponentSectionsGallery {
+            __typename
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const CreateDefaultLocaleEventDocument = gql`
+    mutation CreateDefaultLocaleEvent($data: EventInput!) {
   createEvent(data: $data) {
     data {
       id
@@ -3434,6 +3584,19 @@ export const DeleteEventDocument = gql`
   }
 }
     `;
+export const UpdatePageSectionsDocument = gql`
+    mutation UpdatePageSections($sections: [PageSectionsDynamicZoneInput!], $id: ID!) {
+  updatePage(id: $id, data: {sections: $sections}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -3442,11 +3605,26 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    MyMutation(variables: MyMutationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MyMutationMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<MyMutationMutation>(MyMutationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'MyMutation', 'mutation');
+    CreateSvkLocaleEvent(variables: CreateSvkLocaleEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateSvkLocaleEventMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateSvkLocaleEventMutation>(CreateSvkLocaleEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateSvkLocaleEvent', 'mutation');
+    },
+    CreateEnLocalizationEvent(variables: CreateEnLocalizationEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateEnLocalizationEventMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateEnLocalizationEventMutation>(CreateEnLocalizationEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateEnLocalizationEvent', 'mutation');
+    },
+    EventsBySlug(variables?: EventsBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<EventsBySlugQuery>(EventsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'EventsBySlug', 'query');
+    },
+    PagesBySlug(variables?: PagesBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PagesBySlugQuery>(PagesBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PagesBySlug', 'query');
+    },
+    CreateDefaultLocaleEvent(variables: CreateDefaultLocaleEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateDefaultLocaleEventMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateDefaultLocaleEventMutation>(CreateDefaultLocaleEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateDefaultLocaleEvent', 'mutation');
     },
     DeleteEvent(variables?: DeleteEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteEventMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<DeleteEventMutation>(DeleteEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteEvent', 'mutation');
+    },
+    UpdatePageSections(variables: UpdatePageSectionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageSectionsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageSectionsMutation>(UpdatePageSectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePageSections', 'mutation');
     }
   };
 }

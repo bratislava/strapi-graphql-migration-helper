@@ -1,4 +1,112 @@
-mutation MyMutation($data: EventInput!) {
+mutation CreateSvkLocaleEvent($data: EventInput!) {
+  createEvent(data: $data, locale: "sk") {
+    data {
+      id
+    }
+  }
+}
+
+mutation CreateEnLocalizationEvent($data: EventInput!, $id: ID!) {
+  createEventLocalization(data: $data, id: $id, locale: "en") {
+    data {
+      id
+    }
+  }
+}
+
+query EventsBySlug($slug: String) {
+  events(filters: {slug: {eq: $slug}}) {
+    data {
+      id
+    }
+  }
+}
+
+query PagesBySlug($slug: String, $locale: I18NLocaleCode) {
+  pages(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        sections {
+          ... on ComponentSectionsVideo {
+            __typename
+            id
+          }
+          ... on ComponentSectionsExternalLinks {
+            __typename
+            id
+          }
+          ... on ComponentSectionsDocuments {
+            __typename
+            id
+          }
+          ... on ComponentSectionsLocalityDetails {
+            __typename
+            id
+          }
+          ... on ComponentSectionsSubListing {
+            __typename
+            id
+          }
+          ... on ComponentSectionsFlatTextCenter {
+            __typename
+            id
+          }
+          ... on ComponentSectionsCta {
+            __typename
+            id
+          }
+          ... on ComponentSectionsColumnedText {
+            __typename
+            id
+          }
+          ... on ComponentSectionsDivider {
+            __typename
+            id
+          }
+          ... on ComponentSectionsEventDetails {
+            __typename
+            id
+          }
+          ... on ComponentSectionsAccordion {
+            __typename
+            id
+          }
+          ... on ComponentSectionsTable {
+            __typename
+            id
+          }
+          ... on ComponentSectionsSubpages {
+            __typename
+            id
+          }
+          ... on ComponentSectionsForm {
+            __typename
+            id
+          }
+          ... on ComponentSectionsSiteUsefullness {
+            __typename
+            id
+          }
+          ... on ComponentSectionsFlatText {
+            __typename
+            id
+          }
+          ... on ComponentSectionsFaq {
+            __typename
+            id
+          }
+          ... on ComponentSectionsGallery {
+            __typename
+            id
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation CreateDefaultLocaleEvent($data: EventInput!) {
   createEvent(data: $data) {
     data {
       id
@@ -10,6 +118,21 @@ mutation DeleteEvent {
   deleteEvent(id: "0") {
     data {
       id
+    }
+  }
+}
+
+mutation UpdatePageSections(
+  $sections: [PageSectionsDynamicZoneInput!]
+  $id: ID!
+) {
+  updatePage(id: $id, data: {sections: $sections}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+      }
     }
   }
 }

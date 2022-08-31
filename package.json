@@ -23,6 +23,7 @@
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
+    "omit-deep-lodash": "^1.1.7",
     "websocket": "^1.0.34",
     "ws": "^8.8.1"
   },

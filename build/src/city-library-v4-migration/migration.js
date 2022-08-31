@@ -40,70 +40,71 @@ var gql_1 = require("../utils/gql");
 var lodash_1 = require("lodash");
 // - fixes issues after library v3 -> v4 migration
 // - moves events out of pages model into their own
-var sample = {
-    layout: 'event',
-    id: '416',
-    title: 'Letné folkovanie',
-    slug: 'zazite/podujatia/Letne-folkovanie',
-    sections: [
-        {
-            id: '211',
-            price: 0,
-            partners: [],
-            dateFrom: '2014-07-23T18:00:00.000Z',
-            dateTo: '2014-07-23T18:00:00.000Z',
-            eventCategory: null,
-            eventCoverImage: null,
-            eventDescription: 'Účinkujú: Peter Janků, Soňa Horňáková, Mirka Miškechová Projekt Hudba U červeného raka S finančnou podporou MK SR',
-            eventLocality: { id: '18' },
-            eventTags: [],
-            eventTitle: 'Letné folkovanie',
-            guests: []
-        },
-    ],
-    relatedBlogPosts: null,
-    published_at: '2022-04-27T11:43:01.129Z',
-    promoted: null,
-    pageCategory: { id: '21' },
-    description: 'Účinkujú: Peter Janků, Soňa Horňáková, Mirka Miškechová Projekt Hudba U červeného raka S finančnou podporou MK SR',
-    date_added: null,
-    created_at: '2022-04-27T11:43:01.212Z',
-    blogPosts: [],
-    Seo: {
-        canonicalURL: null,
-        id: '378',
-        keywords: null,
-        metaDescription: 'Účinkujú: Peter Janků, Soňa Horňáková, Mirka Miškechová Projekt Hudba U červeného raka S finančnou podporou MK SR',
-        metaRobots: null,
-        metaTitle: 'Letné folkovanie',
-        metaViewport: null
-    }
-};
-var a = null;
 var events = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var firstPages, events, mappedEvents;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, gql_1.sourceClient.Pages({ start: 100 })];
+    var firstPages, events, i, newPages, mappedEvents, problematicSlugs, problematicEng, _i, mappedEvents_1, e, slug, v4SvkEvent, result, enPages, enEvents, enMappedEvents, _a, enMappedEvents_1, e, v4SvkEvent, foundEvent, result;
+    var _b, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
+            case 0: return [4 /*yield*/, gql_1.sourceClient.Pages({ start: 0, locale: 'sk' })];
             case 1:
-                firstPages = _a.sent();
-                events = firstPages.pages.filter(function (p) { var _a, _b; return ((_b = (_a = p.sections) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.__typename) === 'ComponentSectionsEventDetails'; });
-                mappedEvents = (0, lodash_1.mapValues)(events, function (e) {
-                    var _a, _b, _c, _d, _e, _f;
+                firstPages = _d.sent();
+                events = firstPages.pages.filter(
+                // p => p.sections?.[0]?.__typename === 'ComponentSectionsEventDetails'
+                function (p) { return p.layout === 'event'; });
+                i = 1;
+                _d.label = 2;
+            case 2:
+                if (!(i < 25)) return [3 /*break*/, 5];
+                console.log('Collecting pages - ', i * 100);
+                return [4 /*yield*/, gql_1.sourceClient.Pages({ start: i * 100, locale: 'sk' })];
+            case 3:
+                newPages = _d.sent();
+                events = events.concat(newPages.pages.filter(
+                // p => p.sections?.[0]?.__typename === 'ComponentSectionsEventDetails'
+                function (p) { return p.layout === 'event'; }));
+                _d.label = 4;
+            case 4:
+                i++;
+                return [3 /*break*/, 2];
+            case 5:
+                console.log('Filtered num of event pages: ', events.length);
+                mappedEvents = events.map(function (e) {
+                    var _a, _b, _c, _d, _e, _f, _g;
+                    // validating assumptions from MKD-531:
+                    // All of pages with the event layout should contain eventDetails section.
+                    // Some of pages with event layout can contain 1 form section after eventDetails section.
+                    // If the page contains form section, it should be just 1 form section.
+                    // The type of form in form section should always be "detail_podujatia".
                     if (((_b = (_a = e.sections) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.__typename) === 'ComponentSectionsEventDetails') {
+                        e.sections.forEach(function (section) {
+                            // validating
+                            if (section.__typename === 'ComponentSectionsForm') {
+                                console.log('Found form of a type: ', section.type);
+                            }
+                            if (section.__typename !== 'ComponentSectionsForm' &&
+                                section.__typename !== 'ComponentSectionsEventDetails') {
+                                console.log('Warning! Found event page with section: ', section.__typename);
+                            }
+                        });
+                        if (((_c = e.sections) === null || _c === void 0 ? void 0 : _c.length) > 2) {
+                            console.log('Warning! Found event page with more than 2 sections!');
+                            console.log(e.sections);
+                            console.log(e.slug);
+                        }
                         return (0, lodash_1.pickBy)({
+                            id: e.id,
                             Seo: (0, lodash_1.omit)(e.Seo, ['id', '__typename']),
-                            coverImage: (_c = e.sections[0].eventCoverImage) === null || _c === void 0 ? void 0 : _c.id,
+                            coverImage: (_d = e.sections[0].eventCoverImage) === null || _d === void 0 ? void 0 : _d.id,
                             // TODO validate there are no events with multiple sections
                             dateFrom: e.sections[0].dateFrom,
                             dateTo: e.sections[0].dateTo,
                             date_added: e.date_added || e.published_at.toString().slice(0, 10),
                             description: e.sections[0].eventDescription,
-                            eventCategory: (_d = e.sections[0].eventCategory) === null || _d === void 0 ? void 0 : _d.id,
-                            eventLocality: (_e = e.sections[0].eventLocality) === null || _e === void 0 ? void 0 : _e.id,
+                            eventCategory: (_e = e.sections[0].eventCategory) === null || _e === void 0 ? void 0 : _e.id,
+                            eventLocality: (_f = e.sections[0].eventLocality) === null || _f === void 0 ? void 0 : _f.id,
                             eventTags: e.sections[0].eventTags.map(function (t) { return t.id; }),
-                            guests: e.sections[0].guests.map(function (g) { return g.id; }),
-                            listingImage: (_f = e.listingImage) === null || _f === void 0 ? void 0 : _f.id,
+                            guests: e.sections[0].guests.map(function (g) { return (0, lodash_1.omit)(g, 'id'); }),
+                            listingImage: (_g = e.listingImage) === null || _g === void 0 ? void 0 : _g.id,
                             price: e.sections[0].price,
                             promoted: e.promoted,
                             publishedAt: e.published_at,
@@ -111,25 +112,336 @@ var events = function () { return __awaiter(void 0, void 0, void 0, function () 
                             slug: e.slug,
                             title: e.sections[0].eventTitle
                         });
+                        // else there is a layout === 'event' page without ComponentSectionsEventDetails section
                     }
                     else
                         throw new Error('Unexpected!');
                 });
-                // TODO fix localizations
-                // const e = events[0]
-                // for (let i = 0; i < 1; i++) {
-                //   // TODO 24
-                //   const newPages = await sourceClient.Pages({start: i});
-                // }
-                // console.log(events);
-                console.dir(events[0], { depth: null });
-                console.log('go!!!!!!!!!!!!!!!');
-                return [4 /*yield*/, gql_1.targetClient.MyMutation({ data: mappedEvents[0] })];
-            case 2:
-                _a.sent();
-                console.log('----------');
-                return [2 /*return*/];
+                console.log('Successfully mapped events: ', mappedEvents.length);
+                problematicSlugs = [
+                // enter any causing errors which should be skipped over
+                ];
+                problematicEng = [
+                // enter any causing errors which should be skipped over
+                ];
+                _i = 0, mappedEvents_1 = mappedEvents;
+                _d.label = 6;
+            case 6:
+                if (!(_i < mappedEvents_1.length)) return [3 /*break*/, 10];
+                e = mappedEvents_1[_i];
+                slug = e.slug;
+                return [4 /*yield*/, gql_1.targetClient.EventsBySlug({
+                        slug: slug
+                    })];
+            case 7:
+                v4SvkEvent = _d.sent();
+                if (problematicSlugs.indexOf(slug) !== -1) {
+                    console.log('Skipping problematic! ', slug);
+                    return [3 /*break*/, 9];
+                }
+                console.log('Fixing problematic: ', slug);
+                if ((_b = v4SvkEvent.events) === null || _b === void 0 ? void 0 : _b.data.length) {
+                    console.log('Duplicate slug: ', slug);
+                    slug = "".concat(slug, "-").concat(e.id);
+                    console.log('Appending v3 id, saving as: ', slug);
+                    return [3 /*break*/, 9];
+                }
+                return [4 /*yield*/, gql_1.targetClient.CreateSvkLocaleEvent({
+                        data: (0, lodash_1.omit)(e, 'id')
+                    })];
+            case 8:
+                result = _d.sent();
+                _d.label = 9;
+            case 9:
+                _i++;
+                return [3 /*break*/, 6];
+            case 10:
+                // ENGLISH
+                console.log('');
+                console.log('###########');
+                console.log('# ENGLISH #');
+                console.log('###########');
+                console.log('');
+                return [4 /*yield*/, gql_1.sourceClient.Pages({ start: 0, locale: 'en' })];
+            case 11:
+                enPages = _d.sent();
+                enEvents = enPages.pages.filter(function (p) { return p.layout === 'event'; });
+                enMappedEvents = enEvents.map(function (e) {
+                    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+                    // same validation as above
+                    if (((_b = (_a = e.sections) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.__typename) === 'ComponentSectionsEventDetails') {
+                        e.sections.forEach(function (section) {
+                            // validating
+                            if (section.__typename === 'ComponentSectionsForm') {
+                                console.log('Found form of a type: ', section.type);
+                            }
+                            if (section.__typename !== 'ComponentSectionsForm' &&
+                                section.__typename !== 'ComponentSectionsEventDetails') {
+                                console.log('Warning! Found event page with section: ', section.__typename);
+                            }
+                        });
+                        if (((_c = e.sections) === null || _c === void 0 ? void 0 : _c.length) > 2) {
+                            console.log('Warning! Found event page with more than 2 sections!');
+                            console.log(e.sections);
+                        }
+                        return (0, lodash_1.pickBy)({
+                            Seo: (0, lodash_1.omit)(e.Seo, ['id', '__typename']),
+                            coverImage: (_d = e.sections[0].eventCoverImage) === null || _d === void 0 ? void 0 : _d.id,
+                            dateFrom: e.sections[0].dateFrom,
+                            dateTo: e.sections[0].dateTo,
+                            date_added: e.date_added || e.published_at.toString().slice(0, 10),
+                            description: e.sections[0].eventDescription,
+                            eventCategory: (_e = e.sections[0].eventCategory) === null || _e === void 0 ? void 0 : _e.id,
+                            eventLocality: (_f = e.sections[0].eventLocality) === null || _f === void 0 ? void 0 : _f.id,
+                            eventTags: e.sections[0].eventTags.map(function (t) { return t.id; }),
+                            guests: e.sections[0].guests.map(function (g) { return (0, lodash_1.omit)(g, 'id'); }),
+                            listingImage: (_g = e.listingImage) === null || _g === void 0 ? void 0 : _g.id,
+                            price: e.sections[0].price,
+                            promoted: e.promoted,
+                            publishedAt: e.published_at,
+                            showForm: !!e.sections.find(function (s) { return s.__typename === 'ComponentSectionsForm'; }),
+                            slug: e.slug,
+                            title: e.sections[0].eventTitle,
+                            // this one is our custom used for matching and will be filtered out
+                            svkLocalizationSlug: (_j = (_h = e.localizations) === null || _h === void 0 ? void 0 : _h[0]) === null || _j === void 0 ? void 0 : _j.slug
+                        });
+                        // else there is a layout === 'event' page without ComponentSectionsEventDetails section
+                    }
+                    else
+                        throw new Error('Unexpected!');
+                });
+                _a = 0, enMappedEvents_1 = enMappedEvents;
+                _d.label = 12;
+            case 12:
+                if (!(_a < enMappedEvents_1.length)) return [3 /*break*/, 17];
+                e = enMappedEvents_1[_a];
+                if (problematicEng.indexOf(e.slug) !== -1) {
+                    console.log('Skipping problematic! ', e.slug);
+                    return [3 /*break*/, 16];
+                }
+                if (!e.svkLocalizationSlug) {
+                    console.log('No svk slug for event: ', e.slug);
+                }
+                return [4 /*yield*/, gql_1.targetClient.EventsBySlug({
+                        slug: e.svkLocalizationSlug
+                    })];
+            case 13:
+                v4SvkEvent = _d.sent();
+                if (!!((_c = v4SvkEvent.events) === null || _c === void 0 ? void 0 : _c.data.length)) return [3 /*break*/, 14];
+                console.log('Warning! No svk event to assing this event to: ', e.slug);
+                return [3 /*break*/, 16];
+            case 14:
+                foundEvent = v4SvkEvent.events.data[0];
+                return [4 /*yield*/, gql_1.targetClient.CreateEnLocalizationEvent({
+                        data: (0, lodash_1.omit)(e, 'svkLocalizationSlug'),
+                        id: foundEvent.id
+                    })];
+            case 15:
+                result = _d.sent();
+                console.log('Written english event: ', e.title);
+                _d.label = 16;
+            case 16:
+                _a++;
+                return [3 /*break*/, 12];
+            case 17: return [2 /*return*/];
         }
     });
 }); };
-events();
+var tables = function (locale) { return __awaiter(void 0, void 0, void 0, function () {
+    var firstPages, tablePages, i, newPages, _loop_1, _i, tablePages_1, p;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, gql_1.sourceClient.Pages({ start: 0, locale: locale })];
+            case 1:
+                firstPages = _b.sent();
+                tablePages = firstPages.pages.filter(function (p) { var _a; return (_a = p.sections) === null || _a === void 0 ? void 0 : _a.find(function (s) { return s.__typename === 'ComponentSectionsTable'; }); });
+                i = 2;
+                _b.label = 2;
+            case 2:
+                if (!(i < 25)) return [3 /*break*/, 5];
+                console.log('Collecting pages - ', i * 100);
+                return [4 /*yield*/, gql_1.sourceClient.Pages({ start: i * 100, locale: locale })];
+            case 3:
+                newPages = _b.sent();
+                tablePages = tablePages.concat(newPages.pages.filter(function (p) { var _a; return (_a = p.sections) === null || _a === void 0 ? void 0 : _a.find(function (s) { return s.__typename === 'ComponentSectionsTable'; }); }));
+                _b.label = 4;
+            case 4:
+                i++;
+                return [3 /*break*/, 2];
+            case 5:
+                console.log('Found pages with table sections: ', tablePages.length);
+                _loop_1 = function (p) {
+                    var v4SvkPage, v4Page, sections;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0: return [4 /*yield*/, gql_1.targetClient.PagesBySlug({
+                                    slug: p.slug,
+                                    locale: locale
+                                })];
+                            case 1:
+                                v4SvkPage = _c.sent();
+                                v4Page = (_a = v4SvkPage === null || v4SvkPage === void 0 ? void 0 : v4SvkPage.pages) === null || _a === void 0 ? void 0 : _a.data[0];
+                                if (!!(v4Page === null || v4Page === void 0 ? void 0 : v4Page.id)) return [3 /*break*/, 2];
+                                console.log('Warning! No page found for: ', p.slug);
+                                return [3 /*break*/, 4];
+                            case 2:
+                                sections = v4Page.attributes.sections.map(function (s) {
+                                    // appease the typescript gods
+                                    // console.log(s.__typename);
+                                    if (s.__typename === 'ComponentSectionsTable') {
+                                        var v3Section = p.sections.find(function (ps) { return ps.__typename === 'ComponentSectionsTable' && ps.id === s.id; });
+                                        if (!v3Section) {
+                                            console.log('Warning! Did not find section for slug: ', p.slug);
+                                            return s;
+                                        }
+                                        // appease ts gods
+                                        if (v3Section.__typename === 'ComponentSectionsTable') {
+                                            return {
+                                                __typename: v3Section.__typename,
+                                                primaryTitle: v3Section.primaryTitle,
+                                                secondaryTitle: v3Section.secondaryTitle,
+                                                rows: v3Section.rows.map(function (r) { return (0, lodash_1.omit)(r, ['id']); })
+                                            };
+                                        }
+                                        else
+                                            throw new Error('Unexpected!');
+                                    }
+                                    else {
+                                        return s;
+                                    }
+                                });
+                                return [4 /*yield*/, gql_1.targetClient.UpdatePageSections({ id: v4Page.id, sections: sections })];
+                            case 3:
+                                _c.sent();
+                                console.log("Succesfully updated page id: ".concat(v4Page.id, " slug: ").concat(p.slug));
+                                _c.label = 4;
+                            case 4: return [2 /*return*/];
+                        }
+                    });
+                };
+                _i = 0, tablePages_1 = tablePages;
+                _b.label = 6;
+            case 6:
+                if (!(_i < tablePages_1.length)) return [3 /*break*/, 9];
+                p = tablePages_1[_i];
+                return [5 /*yield**/, _loop_1(p)];
+            case 7:
+                _b.sent();
+                _b.label = 8;
+            case 8:
+                _i++;
+                return [3 /*break*/, 6];
+            case 9: return [2 /*return*/];
+        }
+    });
+}); };
+var tables = function (locale) { return __awaiter(void 0, void 0, void 0, function () {
+    var firstPages, tablePages, i, newPages, _loop_2, _i, tablePages_2, p;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, gql_1.sourceClient.Pages({ start: 0, locale: locale })];
+            case 1:
+                firstPages = _b.sent();
+                tablePages = firstPages.pages.filter(function (p) { var _a; return (_a = p.sections) === null || _a === void 0 ? void 0 : _a.find(function (s) { return s.__typename === 'ComponentSectionsTable'; }); });
+                i = 1;
+                _b.label = 2;
+            case 2:
+                if (!(i < 25)) return [3 /*break*/, 5];
+                console.log('Collecting pages - ', i * 100);
+                return [4 /*yield*/, gql_1.sourceClient.Pages({ start: i * 100, locale: locale })];
+            case 3:
+                newPages = _b.sent();
+                tablePages = tablePages.concat(newPages.pages.filter(function (p) { var _a; return (_a = p.sections) === null || _a === void 0 ? void 0 : _a.find(function (s) { return s.__typename === 'ComponentSectionsTable'; }); }));
+                _b.label = 4;
+            case 4:
+                i++;
+                return [3 /*break*/, 2];
+            case 5:
+                console.log('Found pages with table sections: ', tablePages.length);
+                _loop_2 = function (p) {
+                    var v4SvkPage, v4Page, sections;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0: return [4 /*yield*/, gql_1.targetClient.PagesBySlug({
+                                    slug: p.slug,
+                                    locale: locale
+                                })];
+                            case 1:
+                                v4SvkPage = _c.sent();
+                                v4Page = (_a = v4SvkPage === null || v4SvkPage === void 0 ? void 0 : v4SvkPage.pages) === null || _a === void 0 ? void 0 : _a.data[0];
+                                if (!!(v4Page === null || v4Page === void 0 ? void 0 : v4Page.id)) return [3 /*break*/, 2];
+                                console.log('Warning! No page found for: ', p.slug);
+                                return [3 /*break*/, 4];
+                            case 2:
+                                sections = v4Page.attributes.sections.map(function (s) {
+                                    // appease the typescript gods
+                                    // console.log(s.__typename);
+                                    if (s.__typename === 'ComponentSectionsTable') {
+                                        var v3Section = p.sections.find(function (ps) { return ps.__typename === 'ComponentSectionsTable' && ps.id === s.id; });
+                                        if (!v3Section) {
+                                            console.log('Warning! Did not find section for slug: ', p.slug);
+                                            return s;
+                                        }
+                                        // appease ts gods
+                                        if (v3Section.__typename === 'ComponentSectionsTable') {
+                                            return {
+                                                __typename: v3Section.__typename,
+                                                primaryTitle: v3Section.primaryTitle,
+                                                secondaryTitle: v3Section.secondaryTitle,
+                                                rows: v3Section.rows.map(function (r) { return (0, lodash_1.omit)(r, ['id']); })
+                                            };
+                                        }
+                                        else
+                                            throw new Error('Unexpected!');
+                                    }
+                                    else {
+                                        return s;
+                                    }
+                                });
+                                return [4 /*yield*/, gql_1.targetClient.UpdatePageSections({ id: v4Page.id, sections: sections })];
+                            case 3:
+                                _c.sent();
+                                console.log("Succesfully updated page id: ".concat(v4Page.id, " slug: ").concat(p.slug));
+                                _c.label = 4;
+                            case 4: return [2 /*return*/];
+                        }
+                    });
+                };
+                _i = 0, tablePages_2 = tablePages;
+                _b.label = 6;
+            case 6:
+                if (!(_i < tablePages_2.length)) return [3 /*break*/, 9];
+                p = tablePages_2[_i];
+                return [5 /*yield**/, _loop_2(p)];
+            case 7:
+                _b.sent();
+                _b.label = 8;
+            case 8:
+                _i++;
+                return [3 /*break*/, 6];
+            case 9: return [2 /*return*/];
+        }
+    });
+}); };
+// backup before omitDeepLodash
+// const sections = p.sections
+//   ?.filter(s => s.__typename === 'ComponentSectionsTable')
+//   .map(s => {
+//     // appease the typescript gods
+//     if (s.__typename === 'ComponentSectionsTable') {
+//       return {
+//         __typename: s.__typename,
+//         primaryTitle: s.primaryTitle,
+//         secondaryTitle: s.secondaryTitle,
+//         rows: s.rows.map(r => omit(r, ['id'])),
+//       };
+//     } else {
+//       throw new Error('Unexpected!');
+//     }
+//   });
+// events();
+// tables('sk');
+// tables('en');
+//

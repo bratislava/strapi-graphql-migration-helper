@@ -1,5 +1,5 @@
-query Pages($start: Int) {
-  pages(start: $start, limit: 100) {
+query Pages($start: Int, $locale: String) {
+  pages(start: $start, limit: 100, locale: $locale) {
     layout
     listingImage {
       id
@@ -7,6 +7,9 @@ query Pages($start: Int) {
     id
     title
     slug
+    localizations {
+      slug
+    }
     sections {
       ... on ComponentSectionsEventDetails {
         __typename
@@ -38,6 +41,135 @@ query Pages($start: Int) {
       ... on ComponentSectionsForm {
         __typename
         id
+        type
+      }
+      ... on ComponentSectionsTable {
+        __typename
+        id
+        primaryTitle
+        rows {
+          id
+          label
+          valueAlign
+          value
+        }
+        secondaryTitle
+      }
+      ... on ComponentSectionsDocuments {
+        __typename
+        id
+        moreLink {
+          id
+          title
+          url
+          page {
+            id
+          }
+        }
+        title
+        basicDocuments {
+          id
+        }
+      }
+    }
+    relatedBlogPosts {
+      id
+    }
+    published_at
+    promoted
+    pageCategory {
+      id
+    }
+    description
+    date_added
+    created_at
+    blogPosts {
+      id
+    }
+    Seo {
+      canonicalURL
+      id
+      keywords
+      metaDescription
+      metaRobots
+      metaTitle
+      metaViewport
+    }
+  }
+}
+
+query Page($id: ID!) {
+  page(id: $id) {
+    layout
+    listingImage {
+      id
+    }
+    id
+    title
+    slug
+    localizations {
+      slug
+    }
+    sections {
+      ... on ComponentSectionsEventDetails {
+        __typename
+        id
+        price
+        partners {
+          id
+        }
+        dateFrom
+        dateTo
+        eventCategory {
+          id
+        }
+        eventCoverImage {
+          id
+        }
+        eventDescription
+        eventLocality {
+          id
+        }
+        eventTags {
+          id
+        }
+        eventTitle
+        guests {
+          id
+        }
+      }
+      ... on ComponentSectionsForm {
+        __typename
+        id
+        type
+      }
+      ... on ComponentSectionsTable {
+        __typename
+        id
+        primaryTitle
+        rows {
+          id
+          label
+          valueAlign
+          value
+        }
+        secondaryTitle
+      }
+      ... on ComponentSectionsDocuments {
+        __typename
+        id
+        moreLink {
+          id
+          title
+          url
+          page {
+            id
+          }
+        }
+        title
+        basicDocuments {
+          id
+        }
       }
     }
     relatedBlogPosts {

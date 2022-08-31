@@ -4785,15 +4785,23 @@ export type UpdateUserPayload = {
 
 export type PagesQueryVariables = Exact<{
   start?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type PagesQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', layout?: Enum_Page_Layout | null, id: string, title?: string | null, slug?: string | null, published_at?: any | null, promoted?: boolean | null, description?: string | null, date_added?: any | null, created_at: any, listingImage?: { __typename?: 'UploadFile', id: string } | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename?: 'ComponentSectionsDocuments' } | { __typename: 'ComponentSectionsEventDetails', id: string, price: number, dateFrom?: any | null, dateTo?: any | null, eventDescription: string, eventTitle: string, partners?: Array<{ __typename?: 'ComponentSectionsParnters', id: string } | null> | null, eventCategory?: { __typename?: 'EventCategories', id: string } | null, eventCoverImage?: { __typename?: 'UploadFile', id: string } | null, eventLocality?: { __typename?: 'EventLocalities', id: string } | null, eventTags?: Array<{ __typename?: 'EventTags', id: string } | null> | null, guests?: Array<{ __typename?: 'ComponentGuestsGuest', id: string } | null> | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename?: 'ComponentSectionsFlatText' } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm', id: string } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsLocalityDetails' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename?: 'ComponentSectionsTable' } | { __typename?: 'ComponentSectionsVideo' } | null> | null, relatedBlogPosts?: Array<{ __typename?: 'BlogPost', id: string }> | null, pageCategory?: { __typename?: 'Category', id: string } | null, blogPosts?: Array<{ __typename?: 'BlogPost', id: string } | null> | null, Seo?: { __typename?: 'ComponentSeoSeo', canonicalURL?: string | null, id: string, keywords?: string | null, metaDescription?: string | null, metaRobots?: string | null, metaTitle?: string | null, metaViewport?: string | null } | null } | null> | null };
+export type PagesQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', layout?: Enum_Page_Layout | null, id: string, title?: string | null, slug?: string | null, published_at?: any | null, promoted?: boolean | null, description?: string | null, date_added?: any | null, created_at: any, listingImage?: { __typename?: 'UploadFile', id: string } | null, localizations?: Array<{ __typename?: 'Page', slug?: string | null } | null> | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', id: string, title?: string | null, moreLink?: { __typename?: 'ComponentBlocksPageLink', id: string, title?: string | null, url?: string | null, page?: { __typename?: 'Page', id: string } | null } | null, basicDocuments?: Array<{ __typename?: 'BasicDocument', id: string } | null> | null } | { __typename: 'ComponentSectionsEventDetails', id: string, price: number, dateFrom?: any | null, dateTo?: any | null, eventDescription: string, eventTitle: string, partners?: Array<{ __typename?: 'ComponentSectionsParnters', id: string } | null> | null, eventCategory?: { __typename?: 'EventCategories', id: string } | null, eventCoverImage?: { __typename?: 'UploadFile', id: string } | null, eventLocality?: { __typename?: 'EventLocalities', id: string } | null, eventTags?: Array<{ __typename?: 'EventTags', id: string } | null> | null, guests?: Array<{ __typename?: 'ComponentGuestsGuest', id: string } | null> | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename?: 'ComponentSectionsFlatText' } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm', id: string, type?: Enum_Componentsectionsform_Type | null } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsLocalityDetails' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable', id: string, primaryTitle?: string | null, secondaryTitle?: string | null, rows?: Array<{ __typename?: 'ComponentBlocksTableRow', id: string, label?: string | null, valueAlign?: Enum_Componentblockstablerow_Valuealign | null, value?: string | null } | null> | null } | { __typename?: 'ComponentSectionsVideo' } | null> | null, relatedBlogPosts?: Array<{ __typename?: 'BlogPost', id: string }> | null, pageCategory?: { __typename?: 'Category', id: string } | null, blogPosts?: Array<{ __typename?: 'BlogPost', id: string } | null> | null, Seo?: { __typename?: 'ComponentSeoSeo', canonicalURL?: string | null, id: string, keywords?: string | null, metaDescription?: string | null, metaRobots?: string | null, metaTitle?: string | null, metaViewport?: string | null } | null } | null> | null };
+
+export type PageQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type PageQuery = { __typename?: 'Query', page?: { __typename?: 'Page', layout?: Enum_Page_Layout | null, id: string, title?: string | null, slug?: string | null, published_at?: any | null, promoted?: boolean | null, description?: string | null, date_added?: any | null, created_at: any, listingImage?: { __typename?: 'UploadFile', id: string } | null, localizations?: Array<{ __typename?: 'Page', slug?: string | null } | null> | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', id: string, title?: string | null, moreLink?: { __typename?: 'ComponentBlocksPageLink', id: string, title?: string | null, url?: string | null, page?: { __typename?: 'Page', id: string } | null } | null, basicDocuments?: Array<{ __typename?: 'BasicDocument', id: string } | null> | null } | { __typename: 'ComponentSectionsEventDetails', id: string, price: number, dateFrom?: any | null, dateTo?: any | null, eventDescription: string, eventTitle: string, partners?: Array<{ __typename?: 'ComponentSectionsParnters', id: string } | null> | null, eventCategory?: { __typename?: 'EventCategories', id: string } | null, eventCoverImage?: { __typename?: 'UploadFile', id: string } | null, eventLocality?: { __typename?: 'EventLocalities', id: string } | null, eventTags?: Array<{ __typename?: 'EventTags', id: string } | null> | null, guests?: Array<{ __typename?: 'ComponentGuestsGuest', id: string } | null> | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename?: 'ComponentSectionsFlatText' } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm', id: string, type?: Enum_Componentsectionsform_Type | null } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsLocalityDetails' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable', id: string, primaryTitle?: string | null, secondaryTitle?: string | null, rows?: Array<{ __typename?: 'ComponentBlocksTableRow', id: string, label?: string | null, valueAlign?: Enum_Componentblockstablerow_Valuealign | null, value?: string | null } | null> | null } | { __typename?: 'ComponentSectionsVideo' } | null> | null, relatedBlogPosts?: Array<{ __typename?: 'BlogPost', id: string }> | null, pageCategory?: { __typename?: 'Category', id: string } | null, blogPosts?: Array<{ __typename?: 'BlogPost', id: string } | null> | null, Seo?: { __typename?: 'ComponentSeoSeo', canonicalURL?: string | null, id: string, keywords?: string | null, metaDescription?: string | null, metaRobots?: string | null, metaTitle?: string | null, metaViewport?: string | null } | null } | null };
 
 
 export const PagesDocument = gql`
-    query Pages($start: Int) {
-  pages(start: $start, limit: 100) {
+    query Pages($start: Int, $locale: String) {
+  pages(start: $start, limit: 100, locale: $locale) {
     layout
     listingImage {
       id
@@ -4801,6 +4809,9 @@ export const PagesDocument = gql`
     id
     title
     slug
+    localizations {
+      slug
+    }
     sections {
       ... on ComponentSectionsEventDetails {
         __typename
@@ -4832,6 +4843,136 @@ export const PagesDocument = gql`
       ... on ComponentSectionsForm {
         __typename
         id
+        type
+      }
+      ... on ComponentSectionsTable {
+        __typename
+        id
+        primaryTitle
+        rows {
+          id
+          label
+          valueAlign
+          value
+        }
+        secondaryTitle
+      }
+      ... on ComponentSectionsDocuments {
+        __typename
+        id
+        moreLink {
+          id
+          title
+          url
+          page {
+            id
+          }
+        }
+        title
+        basicDocuments {
+          id
+        }
+      }
+    }
+    relatedBlogPosts {
+      id
+    }
+    published_at
+    promoted
+    pageCategory {
+      id
+    }
+    description
+    date_added
+    created_at
+    blogPosts {
+      id
+    }
+    Seo {
+      canonicalURL
+      id
+      keywords
+      metaDescription
+      metaRobots
+      metaTitle
+      metaViewport
+    }
+  }
+}
+    `;
+export const PageDocument = gql`
+    query Page($id: ID!) {
+  page(id: $id) {
+    layout
+    listingImage {
+      id
+    }
+    id
+    title
+    slug
+    localizations {
+      slug
+    }
+    sections {
+      ... on ComponentSectionsEventDetails {
+        __typename
+        id
+        price
+        partners {
+          id
+        }
+        dateFrom
+        dateTo
+        eventCategory {
+          id
+        }
+        eventCoverImage {
+          id
+        }
+        eventDescription
+        eventLocality {
+          id
+        }
+        eventTags {
+          id
+        }
+        eventTitle
+        guests {
+          id
+        }
+      }
+      ... on ComponentSectionsForm {
+        __typename
+        id
+        type
+      }
+      ... on ComponentSectionsTable {
+        __typename
+        id
+        primaryTitle
+        rows {
+          id
+          label
+          valueAlign
+          value
+        }
+        secondaryTitle
+      }
+      ... on ComponentSectionsDocuments {
+        __typename
+        id
+        moreLink {
+          id
+          title
+          url
+          page {
+            id
+          }
+        }
+        title
+        basicDocuments {
+          id
+        }
       }
     }
     relatedBlogPosts {
@@ -4870,6 +5011,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     Pages(variables?: PagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PagesQuery>(PagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Pages', 'query');
+    },
+    Page(variables: PageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PageQuery>(PageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Page', 'query');
     }
   };
 }
