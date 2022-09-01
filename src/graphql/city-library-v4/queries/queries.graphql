@@ -22,6 +22,14 @@ query EventsBySlug($slug: String) {
   }
 }
 
+query AllEvents {
+  events(pagination: {start: 0, limit: 2000}) {
+    data {
+      id
+    }
+  }
+}
+
 query PagesBySlug($slug: String, $locale: I18NLocaleCode) {
   pages(filters: {slug: {eq: $slug}}, locale: $locale) {
     data {
@@ -37,8 +45,30 @@ query PagesBySlug($slug: String, $locale: I18NLocaleCode) {
             id
           }
           ... on ComponentSectionsDocuments {
-            __typename
             id
+            title
+            basicDocuments {
+              data {
+                id
+                attributes {
+                  title
+                  slug
+                }
+              }
+            }
+            moreLink {
+              title
+              url
+              page {
+                data {
+                  id
+                  attributes {
+                    slug
+                  }
+                }
+              }
+              id
+            }
           }
           ... on ComponentSectionsLocalityDetails {
             __typename
@@ -114,10 +144,13 @@ mutation CreateDefaultLocaleEvent($data: EventInput!) {
   }
 }
 
-mutation DeleteEvent {
-  deleteEvent(id: "0") {
+mutation DeletePage($id: ID!) {
+  deletePage(id: $id) {
     data {
       id
+      attributes {
+        slug
+      }
     }
   }
 }

@@ -3425,13 +3425,18 @@ export type EventsBySlugQueryVariables = Exact<{
 
 export type EventsBySlugQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null }> } | null };
 
+export type AllEventsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null }> } | null };
+
 export type PagesBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
-export type PagesBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', sections?: Array<{ __typename: 'ComponentSectionsAccordion', id: string } | { __typename: 'ComponentSectionsColumnedText', id: string } | { __typename: 'ComponentSectionsCta', id: string } | { __typename: 'ComponentSectionsDivider', id: string } | { __typename: 'ComponentSectionsDocuments', id: string } | { __typename: 'ComponentSectionsEventDetails', id: string } | { __typename: 'ComponentSectionsExternalLinks', id: string } | { __typename: 'ComponentSectionsFaq', id: string } | { __typename: 'ComponentSectionsFlatText', id: string } | { __typename: 'ComponentSectionsFlatTextCenter', id: string } | { __typename: 'ComponentSectionsForm', id: string } | { __typename: 'ComponentSectionsGallery', id: string } | { __typename: 'ComponentSectionsLocalityDetails', id: string } | { __typename: 'ComponentSectionsSiteUsefullness', id: string } | { __typename: 'ComponentSectionsSubListing', id: string } | { __typename: 'ComponentSectionsSubpages', id: string } | { __typename: 'ComponentSectionsTable', id: string } | { __typename: 'ComponentSectionsVideo', id: string } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type PagesBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', sections?: Array<{ __typename: 'ComponentSectionsAccordion', id: string } | { __typename: 'ComponentSectionsColumnedText', id: string } | { __typename: 'ComponentSectionsCta', id: string } | { __typename: 'ComponentSectionsDivider', id: string } | { __typename?: 'ComponentSectionsDocuments', id: string, title?: string | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title?: string | null, slug?: string | null } | null }> } | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, id: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsEventDetails', id: string } | { __typename: 'ComponentSectionsExternalLinks', id: string } | { __typename: 'ComponentSectionsFaq', id: string } | { __typename: 'ComponentSectionsFlatText', id: string } | { __typename: 'ComponentSectionsFlatTextCenter', id: string } | { __typename: 'ComponentSectionsForm', id: string } | { __typename: 'ComponentSectionsGallery', id: string } | { __typename: 'ComponentSectionsLocalityDetails', id: string } | { __typename: 'ComponentSectionsSiteUsefullness', id: string } | { __typename: 'ComponentSectionsSubListing', id: string } | { __typename: 'ComponentSectionsSubpages', id: string } | { __typename: 'ComponentSectionsTable', id: string } | { __typename: 'ComponentSectionsVideo', id: string } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 export type CreateDefaultLocaleEventMutationVariables = Exact<{
   data: EventInput;
@@ -3440,10 +3445,12 @@ export type CreateDefaultLocaleEventMutationVariables = Exact<{
 
 export type CreateDefaultLocaleEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
 
-export type DeleteEventMutationVariables = Exact<{ [key: string]: never; }>;
+export type DeletePageMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
 
 
-export type DeleteEventMutation = { __typename?: 'Mutation', deleteEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+export type DeletePageMutation = { __typename?: 'Mutation', deletePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug?: string | null } | null } | null } | null };
 
 export type UpdatePageSectionsMutationVariables = Exact<{
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']> | Scalars['PageSectionsDynamicZoneInput']>;
@@ -3481,6 +3488,15 @@ export const EventsBySlugDocument = gql`
   }
 }
     `;
+export const AllEventsDocument = gql`
+    query AllEvents {
+  events(pagination: {start: 0, limit: 2000}) {
+    data {
+      id
+    }
+  }
+}
+    `;
 export const PagesBySlugDocument = gql`
     query PagesBySlug($slug: String, $locale: I18NLocaleCode) {
   pages(filters: {slug: {eq: $slug}}, locale: $locale) {
@@ -3497,8 +3513,30 @@ export const PagesBySlugDocument = gql`
             id
           }
           ... on ComponentSectionsDocuments {
-            __typename
             id
+            title
+            basicDocuments {
+              data {
+                id
+                attributes {
+                  title
+                  slug
+                }
+              }
+            }
+            moreLink {
+              title
+              url
+              page {
+                data {
+                  id
+                  attributes {
+                    slug
+                  }
+                }
+              }
+              id
+            }
           }
           ... on ComponentSectionsLocalityDetails {
             __typename
@@ -3575,11 +3613,14 @@ export const CreateDefaultLocaleEventDocument = gql`
   }
 }
     `;
-export const DeleteEventDocument = gql`
-    mutation DeleteEvent {
-  deleteEvent(id: "0") {
+export const DeletePageDocument = gql`
+    mutation DeletePage($id: ID!) {
+  deletePage(id: $id) {
     data {
       id
+      attributes {
+        slug
+      }
     }
   }
 }
@@ -3614,14 +3655,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     EventsBySlug(variables?: EventsBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EventsBySlugQuery>(EventsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'EventsBySlug', 'query');
     },
+    AllEvents(variables?: AllEventsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllEventsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllEventsQuery>(AllEventsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllEvents', 'query');
+    },
     PagesBySlug(variables?: PagesBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PagesBySlugQuery>(PagesBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PagesBySlug', 'query');
     },
     CreateDefaultLocaleEvent(variables: CreateDefaultLocaleEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateDefaultLocaleEventMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateDefaultLocaleEventMutation>(CreateDefaultLocaleEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateDefaultLocaleEvent', 'mutation');
     },
-    DeleteEvent(variables?: DeleteEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteEventMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<DeleteEventMutation>(DeleteEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteEvent', 'mutation');
+    DeletePage(variables: DeletePageMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeletePageMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeletePageMutation>(DeletePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeletePage', 'mutation');
     },
     UpdatePageSections(variables: UpdatePageSectionsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageSectionsMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageSectionsMutation>(UpdatePageSectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePageSections', 'mutation');

@@ -199,6 +199,95 @@ const events = async () => {
   }
 };
 
+const gatherDocumentPages = async () => {
+  // doing the first iteration outside for-loop so that we get types correctly
+  const firstPages = await sourceClient.Pages({start: 0, locale: 'sk'});
+  // console.dir(firstPages, {depth: 10});
+  let pages = firstPages.pages.filter(p =>
+    p.sections?.find(s => s.__typename === 'ComponentSectionsDocuments')
+  );
+
+  for (let i = 1; i < 25; i++) {
+    console.log('Collecting pages - ', i * 100);
+    const newPages = await sourceClient.Pages({start: i * 100, locale: 'sk'});
+    pages = pages.concat(
+      newPages.pages.filter(p =>
+        p.sections?.find(s => s.__typename === 'ComponentSectionsDocuments')
+      )
+    );
+  }
+
+  console.log('Filtered num of non-event pages: ', pages.length);
+  console.dir(pages, {depth: 10});
+  // ENGLISH
+
+  console.log('');
+  console.log('###########');
+  console.log('# ENGLISH #');
+  console.log('###########');
+  console.log('');
+
+  const enPages = await sourceClient.Pages({start: 0, locale: 'en'});
+  const enFilteredPages = enPages.pages.filter(p =>
+    p.sections?.find(s => s.__typename === 'ComponentSectionsDocuments')
+  );
+  console.dir(enFilteredPages, {depth: 10});
+};
+
+const deleteOldEventPages = async () => {
+  // doing the first iteration outside for-loop so that we get types correctly
+  const firstPages = await sourceClient.Pages({start: 0, locale: 'sk'});
+  // console.dir(firstPages, {depth: 10});
+  let events = firstPages.pages.filter(
+    // checking p.layout === 'event' should be the same as checking for first section being 'ComponentSectionsEventDetails'
+    // p => p.sections?.[0]?.__typename === 'ComponentSectionsEventDetails'
+    p => p.layout === 'event'
+  );
+
+  for (let i = 1; i < 25; i++) {
+    console.log('Collecting pages - ', i * 100);
+    const newPages = await sourceClient.Pages({start: i * 100, locale: 'sk'});
+    events = events.concat(
+      newPages.pages.filter(
+        // p => p.sections?.[0]?.__typename === 'ComponentSectionsEventDetails'
+        p => p.layout === 'event'
+      )
+    );
+  }
+
+  console.log('Filtered num of event pages: ', events.length);
+
+  for (const e of events) {
+    // just sanity check
+    if (e.sections?.[0]?.__typename === 'ComponentSectionsEventDetails') {
+      const {deletePage} = await targetClient.DeletePage({id: e.id});
+      console.log(
+        `Deleted event ${deletePage?.data?.id}, ${deletePage?.data?.attributes?.slug}`
+      );
+    } else throw new Error('Unexpected!');
+  }
+
+  // ENGLISH
+
+  console.log('');
+  console.log('###########');
+  console.log('# ENGLISH #');
+  console.log('###########');
+  console.log('');
+
+  const enPages = await sourceClient.Pages({start: 0, locale: 'en'});
+  const enEvents = enPages.pages.filter(p => p.layout === 'event');
+  for (const e of enEvents) {
+    // just sanity check
+    if (e.sections?.[0]?.__typename === 'ComponentSectionsEventDetails') {
+      const {deletePage} = await targetClient.DeletePage({id: e.id});
+      console.log(
+        `Deleted event ${deletePage?.data?.id}, ${deletePage?.data?.attributes?.slug}`
+      );
+    } else throw new Error('Unexpected!');
+  }
+};
+
 const tables = async (locale: string) => {
   // doing the first iteration outside for-loop so that we get types correctly
   const firstPages = await sourceClient.Pages({start: 0, locale});
@@ -257,6 +346,9 @@ const tables = async (locale: string) => {
     }
   }
 };
+
+// deleteOldEventPages();
+gatherDocumentPages();
 
 // events();
 // tables('sk');

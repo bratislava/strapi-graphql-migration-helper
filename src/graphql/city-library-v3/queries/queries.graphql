@@ -69,6 +69,7 @@ query Pages($start: Int, $locale: String) {
         title
         basicDocuments {
           id
+          title
         }
       }
     }
