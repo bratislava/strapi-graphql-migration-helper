@@ -1,0 +1,50 @@
+query AllLocalhostEvents($locale: I18NLocaleCode!) {
+  events(locale: $locale , pagination: {start: 0, limit: 10000}) {
+    data {
+      id
+      __typename
+      attributes {
+        slug
+        title
+      }
+    }
+  }
+}
+
+query EventsWithNoSlug($locale: I18NLocaleCode!) {
+  events(locale: $locale , pagination: {start: 0, limit: 10000}, filters: {slug: {null: true}}) {
+    data {
+      id
+      __typename
+      attributes {
+        slug
+        title
+      }
+    }
+  }
+}
+
+mutation UpdateEvent(
+  $id: ID!
+  $oldSlug: String!
+  $newSlug: String!
+  $newTitle: String
+) {
+  updateEvent(id: $id, data: {slug: $newSlug, title: $newTitle}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+      }
+    }
+  }
+}
+
+query EventsBySlug($slug: String) {
+  events(filters: {slug: {eq: $slug}}) {
+    data {
+      id
+    }
+  }
+}

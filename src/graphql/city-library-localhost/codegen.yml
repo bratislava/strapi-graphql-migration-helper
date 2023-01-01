@@ -1,0 +1,8 @@
+schema: 'http://localhost:1338/graphql'
+documents: './src/graphql/city-library-localhost/queries/**/*.{gql,graphql}'
+generates:
+  src/graphql/city-library-localhost/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

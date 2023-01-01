@@ -1,0 +1,8 @@
+schema: './src/graphql/city-library-staging/schema.graphql'
+documents: './src/graphql/city-library-staging/queries/**/*.{gql,graphql}'
+generates:
+  src/graphql/city-library-staging/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

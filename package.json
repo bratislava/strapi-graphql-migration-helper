@@ -13,17 +13,20 @@
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run lint",
-    "gen-city-library": "graphql-codegen --config ./src/graphql/city-library-v3/codegen.yml && graphql-codegen --config ./src/graphql/city-library-v4/codegen.yml"
+    "gen-city-library-v3-v4": "graphql-codegen --config ./src/graphql/city-library-v3/codegen.yml && graphql-codegen --config ./src/graphql/city-library-v4/codegen.yml",
+    "gen-city-library": "graphql-codegen --config src/graphql/city-library-localhost/codegen.yml && graphql-codegen --config src/graphql/city-library-staging/codegen.yml"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sindresorhus/slugify": "^2.1.1",
     "cross-fetch": "^3.1.5",
     "graphql": "^16.6.0",
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
     "omit-deep-lodash": "^1.1.7",
+    "slugify": "^1.6.5",
     "websocket": "^1.0.34",
     "ws": "^8.8.1"
   },

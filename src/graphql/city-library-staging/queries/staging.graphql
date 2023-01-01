@@ -1,0 +1,21 @@
+query AllEvents($locale: I18NLocaleCode!) {
+  events(locale: $locale , pagination: {start: 0, limit: 10000}) {
+    data {
+      id
+      __typename
+      attributes {
+        slug
+        title
+        Seo {
+          id
+          metaTitle
+          metaDescription
+          keywords
+          metaRobots
+          metaViewport
+          canonicalURL
+        }
+      }
+    }
+  }
+}
