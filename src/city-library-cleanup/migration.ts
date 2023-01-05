@@ -1,5 +1,5 @@
-import {localhostClient, stagingClient} from './gql';
-import slugify from 'slugify';
+import { localhostClient, stagingClient } from "./gql";
+import slugify from "slugify";
 
 /* The goal was to make title and slug required, slug bing to title, title converted from long text to short text.
  *
@@ -105,7 +105,6 @@ export const events = async () => {
       try {
         const updatedEvent = await localhostClient.UpdateEvent({
           id: event.id,
-          oldSlug: event.attributes.slug,
           newSlug: newSlug,
           newTitle: newTitle,
         });
@@ -136,7 +135,6 @@ async function addMissingSlugs() {
       try {
         const updatedEvent = await localhostClient.UpdateEvent({
           id: event.id,
-          oldSlug: oldEvent.attributes.slug,
           newSlug: newSlug,
         });
         // console.log(updatedEvent.updateEvent.data);

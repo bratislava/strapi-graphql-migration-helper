@@ -4252,26 +4252,90 @@ export type AllEventsQueryVariables = Exact<{
 }>;
 
 
-export type AllEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', slug?: string | null, title?: string | null, Seo?: { __typename?: 'ComponentSeoSeo', id: string, metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null, metaRobots?: string | null, metaViewport?: string | null, canonicalURL?: string | null } | null } | null }> } | null };
+export type AllEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', slug?: string | null, title?: string | null, eventLocality?: { __typename?: 'EventLocalityEntityResponse', data?: { __typename?: 'EventLocalityEntity', attributes?: { __typename?: 'EventLocality', title?: string | null } | null } | null } | null } | null }> } | null };
+
+export type AllPagesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, slug?: string | null } | null }> } | null };
+
+export type LocalityPagesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type LocalityPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, slug?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments' } | { __typename: 'ComponentSectionsEventDetails' } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText' } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery', Gallery?: Array<{ __typename?: 'ComponentLocalityPartsGalleryParts', Description?: string | null, Photo?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, caption?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsLocalityDetails' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
 
 export const AllEventsDocument = gql`
     query AllEvents($locale: I18NLocaleCode!) {
-  events(locale: $locale, pagination: {start: 0, limit: 10000}) {
+  events(
+    locale: $locale
+    pagination: {start: 0, limit: -1}
+    filters: {eventLocality: {id: {null: false}}}
+  ) {
     data {
       id
       __typename
       attributes {
         slug
         title
-        Seo {
-          id
-          metaTitle
-          metaDescription
-          keywords
-          metaRobots
-          metaViewport
-          canonicalURL
+        eventLocality {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const AllPagesDocument = gql`
+    query AllPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+      }
+    }
+  }
+}
+    `;
+export const LocalityPagesDocument = gql`
+    query LocalityPages($locale: I18NLocaleCode!) {
+  pages(
+    locale: $locale
+    pagination: {start: 0, limit: -1}
+    filters: {layout: {eq: "locality"}}
+  ) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+          ... on ComponentSectionsGallery {
+            Gallery {
+              Description
+              Photo {
+                data {
+                  id
+                  attributes {
+                    url
+                    alternativeText
+                    caption
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -4288,6 +4352,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     AllEvents(variables: AllEventsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllEventsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllEventsQuery>(AllEventsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllEvents', 'query');
+    },
+    AllPages(variables: AllPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllPagesQuery>(AllPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPages', 'query');
+    },
+    LocalityPages(variables: LocalityPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LocalityPagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LocalityPagesQuery>(LocalityPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'LocalityPages', 'query');
     }
   };
 }

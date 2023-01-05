@@ -1,19 +1,59 @@
 query AllEvents($locale: I18NLocaleCode!) {
-  events(locale: $locale , pagination: {start: 0, limit: 10000}) {
+  events(locale: $locale, pagination: {start: 0, limit: -1}, filters: {eventLocality: {id: {null: false}}}) {
     data {
       id
       __typename
       attributes {
         slug
         title
-        Seo {
-          id
-          metaTitle
-          metaDescription
-          keywords
-          metaRobots
-          metaViewport
-          canonicalURL
+        eventLocality {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query AllPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+      }
+    }
+  }
+}
+
+query LocalityPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale, pagination: {start: 0, limit: -1}, filters: {layout: {eq: "locality"}}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+          ... on ComponentSectionsGallery {
+            Gallery {
+              Description
+              Photo {
+                data {
+                  id
+                  attributes {
+                    url
+                    alternativeText
+                    caption
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

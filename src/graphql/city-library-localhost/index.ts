@@ -35,8 +35,8 @@ export type BasicDocument = {
   link?: Maybe<Scalars['String']>;
   metadata?: Maybe<Array<Maybe<BasicDocumentMetadataDynamicZone>>>;
   publishedAt?: Maybe<Scalars['DateTime']>;
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -99,13 +99,21 @@ export type BlogPost = {
   Seo?: Maybe<ComponentSeoSeo>;
   coverMedia?: Maybe<UploadFileEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  date_added?: Maybe<Scalars['Date']>;
-  parentPage?: Maybe<PageEntityResponse>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<BlogPostRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<BlogPostSectionsDynamicZone>>>;
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type BlogPostLocalizationsArgs = {
+  filters?: InputMaybe<BlogPostFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type BlogPostEntity = {
@@ -129,11 +137,11 @@ export type BlogPostFiltersInput = {
   Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  date_added?: InputMaybe<DateFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<BlogPostFiltersInput>;
   not?: InputMaybe<BlogPostFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>;
-  parentPage?: InputMaybe<PageFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -143,8 +151,6 @@ export type BlogPostFiltersInput = {
 export type BlogPostInput = {
   Seo?: InputMaybe<ComponentSeoSeoInput>;
   coverMedia?: InputMaybe<Scalars['ID']>;
-  date_added?: InputMaybe<Scalars['Date']>;
-  parentPage?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   sections?: InputMaybe<Array<Scalars['BlogPostSectionsDynamicZoneInput']>>;
   slug?: InputMaybe<Scalars['String']>;
@@ -224,6 +230,140 @@ export type BooleanFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   startsWith?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type Branch = {
+  __typename?: 'Branch';
+  address?: Maybe<Scalars['String']>;
+  barrierFreeInfo?: Maybe<Scalars['String']>;
+  barrierFreeState?: Maybe<Enum_Branch_Barrierfreestate>;
+  body?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  email?: Maybe<Scalars['String']>;
+  events?: Maybe<EventRelationResponseCollection>;
+  latitude?: Maybe<Scalars['Float']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<BranchRelationResponseCollection>;
+  longitude?: Maybe<Scalars['Float']>;
+  medias?: Maybe<UploadFileRelationResponseCollection>;
+  navigateToLink?: Maybe<Scalars['String']>;
+  openingHours?: Maybe<ComponentBlocksOpeningHours>;
+  parentBranch?: Maybe<BranchEntityResponse>;
+  phone?: Maybe<Scalars['String']>;
+  publicTransportInfo?: Maybe<Scalars['String']>;
+  servicePages?: Maybe<PageRelationResponseCollection>;
+  slug: Scalars['String'];
+  subBranches?: Maybe<BranchRelationResponseCollection>;
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type BranchEventsArgs = {
+  filters?: InputMaybe<EventFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BranchLocalizationsArgs = {
+  filters?: InputMaybe<BranchFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BranchMediasArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BranchServicePagesArgs = {
+  filters?: InputMaybe<PageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BranchSubBranchesArgs = {
+  filters?: InputMaybe<BranchFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type BranchEntity = {
+  __typename?: 'BranchEntity';
+  attributes?: Maybe<Branch>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type BranchEntityResponse = {
+  __typename?: 'BranchEntityResponse';
+  data?: Maybe<BranchEntity>;
+};
+
+export type BranchEntityResponseCollection = {
+  __typename?: 'BranchEntityResponseCollection';
+  data: Array<BranchEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type BranchFiltersInput = {
+  address?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<BranchFiltersInput>>>;
+  barrierFreeInfo?: InputMaybe<StringFilterInput>;
+  barrierFreeState?: InputMaybe<StringFilterInput>;
+  body?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  events?: InputMaybe<EventFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  latitude?: InputMaybe<FloatFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<BranchFiltersInput>;
+  longitude?: InputMaybe<FloatFilterInput>;
+  navigateToLink?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<BranchFiltersInput>;
+  openingHours?: InputMaybe<ComponentBlocksOpeningHoursFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<BranchFiltersInput>>>;
+  parentBranch?: InputMaybe<BranchFiltersInput>;
+  phone?: InputMaybe<StringFilterInput>;
+  publicTransportInfo?: InputMaybe<StringFilterInput>;
+  servicePages?: InputMaybe<PageFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  subBranches?: InputMaybe<BranchFiltersInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type BranchInput = {
+  address?: InputMaybe<Scalars['String']>;
+  barrierFreeInfo?: InputMaybe<Scalars['String']>;
+  barrierFreeState?: InputMaybe<Enum_Branch_Barrierfreestate>;
+  body?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  events?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  latitude?: InputMaybe<Scalars['Float']>;
+  longitude?: InputMaybe<Scalars['Float']>;
+  medias?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  navigateToLink?: InputMaybe<Scalars['String']>;
+  openingHours?: InputMaybe<ComponentBlocksOpeningHoursInput>;
+  parentBranch?: InputMaybe<Scalars['ID']>;
+  phone?: InputMaybe<Scalars['String']>;
+  publicTransportInfo?: InputMaybe<Scalars['String']>;
+  servicePages?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  slug?: InputMaybe<Scalars['String']>;
+  subBranches?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type BranchRelationResponseCollection = {
+  __typename?: 'BranchRelationResponseCollection';
+  data: Array<BranchEntity>;
 };
 
 export type Category = {
@@ -402,6 +542,52 @@ export type ComponentBlocksExternalLinkFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksExternalLinkFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
   url?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksOpeningHours = {
+  __typename?: 'ComponentBlocksOpeningHours';
+  days: Array<Maybe<ComponentBlocksOpeningHoursItem>>;
+  id: Scalars['ID'];
+};
+
+
+export type ComponentBlocksOpeningHoursDaysArgs = {
+  filters?: InputMaybe<ComponentBlocksOpeningHoursItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentBlocksOpeningHoursFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksOpeningHoursFiltersInput>>>;
+  days?: InputMaybe<ComponentBlocksOpeningHoursItemFiltersInput>;
+  not?: InputMaybe<ComponentBlocksOpeningHoursFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksOpeningHoursFiltersInput>>>;
+};
+
+export type ComponentBlocksOpeningHoursInput = {
+  days?: InputMaybe<Array<InputMaybe<ComponentBlocksOpeningHoursItemInput>>>;
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type ComponentBlocksOpeningHoursItem = {
+  __typename?: 'ComponentBlocksOpeningHoursItem';
+  id: Scalars['ID'];
+  label?: Maybe<Scalars['String']>;
+  time: Scalars['String'];
+};
+
+export type ComponentBlocksOpeningHoursItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksOpeningHoursItemFiltersInput>>>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksOpeningHoursItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksOpeningHoursItemFiltersInput>>>;
+  time?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksOpeningHoursItemInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  time?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentBlocksPageLink = {
@@ -1220,6 +1406,12 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
+export enum Enum_Branch_Barrierfreestate {
+  CiastocnePristupny = 'ciastocne_pristupny',
+  Nepristupny = 'nepristupny',
+  Pristupny = 'pristupny'
+}
+
 export enum Enum_Componentaccordionitemsform_Type {
   AkaKnihaVamVKnizniciChyba = 'aka_kniha_vam_v_kniznici_chyba',
   AkoSaPrihlasitDoKniznice = 'ako_sa_prihlasit_do_kniznice',
@@ -1297,13 +1489,13 @@ export type Error = {
 export type Event = {
   __typename?: 'Event';
   Seo?: Maybe<ComponentSeoSeo>;
+  branch?: Maybe<BranchEntityResponse>;
   coverImage?: Maybe<UploadFileEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
   dateFrom?: Maybe<Scalars['DateTime']>;
   dateTo?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   eventCategory?: Maybe<EventCategoryEntityResponse>;
-  eventLocality?: Maybe<EventLocalityEntityResponse>;
   eventTags?: Maybe<EventTagRelationResponseCollection>;
   guests?: Maybe<Array<Maybe<ComponentGuestsGuest>>>;
   listingImage?: Maybe<UploadFileEntityResponse>;
@@ -1419,12 +1611,12 @@ export type EventEntityResponseCollection = {
 export type EventFiltersInput = {
   Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
+  branch?: InputMaybe<BranchFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   dateFrom?: InputMaybe<DateTimeFilterInput>;
   dateTo?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   eventCategory?: InputMaybe<EventCategoryFiltersInput>;
-  eventLocality?: InputMaybe<EventLocalityFiltersInput>;
   eventTags?: InputMaybe<EventTagFiltersInput>;
   guests?: InputMaybe<ComponentGuestsGuestFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -1443,12 +1635,12 @@ export type EventFiltersInput = {
 
 export type EventInput = {
   Seo?: InputMaybe<ComponentSeoSeoInput>;
+  branch?: InputMaybe<Scalars['ID']>;
   coverImage?: InputMaybe<Scalars['ID']>;
   dateFrom?: InputMaybe<Scalars['DateTime']>;
   dateTo?: InputMaybe<Scalars['DateTime']>;
   description?: InputMaybe<Scalars['String']>;
   eventCategory?: InputMaybe<Scalars['ID']>;
-  eventLocality?: InputMaybe<Scalars['ID']>;
   eventTags?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   guests?: InputMaybe<Array<InputMaybe<ComponentGuestsGuestInput>>>;
   listingImage?: InputMaybe<Scalars['ID']>;
@@ -1760,7 +1952,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = BasicDocument | BlogPost | BookTag | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksExternalLink | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsEventDetails | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsLocalityDetails | ComponentSectionsParnters | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventLocality | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Page | Partner | Premise | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksExternalLink | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsEventDetails | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsLocalityDetails | ComponentSectionsParnters | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventLocality | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Page | Partner | Premise | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1995,7 +2187,10 @@ export type Mutation = {
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createBasicDocument?: Maybe<BasicDocumentEntityResponse>;
   createBlogPost?: Maybe<BlogPostEntityResponse>;
+  createBlogPostLocalization?: Maybe<BlogPostEntityResponse>;
   createBookTag?: Maybe<BookTagEntityResponse>;
+  createBranch?: Maybe<BranchEntityResponse>;
+  createBranchLocalization?: Maybe<BranchEntityResponse>;
   createCategory?: Maybe<CategoryEntityResponse>;
   createCategoryLocalization?: Maybe<CategoryEntityResponse>;
   createEvent?: Maybe<EventEntityResponse>;
@@ -2027,6 +2222,7 @@ export type Mutation = {
   deleteBasicDocument?: Maybe<BasicDocumentEntityResponse>;
   deleteBlogPost?: Maybe<BlogPostEntityResponse>;
   deleteBookTag?: Maybe<BookTagEntityResponse>;
+  deleteBranch?: Maybe<BranchEntityResponse>;
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteEvent?: Maybe<EventEntityResponse>;
   deleteEventCategory?: Maybe<EventCategoryEntityResponse>;
@@ -2060,6 +2256,7 @@ export type Mutation = {
   updateBasicDocument?: Maybe<BasicDocumentEntityResponse>;
   updateBlogPost?: Maybe<BlogPostEntityResponse>;
   updateBookTag?: Maybe<BookTagEntityResponse>;
+  updateBranch?: Maybe<BranchEntityResponse>;
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateEvent?: Maybe<EventEntityResponse>;
   updateEventCategory?: Maybe<EventCategoryEntityResponse>;
@@ -2098,11 +2295,32 @@ export type MutationCreateBasicDocumentArgs = {
 
 export type MutationCreateBlogPostArgs = {
   data: BlogPostInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateBlogPostLocalizationArgs = {
+  data?: InputMaybe<BlogPostInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
 export type MutationCreateBookTagArgs = {
   data: BookTagInput;
+};
+
+
+export type MutationCreateBranchArgs = {
+  data: BranchInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateBranchLocalizationArgs = {
+  data?: InputMaybe<BranchInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2274,11 +2492,18 @@ export type MutationDeleteBasicDocumentArgs = {
 
 export type MutationDeleteBlogPostArgs = {
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
 export type MutationDeleteBookTagArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationDeleteBranchArgs = {
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2425,12 +2650,20 @@ export type MutationUpdateBasicDocumentArgs = {
 export type MutationUpdateBlogPostArgs = {
   data: BlogPostInput;
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
 export type MutationUpdateBookTagArgs = {
   data: BookTagInput;
   id: Scalars['ID'];
+};
+
+
+export type MutationUpdateBranchArgs = {
+  data: BranchInput;
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2562,7 +2795,7 @@ export type MutationUploadArgs = {
 export type Page = {
   __typename?: 'Page';
   Seo?: Maybe<ComponentSeoSeo>;
-  blogPosts?: Maybe<BlogPostRelationResponseCollection>;
+  branchesServicesTo?: Maybe<BranchRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']>;
   date_added?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
@@ -2574,16 +2807,15 @@ export type Page = {
   promoted?: Maybe<Scalars['Boolean']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
-export type PageBlogPostsArgs = {
-  filters?: InputMaybe<BlogPostFiltersInput>;
+export type PageBranchesServicesToArgs = {
+  filters?: InputMaybe<BranchFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -2615,7 +2847,7 @@ export type PageEntityResponseCollection = {
 export type PageFiltersInput = {
   Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
-  blogPosts?: InputMaybe<BlogPostFiltersInput>;
+  branchesServicesTo?: InputMaybe<BranchFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   date_added?: InputMaybe<DateFilterInput>;
   description?: InputMaybe<StringFilterInput>;
@@ -2635,7 +2867,7 @@ export type PageFiltersInput = {
 
 export type PageInput = {
   Seo?: InputMaybe<ComponentSeoSeoInput>;
-  blogPosts?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  branchesServicesTo?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   date_added?: InputMaybe<Scalars['Date']>;
   description?: InputMaybe<Scalars['String']>;
   layout?: InputMaybe<Enum_Page_Layout>;
@@ -2818,6 +3050,8 @@ export type Query = {
   blogPosts?: Maybe<BlogPostEntityResponseCollection>;
   bookTag?: Maybe<BookTagEntityResponse>;
   bookTags?: Maybe<BookTagEntityResponseCollection>;
+  branch?: Maybe<BranchEntityResponse>;
+  branches?: Maybe<BranchEntityResponseCollection>;
   categories?: Maybe<CategoryEntityResponseCollection>;
   category?: Maybe<CategoryEntityResponse>;
   event?: Maybe<EventEntityResponse>;
@@ -2871,11 +3105,13 @@ export type QueryBasicDocumentsArgs = {
 
 export type QueryBlogPostArgs = {
   id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
 export type QueryBlogPostsArgs = {
   filters?: InputMaybe<BlogPostFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -2891,6 +3127,20 @@ export type QueryBookTagsArgs = {
   filters?: InputMaybe<BookTagFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryBranchArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryBranchesArgs = {
+  filters?: InputMaybe<BranchFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -3569,7 +3819,6 @@ export type EventsWithNoSlugQuery = { __typename?: 'Query', events?: { __typenam
 
 export type UpdateEventMutationVariables = Exact<{
   id: Scalars['ID'];
-  oldSlug: Scalars['String'];
   newSlug: Scalars['String'];
   newTitle?: InputMaybe<Scalars['String']>;
 }>;
@@ -3583,6 +3832,54 @@ export type EventsBySlugQueryVariables = Exact<{
 
 
 export type EventsBySlugQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null }> } | null };
+
+export type AllPagesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null }> } | null };
+
+export type CreateBranchMutationVariables = Exact<{
+  data: BranchInput;
+}>;
+
+
+export type CreateBranchMutation = { __typename?: 'Mutation', createBranch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null } | null } | null };
+
+export type AllBranchesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllBranchesQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string } | null }> } | null };
+
+export type UpdateEventPlaceMutationVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  id: Scalars['ID'];
+  branchId: Scalars['ID'];
+}>;
+
+
+export type UpdateEventPlaceMutation = { __typename?: 'Mutation', updateEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string } | null } | null } | null } | null } | null } | null };
+
+export type UpdateBranchMediasMutationVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  id: Scalars['ID'];
+  mediaIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+
+export type UpdateBranchMediasMutation = { __typename?: 'Mutation', updateBranch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null }> } | null } | null } | null } | null };
+
+export type UpdateMediaCaptionAndAltMutationVariables = Exact<{
+  id: Scalars['ID'];
+  caption?: InputMaybe<Scalars['String']>;
+  alternativeText?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateMediaCaptionAndAltMutation = { __typename?: 'Mutation', updateUploadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', caption?: string | null, alternativeText?: string | null, name: string } | null } | null } | null };
 
 
 export const AllLocalhostEventsDocument = gql`
@@ -3618,7 +3915,7 @@ export const EventsWithNoSlugDocument = gql`
 }
     `;
 export const UpdateEventDocument = gql`
-    mutation UpdateEvent($id: ID!, $oldSlug: String!, $newSlug: String!, $newTitle: String) {
+    mutation UpdateEvent($id: ID!, $newSlug: String!, $newTitle: String) {
   updateEvent(id: $id, data: {slug: $newSlug, title: $newTitle}) {
     data {
       id
@@ -3635,6 +3932,92 @@ export const EventsBySlugDocument = gql`
   events(filters: {slug: {eq: $slug}}) {
     data {
       id
+    }
+  }
+}
+    `;
+export const AllPagesDocument = gql`
+    query AllPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+      }
+    }
+  }
+}
+    `;
+export const CreateBranchDocument = gql`
+    mutation CreateBranch($data: BranchInput!) {
+  createBranch(data: $data, locale: "sk") {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const AllBranchesDocument = gql`
+    query AllBranches($locale: I18NLocaleCode!) {
+  branches(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+      }
+    }
+  }
+}
+    `;
+export const UpdateEventPlaceDocument = gql`
+    mutation UpdateEventPlace($locale: I18NLocaleCode!, $id: ID!, $branchId: ID!) {
+  updateEvent(id: $id, locale: $locale, data: {branch: $branchId}) {
+    data {
+      id
+      attributes {
+        branch {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const UpdateBranchMediasDocument = gql`
+    mutation UpdateBranchMedias($locale: I18NLocaleCode!, $id: ID!, $mediaIds: [ID!]) {
+  updateBranch(id: $id, locale: $locale, data: {medias: $mediaIds}) {
+    data {
+      id
+      attributes {
+        medias {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const UpdateMediaCaptionAndAltDocument = gql`
+    mutation UpdateMediaCaptionAndAlt($id: ID!, $caption: String, $alternativeText: String) {
+  updateUploadFile(
+    id: $id
+    data: {caption: $caption, alternativeText: $alternativeText}
+  ) {
+    data {
+      id
+      attributes {
+        caption
+        alternativeText
+        name
+      }
     }
   }
 }
@@ -3658,6 +4041,24 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     EventsBySlug(variables?: EventsBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EventsBySlugQuery>(EventsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'EventsBySlug', 'query');
+    },
+    AllPages(variables: AllPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllPagesQuery>(AllPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPages', 'query');
+    },
+    CreateBranch(variables: CreateBranchMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateBranchMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateBranchMutation>(CreateBranchDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateBranch', 'mutation');
+    },
+    AllBranches(variables: AllBranchesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllBranchesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllBranchesQuery>(AllBranchesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllBranches', 'query');
+    },
+    UpdateEventPlace(variables: UpdateEventPlaceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateEventPlaceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateEventPlaceMutation>(UpdateEventPlaceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateEventPlace', 'mutation');
+    },
+    UpdateBranchMedias(variables: UpdateBranchMediasMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateBranchMediasMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateBranchMediasMutation>(UpdateBranchMediasDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBranchMedias', 'mutation');
+    },
+    UpdateMediaCaptionAndAlt(variables: UpdateMediaCaptionAndAltMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateMediaCaptionAndAltMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateMediaCaptionAndAltMutation>(UpdateMediaCaptionAndAltDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateMediaCaptionAndAlt', 'mutation');
     }
   };
 }

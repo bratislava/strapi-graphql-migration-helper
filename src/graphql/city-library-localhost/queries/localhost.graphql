@@ -26,7 +26,6 @@ query EventsWithNoSlug($locale: I18NLocaleCode!) {
 
 mutation UpdateEvent(
   $id: ID!
-  $oldSlug: String!
   $newSlug: String!
   $newTitle: String
 ) {
@@ -45,6 +44,86 @@ query EventsBySlug($slug: String) {
   events(filters: {slug: {eq: $slug}}) {
     data {
       id
+    }
+  }
+}
+
+
+query AllPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+      }
+    }
+  }
+}
+
+mutation CreateBranch($data: BranchInput!) {
+  createBranch(data: $data, locale: "sk") {
+    data {
+      id
+    }
+  }
+}
+
+query AllBranches($locale: I18NLocaleCode!) {
+  branches(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+      }
+    }
+  }
+}
+
+mutation UpdateEventPlace($locale:I18NLocaleCode!, $id: ID!, $branchId: ID!) {
+  updateEvent(id: $id, locale: $locale, data: {branch: $branchId}) {
+    data {
+      id
+      attributes {
+        branch {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation UpdateBranchMedias($locale:I18NLocaleCode!, $id: ID!, $mediaIds: [ID!]) {
+  updateBranch(id: $id, locale: $locale, data: {medias: $mediaIds}) {
+    data {
+      id
+      attributes {
+        medias {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# Forbidden access
+mutation UpdateMediaCaptionAndAlt($id: ID!, $caption: String, $alternativeText: String) {
+  updateUploadFile(id: $id, data: {caption: $caption, alternativeText: $alternativeText}) {
+    data {
+      id
+      attributes {
+        caption
+        alternativeText
+        name
+      }
     }
   }
 }
