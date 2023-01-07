@@ -1,0 +1,74 @@
+query AllPagesBySlugContains($locale: I18NLocaleCode!, $slugPrefix: String!) {
+  pages(locale: $locale , pagination: {start:0, limit: -1}, filters: {slug: {contains: $slugPrefix}}) {
+    data {
+      id
+      attributes {
+        ...PageForNotice
+        localizations {
+          data {
+            id
+            attributes {
+              locale
+              ...PageForNotice
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment PageForNotice on Page {
+  title
+  slug
+  date_added
+  publishedAt
+  promoted
+  description
+  Seo {
+    metaTitle
+    metaDescription
+    keywords
+  }
+  listingImage {
+    data {
+      id
+    }
+  }
+  sections {
+    ... on ComponentSectionsFlatText {
+      __typename
+      content
+    }
+    ... on ComponentSectionsDocuments {
+      __typename
+      title
+      moreLink {
+        title
+        url
+        page {
+          data {
+            id
+          }
+        }
+      }
+      title
+      basicDocuments {
+        data {
+          id
+          attributes {
+            title
+            attachment {
+              data {
+                id
+                attributes {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

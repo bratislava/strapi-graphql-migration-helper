@@ -1,18 +1,12 @@
 query AllEvents($locale: I18NLocaleCode!) {
-  events(locale: $locale, pagination: {start: 0, limit: -1}, filters: {eventLocality: {id: {null: false}}}) {
+  events(locale: $locale, pagination: {start: 0, limit: -1}) {
     data {
       id
       __typename
       attributes {
         slug
         title
-        eventLocality {
-          data {
-            attributes {
-              title
-            }
-          }
-        }
+
       }
     }
   }

@@ -29,29 +29,29 @@ async function events() {
     const allEventsResponse = await stagingClient.AllEvents({locale});
     const allEvents = allEventsResponse.events.data;
 
-    for (const event of allEvents) {
-      const oldPlaceTitle =
-        event.attributes.eventLocality.data.attributes.title;
-
-      const branchId = branchMap.get(oldPlaceTitle);
-
-      const {updateEvent} = await localhostClient.UpdateEventPlace({
-        locale,
-        id: event.id,
-        branchId,
-      });
-
-      const newPlaceTitle =
-        updateEvent.data.attributes.branch.data.attributes.title;
-
-      console.log(
-        oldPlaceTitle === newPlaceTitle,
-        event.id,
-        oldPlaceTitle,
-        '-->',
-        newPlaceTitle
-      );
-    }
+    // for (const event of allEvents) {
+    //   const oldPlaceTitle =
+    //     event.attributes.eventLocality.data.attributes.title;
+    //
+    //   const branchId = branchMap.get(oldPlaceTitle);
+    //
+    //   const {updateEvent} = await localhostClient.UpdateEventPlace({
+    //     locale,
+    //     id: event.id,
+    //     branchId,
+    //   });
+    //
+    //   const newPlaceTitle =
+    //     updateEvent.data.attributes.branch.data.attributes.title;
+    //
+    //   console.log(
+    //     oldPlaceTitle === newPlaceTitle,
+    //     event.id,
+    //     oldPlaceTitle,
+    //     '-->',
+    //     newPlaceTitle
+    //   );
+    // }
   }
 }
 

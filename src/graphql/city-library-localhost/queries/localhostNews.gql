@@ -1,0 +1,52 @@
+mutation CreateSkNotice($data: NoticeInput!) {
+  createNotice(data: $data, locale: "sk") {
+    data {
+      id
+    }
+  }
+}
+
+mutation CreateEnLocalizationNotice($data: NoticeInput!, $id: ID!) {
+  createNoticeLocalization(data: $data, id: $id, locale: "en") {
+    data {
+      id
+    }
+  }
+}
+
+mutation UpdateNotice($data: NoticeInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateNotice(id: $id, data: $data, locale: $locale) {
+    data {
+      id
+    }
+  }
+}
+
+query NoticeById($id: ID!) {
+  notice(id: $id) {
+    data {
+      id
+      attributes {
+        slug
+        createdAt
+        updatedAt
+        publishedAt
+      }
+    }
+  }
+}
+
+query NoticeBySlug($slug: String!, $locale: I18NLocaleCode!) {
+  notices(locale: $locale, filters: {slug: {eq: $slug}}) {
+    data {
+      id
+      attributes {
+        slug
+        createdAt
+        updatedAt
+        publishedAt
+      }
+    }
+  }
+}
+

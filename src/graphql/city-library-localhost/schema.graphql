@@ -513,6 +513,25 @@ input ComponentBlocksExternalLinkInput {
   url: String
 }
 
+type ComponentBlocksNoticeFiles {
+  files(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection!
+  id: ID!
+  title: String
+}
+
+input ComponentBlocksNoticeFilesFiltersInput {
+  and: [ComponentBlocksNoticeFilesFiltersInput]
+  not: ComponentBlocksNoticeFilesFiltersInput
+  or: [ComponentBlocksNoticeFilesFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentBlocksNoticeFilesInput {
+  files: [ID]
+  id: ID
+  title: String
+}
+
 type ComponentBlocksOpeningHours {
   days(filters: ComponentBlocksOpeningHoursItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksOpeningHoursItem]!
   id: ID!
@@ -2088,7 +2107,7 @@ type FooterRelationResponseCollection {
   data: [FooterEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsParnters | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsParnters | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   Seo: ComponentSeoSeo
@@ -2457,10 +2476,16 @@ type Mutation {
 }
 
 type Notice {
+  body: String
   createdAt: DateTime
+  dateAdded: Date
+  files: ComponentBlocksNoticeFiles
+  listingImage(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   locale: String
   localizations(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
+  promoted: Boolean
   publishedAt: DateTime
+  seo: ComponentSeoSeo
   slug: String!
   title: String!
   updatedAt: DateTime
@@ -2482,20 +2507,31 @@ type NoticeEntityResponseCollection {
 
 input NoticeFiltersInput {
   and: [NoticeFiltersInput]
+  body: StringFilterInput
   createdAt: DateTimeFilterInput
+  dateAdded: DateFilterInput
+  files: ComponentBlocksNoticeFilesFiltersInput
   id: IDFilterInput
   locale: StringFilterInput
   localizations: NoticeFiltersInput
   not: NoticeFiltersInput
   or: [NoticeFiltersInput]
+  promoted: BooleanFilterInput
   publishedAt: DateTimeFilterInput
+  seo: ComponentSeoSeoFiltersInput
   slug: StringFilterInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
 input NoticeInput {
+  body: String
+  dateAdded: Date
+  files: ComponentBlocksNoticeFilesInput
+  listingImage: [ID]
+  promoted: Boolean
   publishedAt: DateTime
+  seo: ComponentSeoSeoInput
   slug: String
   title: String
 }
