@@ -22,6 +22,14 @@ mutation UpdateNotice($data: NoticeInput!, $id: ID!, $locale: I18NLocaleCode!) {
   }
 }
 
+mutation UpdateBlogPost($data: BlogPostInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateBlogPost(id: $id, data: $data, locale: $locale) {
+    data {
+      id
+    }
+  }
+}
+
 query NoticeById($id: ID!) {
   notice(id: $id) {
     data {

@@ -255,6 +255,105 @@ function parseDescription(description: string | null | undefined) {
     .trim();
 }
 
+async function updateNotices() {
+  const pages = await stagingClient.AllPagesBySlugContains({
+    locale: 'sk',
+    slugPrefix: 'zazite/aktuality/knizne-novinky-februar-2016-januar-2021',
+  });
+
+  const newBooksPage = pages.pages.data[0];
+
+  const docSections = newBooksPage.attributes.sections.filter(
+    section => section.__typename === 'ComponentSectionsDocuments'
+  );
+
+  if (docSections.length > 1) {
+    console.log('error');
+  }
+
+  if (
+    docSections.length === 1 &&
+    docSections[0].__typename === 'ComponentSectionsDocuments'
+  ) {
+    const docs = docSections[0].basicDocuments;
+    console.log(docs);
+    // Sort "Knižné novinky" by months and years descending
+    // Document names are in format "Knižné novinky – marec 2020"
+    const newDocs = docs.data.sort((a, b) => {
+      return (
+        parseInt(b.attributes.title.slice(-4)) -
+          parseInt(a.attributes.title.slice(-4)) ||
+        monthsInSk.indexOf(b.attributes.title.split(' ')[3]) -
+          monthsInSk.indexOf(a.attributes.title.split(' ')[3])
+      );
+    });
+
+    // console.log(newDocs);
+
+    const newData = {
+      documents: {title: '', basicDocuments: newDocs.map(doc => doc.id)},
+    } as NoticeInput;
+    const {updateNotice} = await localhostClient.UpdateNotice({
+      locale: 'sk',
+      id: '28',
+      data: newData,
+    });
+    console.log(updateNotice);
+  }
+}
+
+async function updateBlogPost() {
+  const {page} = await stagingClient.PageById({
+    locale: 'sk',
+    id: '264',
+  });
+
+  const treningPage = page.data;
+
+  const sections = treningPage.attributes.sections;
+
+  const newSection = sections
+    .map(section => {
+      if (section.__typename === 'ComponentSectionsFlatText') {
+        return {
+          __typename: 'ComponentSectionsFlatText',
+          content: section.content,
+        };
+      }
+      if (section.__typename === 'ComponentSectionsDocuments') {
+        return {
+          __typename: 'ComponentSectionsDocuments',
+          title: section.title,
+          basicDocuments: section.basicDocuments.data.map(doc => doc.id),
+        };
+      }
+      if (section.__typename === 'ComponentSectionsVideo') {
+        return {
+          __typename: 'ComponentSectionsVideo',
+          youtube_url: section.youtube_url,
+        };
+      }
+    })
+    .filter(Boolean);
+
+  // console.log(newDocs);
+
+  const newData = {
+    sections: newSection ?? [],
+  };
+
+  const {updateBlogPost} = await localhostClient.UpdateBlogPost({
+    locale: 'sk',
+    id: '15',
+    data: newData,
+  });
+  console.log(updateBlogPost);
+}
+
 // getNotice();
 
-notices();
+// notices();
+
+// updateNotices();
+
+updateBlogPost();

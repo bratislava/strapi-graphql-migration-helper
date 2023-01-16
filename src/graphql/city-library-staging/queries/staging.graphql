@@ -24,6 +24,38 @@ query AllPages($locale: I18NLocaleCode!) {
   }
 }
 
+query PageById($locale: I18NLocaleCode!, $id: ID!) {
+  page(locale: $locale, id: $id ) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+          ... on ComponentSectionsFlatText {
+            id
+            content
+          }
+          ... on ComponentSectionsVideo {
+            id
+            youtube_url
+          }
+          ... on ComponentSectionsDocuments {
+            id
+            title
+            basicDocuments {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 query LocalityPages($locale: I18NLocaleCode!) {
   pages(locale: $locale, pagination: {start: 0, limit: -1}, filters: {layout: {eq: "locality"}}) {
     data {

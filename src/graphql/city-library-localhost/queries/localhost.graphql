@@ -61,6 +61,21 @@ query AllPages($locale: I18NLocaleCode!) {
   }
 }
 
+query AllPagesWithSections($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+        }
+      }
+    }
+  }
+}
+
 mutation CreateBranch($data: BranchInput!) {
   createBranch(data: $data, locale: "sk") {
     data {

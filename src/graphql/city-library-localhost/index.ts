@@ -587,12 +587,6 @@ export type ComponentBlocksFileItemFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksFileItemFiltersInput>>>;
 };
 
-export type ComponentBlocksFileItemInput = {
-  attachment?: InputMaybe<Scalars['ID']>;
-  id?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
 export type ComponentBlocksNoticeFiles = {
   __typename?: 'ComponentBlocksNoticeFiles';
   files?: Maybe<Array<Maybe<ComponentBlocksFileItem>>>;
@@ -605,20 +599,6 @@ export type ComponentBlocksNoticeFilesFilesArgs = {
   filters?: InputMaybe<ComponentBlocksFileItemFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type ComponentBlocksNoticeFilesFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksNoticeFilesFiltersInput>>>;
-  files?: InputMaybe<ComponentBlocksFileItemFiltersInput>;
-  not?: InputMaybe<ComponentBlocksNoticeFilesFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksNoticeFilesFiltersInput>>>;
-  title?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentBlocksNoticeFilesInput = {
-  files?: InputMaybe<Array<InputMaybe<ComponentBlocksFileItemInput>>>;
-  id?: InputMaybe<Scalars['ID']>;
-  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentBlocksOpeningHours = {
@@ -1141,6 +1121,11 @@ export type ComponentSectionsAccordionTableRowsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type ComponentSectionsBlogPostsListing = {
+  __typename?: 'ComponentSectionsBlogPostsListing';
+  id: Scalars['ID'];
+};
+
 export type ComponentSectionsColumnedText = {
   __typename?: 'ComponentSectionsColumnedText';
   content?: Maybe<Scalars['String']>;
@@ -1182,6 +1167,32 @@ export type ComponentSectionsDocumentsMoreLinkArgs = {
   filters?: InputMaybe<ComponentBlocksPageLinkFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentSectionsDocumentsFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>;
+  basicDocuments?: InputMaybe<BasicDocumentFiltersInput>;
+  moreLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>;
+  not?: InputMaybe<ComponentSectionsDocumentsFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentSectionsDocumentsInput = {
+  basicDocuments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  id?: InputMaybe<Scalars['ID']>;
+  moreLink?: InputMaybe<Array<InputMaybe<ComponentBlocksPageLinkInput>>>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentSectionsDocumentsListing = {
+  __typename?: 'ComponentSectionsDocumentsListing';
+  id: Scalars['ID'];
+};
+
+export type ComponentSectionsEventsListing = {
+  __typename?: 'ComponentSectionsEventsListing';
+  id: Scalars['ID'];
 };
 
 export type ComponentSectionsExternalLinks = {
@@ -1273,11 +1284,19 @@ export type ComponentSectionsMapInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type ComponentSectionsParnters = {
-  __typename?: 'ComponentSectionsParnters';
+export type ComponentSectionsNewBooksListing = {
+  __typename?: 'ComponentSectionsNewBooksListing';
   id: Scalars['ID'];
-  image?: Maybe<UploadFileEntityResponse>;
-  title?: Maybe<Scalars['String']>;
+};
+
+export type ComponentSectionsNewsListing = {
+  __typename?: 'ComponentSectionsNewsListing';
+  id: Scalars['ID'];
+};
+
+export type ComponentSectionsPartners = {
+  __typename?: 'ComponentSectionsPartners';
+  id: Scalars['ID'];
 };
 
 export type ComponentSectionsRental = {
@@ -1905,7 +1924,7 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsParnters | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -2715,7 +2734,7 @@ export type Notice = {
   body?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   dateAdded?: Maybe<Scalars['Date']>;
-  files?: Maybe<ComponentBlocksNoticeFiles>;
+  documents?: Maybe<ComponentSectionsDocuments>;
   listingImage?: Maybe<UploadFileRelationResponseCollection>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<NoticeRelationResponseCollection>;
@@ -2764,7 +2783,7 @@ export type NoticeFiltersInput = {
   body?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   dateAdded?: InputMaybe<DateFilterInput>;
-  files?: InputMaybe<ComponentBlocksNoticeFilesFiltersInput>;
+  documents?: InputMaybe<ComponentSectionsDocumentsFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<NoticeFiltersInput>;
@@ -2781,7 +2800,7 @@ export type NoticeFiltersInput = {
 export type NoticeInput = {
   body?: InputMaybe<Scalars['String']>;
   dateAdded?: InputMaybe<Scalars['Date']>;
-  files?: InputMaybe<ComponentBlocksNoticeFilesInput>;
+  documents?: InputMaybe<ComponentSectionsDocumentsInput>;
   listingImage?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   promoted?: InputMaybe<Scalars['Boolean']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
@@ -2888,7 +2907,7 @@ export type PageRelationResponseCollection = {
   data: Array<PageEntity>;
 };
 
-export type PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error;
+export type PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error;
 
 export type Pagination = {
   __typename?: 'Pagination';
@@ -3735,6 +3754,13 @@ export type AllPagesQueryVariables = Exact<{
 
 export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null }> } | null };
 
+export type AllPagesWithSectionsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllPagesWithSectionsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsBlogPostsListing' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments' } | { __typename: 'ComponentSectionsDocumentsListing' } | { __typename: 'ComponentSectionsEventsListing' } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText' } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsMap' } | { __typename: 'ComponentSectionsNewBooksListing' } | { __typename: 'ComponentSectionsNewsListing' } | { __typename: 'ComponentSectionsPartners' } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo' } | { __typename: 'Error' } | null> | null } | null }> } | null };
+
 export type CreateBranchMutationVariables = Exact<{
   data: BranchInput;
 }>;
@@ -3799,6 +3825,15 @@ export type UpdateNoticeMutationVariables = Exact<{
 
 
 export type UpdateNoticeMutation = { __typename?: 'Mutation', updateNotice?: { __typename?: 'NoticeEntityResponse', data?: { __typename?: 'NoticeEntity', id?: string | null } | null } | null };
+
+export type UpdateBlogPostMutationVariables = Exact<{
+  data: BlogPostInput;
+  id: Scalars['ID'];
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type UpdateBlogPostMutation = { __typename?: 'Mutation', updateBlogPost?: { __typename?: 'BlogPostEntityResponse', data?: { __typename?: 'BlogPostEntity', id?: string | null } | null } | null };
 
 export type NoticeByIdQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -3878,6 +3913,22 @@ export const AllPagesDocument = gql`
       attributes {
         title
         slug
+      }
+    }
+  }
+}
+    `;
+export const AllPagesWithSectionsDocument = gql`
+    query AllPagesWithSections($locale: I18NLocaleCode!) {
+  pages(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+        }
       }
     }
   }
@@ -3983,6 +4034,15 @@ export const UpdateNoticeDocument = gql`
   }
 }
     `;
+export const UpdateBlogPostDocument = gql`
+    mutation UpdateBlogPost($data: BlogPostInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateBlogPost(id: $id, data: $data, locale: $locale) {
+    data {
+      id
+    }
+  }
+}
+    `;
 export const NoticeByIdDocument = gql`
     query NoticeById($id: ID!) {
   notice(id: $id) {
@@ -4036,6 +4096,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     AllPages(variables: AllPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllPagesQuery>(AllPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPages', 'query');
     },
+    AllPagesWithSections(variables: AllPagesWithSectionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesWithSectionsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllPagesWithSectionsQuery>(AllPagesWithSectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPagesWithSections', 'query');
+    },
     CreateBranch(variables: CreateBranchMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateBranchMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateBranchMutation>(CreateBranchDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateBranch', 'mutation');
     },
@@ -4059,6 +4122,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     UpdateNotice(variables: UpdateNoticeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateNoticeMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateNoticeMutation>(UpdateNoticeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateNotice', 'mutation');
+    },
+    UpdateBlogPost(variables: UpdateBlogPostMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateBlogPostMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateBlogPostMutation>(UpdateBlogPostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBlogPost', 'mutation');
     },
     NoticeById(variables: NoticeByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NoticeByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<NoticeByIdQuery>(NoticeByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'NoticeById', 'query');

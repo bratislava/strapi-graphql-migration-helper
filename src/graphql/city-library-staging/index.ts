@@ -4358,6 +4358,14 @@ export type AllPagesQueryVariables = Exact<{
 
 export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null }> } | null };
 
+export type PageByIdQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  id: Scalars['ID'];
+}>;
+
+
+export type PageByIdQuery = { __typename?: 'Query', page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', id: string, title?: string | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null }> } | null } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', id: string, content?: string | null } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsMap' } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo', id: string, youtube_url?: string | null } | { __typename: 'Error' } | null> | null } | null } | null } | null };
+
 export type LocalityPagesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
@@ -4458,6 +4466,39 @@ export const AllPagesDocument = gql`
   }
 }
     `;
+export const PageByIdDocument = gql`
+    query PageById($locale: I18NLocaleCode!, $id: ID!) {
+  page(locale: $locale, id: $id) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+          ... on ComponentSectionsFlatText {
+            id
+            content
+          }
+          ... on ComponentSectionsVideo {
+            id
+            youtube_url
+          }
+          ... on ComponentSectionsDocuments {
+            id
+            title
+            basicDocuments {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
 export const LocalityPagesDocument = gql`
     query LocalityPages($locale: I18NLocaleCode!) {
   pages(
@@ -4531,6 +4572,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     AllPages(variables: AllPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllPagesQuery>(AllPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPages', 'query');
+    },
+    PageById(variables: PageByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PageByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PageByIdQuery>(PageByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PageById', 'query');
     },
     LocalityPages(variables: LocalityPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LocalityPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<LocalityPagesQuery>(LocalityPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'LocalityPages', 'query');
