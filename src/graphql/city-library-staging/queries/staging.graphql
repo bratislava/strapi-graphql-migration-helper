@@ -85,3 +85,117 @@ query LocalityPages($locale: I18NLocaleCode!) {
     }
   }
 }
+
+query AllPagesWithSections($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start:0, limit: -1}, filters: {layout: {not: {eq: "news"}}}) {
+    data {
+      id
+      attributes {
+        ...PageForSections
+        localizations {
+          data {
+            id
+            attributes {
+              locale
+              ...PageForSections
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment PageForSections on Page {
+  title
+  slug
+  layout
+  description
+  date_added
+  publishedAt
+  promoted
+  pageCategory {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
+  Seo {
+    metaTitle
+    metaDescription
+    keywords
+  }
+  listingImage {
+    data {
+      id
+    }
+  }
+  sections {
+    __typename
+    ... on ComponentSectionsFaq {
+      title
+    }
+    ... on ComponentSectionsFlatText {
+      content
+      media {
+        data {
+          id
+        }
+      }
+    }
+    ... on ComponentSectionsSiteUsefullness {
+      title
+    }
+    ... on ComponentSectionsSubpages {
+      title
+    }
+    ... on ComponentSectionsTable {
+      primaryTitle
+      secondaryTitle
+    }
+    ... on ComponentSectionsAccordion {
+      title
+    }
+    ... on ComponentSectionsDivider {
+      shown
+    }
+    ... on ComponentSectionsColumnedText {
+      title
+    }
+    ... on ComponentSectionsCta {
+      title
+    }
+    ... on ComponentSectionsFlatTextCenter {
+      content
+    }
+    ... on ComponentSectionsSubListing {
+      title
+    }
+    ... on ComponentSectionsForm {
+      type
+    }
+    ... on ComponentSectionsDocuments {
+      title
+    }
+    ... on ComponentSectionsExternalLinks {
+      title
+    }
+    ... on ComponentSectionsVideo {
+      youtube_url
+      media {
+        data {
+          id
+        }
+      }
+    }
+    ... on ComponentSectionsGallery {
+      Gallery {
+        Description
+      }
+    }
+    ... on ComponentSectionsMap {
+      title
+    }
+  }
+}

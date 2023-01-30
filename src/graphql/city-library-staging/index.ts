@@ -4373,16 +4373,120 @@ export type LocalityPagesQueryVariables = Exact<{
 
 export type LocalityPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments' } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText' } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery', Gallery?: Array<{ __typename?: 'ComponentLocalityPartsGalleryParts', Description?: string | null, Photo?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, caption?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMap' } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
+export type AllPagesWithSectionsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllPagesWithSectionsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, layout?: Enum_Page_Layout | null, description?: string | null, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, localizations?: { __typename?: 'PageRelationResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', locale?: string | null, title: string, slug: string, layout?: Enum_Page_Layout | null, description?: string | null, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, pageCategory?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', title?: string | null } | null } | null } | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion', title?: string | null } | { __typename: 'ComponentSectionsColumnedText', title?: string | null } | { __typename: 'ComponentSectionsCta', title?: string | null } | { __typename: 'ComponentSectionsDivider', shown?: boolean | null } | { __typename: 'ComponentSectionsDocuments', title?: string | null } | { __typename: 'ComponentSectionsExternalLinks', title?: string | null } | { __typename: 'ComponentSectionsFaq', title?: string | null } | { __typename: 'ComponentSectionsFlatText', content?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentSectionsFlatTextCenter', content?: string | null } | { __typename: 'ComponentSectionsForm', type?: Enum_Componentsectionsform_Type | null } | { __typename: 'ComponentSectionsGallery', Gallery?: Array<{ __typename?: 'ComponentLocalityPartsGalleryParts', Description?: string | null } | null> | null } | { __typename: 'ComponentSectionsMap', title?: string | null } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness', title?: string | null } | { __typename: 'ComponentSectionsSubListing', title?: string | null } | { __typename: 'ComponentSectionsSubpages', title?: string | null } | { __typename: 'ComponentSectionsTable', primaryTitle?: string | null, secondaryTitle?: string | null } | { __typename: 'ComponentSectionsVideo', youtube_url?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'Error' } | null> | null } | null }> } | null, pageCategory?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', title?: string | null } | null } | null } | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion', title?: string | null } | { __typename: 'ComponentSectionsColumnedText', title?: string | null } | { __typename: 'ComponentSectionsCta', title?: string | null } | { __typename: 'ComponentSectionsDivider', shown?: boolean | null } | { __typename: 'ComponentSectionsDocuments', title?: string | null } | { __typename: 'ComponentSectionsExternalLinks', title?: string | null } | { __typename: 'ComponentSectionsFaq', title?: string | null } | { __typename: 'ComponentSectionsFlatText', content?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentSectionsFlatTextCenter', content?: string | null } | { __typename: 'ComponentSectionsForm', type?: Enum_Componentsectionsform_Type | null } | { __typename: 'ComponentSectionsGallery', Gallery?: Array<{ __typename?: 'ComponentLocalityPartsGalleryParts', Description?: string | null } | null> | null } | { __typename: 'ComponentSectionsMap', title?: string | null } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness', title?: string | null } | { __typename: 'ComponentSectionsSubListing', title?: string | null } | { __typename: 'ComponentSectionsSubpages', title?: string | null } | { __typename: 'ComponentSectionsTable', primaryTitle?: string | null, secondaryTitle?: string | null } | { __typename: 'ComponentSectionsVideo', youtube_url?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'Error' } | null> | null } | null }> } | null };
+
+export type PageForSectionsFragment = { __typename?: 'Page', title: string, slug: string, layout?: Enum_Page_Layout | null, description?: string | null, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, pageCategory?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', title?: string | null } | null } | null } | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion', title?: string | null } | { __typename: 'ComponentSectionsColumnedText', title?: string | null } | { __typename: 'ComponentSectionsCta', title?: string | null } | { __typename: 'ComponentSectionsDivider', shown?: boolean | null } | { __typename: 'ComponentSectionsDocuments', title?: string | null } | { __typename: 'ComponentSectionsExternalLinks', title?: string | null } | { __typename: 'ComponentSectionsFaq', title?: string | null } | { __typename: 'ComponentSectionsFlatText', content?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentSectionsFlatTextCenter', content?: string | null } | { __typename: 'ComponentSectionsForm', type?: Enum_Componentsectionsform_Type | null } | { __typename: 'ComponentSectionsGallery', Gallery?: Array<{ __typename?: 'ComponentLocalityPartsGalleryParts', Description?: string | null } | null> | null } | { __typename: 'ComponentSectionsMap', title?: string | null } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness', title?: string | null } | { __typename: 'ComponentSectionsSubListing', title?: string | null } | { __typename: 'ComponentSectionsSubpages', title?: string | null } | { __typename: 'ComponentSectionsTable', primaryTitle?: string | null, secondaryTitle?: string | null } | { __typename: 'ComponentSectionsVideo', youtube_url?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'Error' } | null> | null };
+
 export type AllPagesBySlugContainsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
   slugPrefix: Scalars['String'];
 }>;
 
 
-export type AllPagesBySlugContainsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, description?: string | null, localizations?: { __typename?: 'PageRelationResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', locale?: string | null, title: string, slug: string, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, description?: string | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', title?: string | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null } | null> | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', content?: string | null } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename?: 'ComponentSectionsForm' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsMap' } | { __typename?: 'ComponentSectionsRental' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename?: 'ComponentSectionsTable' } | { __typename?: 'ComponentSectionsVideo' } | { __typename?: 'Error' } | null> | null } | null }> } | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', title?: string | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null } | null> | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', content?: string | null } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename?: 'ComponentSectionsForm' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsMap' } | { __typename?: 'ComponentSectionsRental' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename?: 'ComponentSectionsTable' } | { __typename?: 'ComponentSectionsVideo' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type AllPagesBySlugContainsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, description?: string | null, localizations?: { __typename?: 'PageRelationResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', locale?: string | null, title: string, slug: string, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, description?: string | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', title?: string | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null } | null> | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null } | null }> } | null } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', content?: string | null } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsMap' } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo' } | { __typename: 'Error' } | null> | null } | null }> } | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', title?: string | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null } | null> | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null } | null }> } | null } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', content?: string | null } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsMap' } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
-export type PageForNoticeFragment = { __typename?: 'Page', title: string, slug: string, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, description?: string | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename?: 'ComponentSectionsAccordion' } | { __typename?: 'ComponentSectionsColumnedText' } | { __typename?: 'ComponentSectionsCta' } | { __typename?: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', title?: string | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null } | null> | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentSectionsExternalLinks' } | { __typename?: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', content?: string | null } | { __typename?: 'ComponentSectionsFlatTextCenter' } | { __typename?: 'ComponentSectionsForm' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsMap' } | { __typename?: 'ComponentSectionsRental' } | { __typename?: 'ComponentSectionsSiteUsefullness' } | { __typename?: 'ComponentSectionsSubListing' } | { __typename?: 'ComponentSectionsSubpages' } | { __typename?: 'ComponentSectionsTable' } | { __typename?: 'ComponentSectionsVideo' } | { __typename?: 'Error' } | null> | null };
+export type PageForNoticeFragment = { __typename?: 'Page', title: string, slug: string, date_added?: any | null, publishedAt?: any | null, promoted?: boolean | null, description?: string | null, Seo?: { __typename?: 'ComponentSeoSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, listingImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsCta' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocuments', title?: string | null, moreLink?: Array<{ __typename?: 'ComponentBlocksPageLink', title?: string | null, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null } | null> | null, basicDocuments?: { __typename?: 'BasicDocumentRelationResponseCollection', data: Array<{ __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null } | null }> } | null } | { __typename: 'ComponentSectionsExternalLinks' } | { __typename: 'ComponentSectionsFaq' } | { __typename: 'ComponentSectionsFlatText', content?: string | null } | { __typename: 'ComponentSectionsFlatTextCenter' } | { __typename: 'ComponentSectionsForm' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsMap' } | { __typename: 'ComponentSectionsRental' } | { __typename: 'ComponentSectionsSiteUsefullness' } | { __typename: 'ComponentSectionsSubListing' } | { __typename: 'ComponentSectionsSubpages' } | { __typename: 'ComponentSectionsTable' } | { __typename: 'ComponentSectionsVideo' } | { __typename: 'Error' } | null> | null };
 
+export const PageForSectionsFragmentDoc = gql`
+    fragment PageForSections on Page {
+  title
+  slug
+  layout
+  description
+  date_added
+  publishedAt
+  promoted
+  pageCategory {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
+  Seo {
+    metaTitle
+    metaDescription
+    keywords
+  }
+  listingImage {
+    data {
+      id
+    }
+  }
+  sections {
+    __typename
+    ... on ComponentSectionsFaq {
+      title
+    }
+    ... on ComponentSectionsFlatText {
+      content
+      media {
+        data {
+          id
+        }
+      }
+    }
+    ... on ComponentSectionsSiteUsefullness {
+      title
+    }
+    ... on ComponentSectionsSubpages {
+      title
+    }
+    ... on ComponentSectionsTable {
+      primaryTitle
+      secondaryTitle
+    }
+    ... on ComponentSectionsAccordion {
+      title
+    }
+    ... on ComponentSectionsDivider {
+      shown
+    }
+    ... on ComponentSectionsColumnedText {
+      title
+    }
+    ... on ComponentSectionsCta {
+      title
+    }
+    ... on ComponentSectionsFlatTextCenter {
+      content
+    }
+    ... on ComponentSectionsSubListing {
+      title
+    }
+    ... on ComponentSectionsForm {
+      type
+    }
+    ... on ComponentSectionsDocuments {
+      title
+    }
+    ... on ComponentSectionsExternalLinks {
+      title
+    }
+    ... on ComponentSectionsVideo {
+      youtube_url
+      media {
+        data {
+          id
+        }
+      }
+    }
+    ... on ComponentSectionsGallery {
+      Gallery {
+        Description
+      }
+    }
+    ... on ComponentSectionsMap {
+      title
+    }
+  }
+}
+    `;
 export const PageForNoticeFragmentDoc = gql`
     fragment PageForNotice on Page {
   title
@@ -4402,12 +4506,11 @@ export const PageForNoticeFragmentDoc = gql`
     }
   }
   sections {
+    __typename
     ... on ComponentSectionsFlatText {
-      __typename
       content
     }
     ... on ComponentSectionsDocuments {
-      __typename
       title
       moreLink {
         title
@@ -4534,6 +4637,31 @@ export const LocalityPagesDocument = gql`
   }
 }
     `;
+export const AllPagesWithSectionsDocument = gql`
+    query AllPagesWithSections($locale: I18NLocaleCode!) {
+  pages(
+    locale: $locale
+    pagination: {start: 0, limit: -1}
+    filters: {layout: {not: {eq: "news"}}}
+  ) {
+    data {
+      id
+      attributes {
+        ...PageForSections
+        localizations {
+          data {
+            id
+            attributes {
+              locale
+              ...PageForSections
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    ${PageForSectionsFragmentDoc}`;
 export const AllPagesBySlugContainsDocument = gql`
     query AllPagesBySlugContains($locale: I18NLocaleCode!, $slugPrefix: String!) {
   pages(
@@ -4578,6 +4706,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     LocalityPages(variables: LocalityPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LocalityPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<LocalityPagesQuery>(LocalityPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'LocalityPages', 'query');
+    },
+    AllPagesWithSections(variables: AllPagesWithSectionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesWithSectionsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllPagesWithSectionsQuery>(AllPagesWithSectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPagesWithSections', 'query');
     },
     AllPagesBySlugContains(variables: AllPagesBySlugContainsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesBySlugContainsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllPagesBySlugContainsQuery>(AllPagesBySlugContainsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPagesBySlugContains', 'query');

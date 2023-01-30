@@ -36,12 +36,11 @@ fragment PageForNotice on Page {
     }
   }
   sections {
+    __typename
     ... on ComponentSectionsFlatText {
-      __typename
       content
     }
     ... on ComponentSectionsDocuments {
-      __typename
       title
       moreLink {
         title

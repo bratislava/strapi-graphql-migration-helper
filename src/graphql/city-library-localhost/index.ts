@@ -1143,7 +1143,6 @@ export type ComponentSectionsCta = {
 export type ComponentSectionsDivider = {
   __typename?: 'ComponentSectionsDivider';
   id: Scalars['ID'];
-  shown?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentSectionsDocuments = {
@@ -1235,14 +1234,12 @@ export type ComponentSectionsFlatText = {
   __typename?: 'ComponentSectionsFlatText';
   content?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  media?: Maybe<UploadFileEntityResponse>;
 };
 
 export type ComponentSectionsFlatTextCenter = {
   __typename?: 'ComponentSectionsFlatTextCenter';
   content?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  image?: Maybe<UploadFileEntityResponse>;
 };
 
 export type ComponentSectionsForm = {
@@ -1502,17 +1499,9 @@ export enum Enum_Componentsectionsform_Type {
 }
 
 export enum Enum_Page_Layout {
-  BlogPosts = 'blog_posts',
-  BookNews = 'book_news',
   ContentWithSidebar = 'content_with_sidebar',
-  Documents = 'documents',
-  Event = 'event',
-  EventsListing = 'eventsListing',
   FullContent = 'full_content',
   Listing = 'listing',
-  News = 'news',
-  NewsListing = 'newsListing',
-  Partners = 'partners',
   Sublisting = 'sublisting'
 }
 
@@ -2819,16 +2808,16 @@ export type Page = {
   Seo?: Maybe<ComponentSeoSeo>;
   branchesServicesTo?: Maybe<BranchRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  date_added?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
   layout?: Maybe<Enum_Page_Layout>;
   listingImage?: Maybe<UploadFileEntityResponse>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<PageRelationResponseCollection>;
   pageCategory?: Maybe<CategoryEntityResponse>;
-  promoted?: Maybe<Scalars['Boolean']>;
+  perex?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
+  sitemapChildren?: Maybe<PageRelationResponseCollection>;
+  sitemapParent?: Maybe<PageEntityResponse>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -2843,6 +2832,14 @@ export type PageBranchesServicesToArgs = {
 
 
 export type PageLocalizationsArgs = {
+  filters?: InputMaybe<PageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type PageSitemapChildrenArgs = {
   filters?: InputMaybe<PageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -2871,8 +2868,6 @@ export type PageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   branchesServicesTo?: InputMaybe<BranchFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  date_added?: InputMaybe<DateFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   layout?: InputMaybe<StringFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
@@ -2880,8 +2875,10 @@ export type PageFiltersInput = {
   not?: InputMaybe<PageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   pageCategory?: InputMaybe<CategoryFiltersInput>;
-  promoted?: InputMaybe<BooleanFilterInput>;
+  perex?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  sitemapChildren?: InputMaybe<PageFiltersInput>;
+  sitemapParent?: InputMaybe<PageFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -2890,14 +2887,14 @@ export type PageFiltersInput = {
 export type PageInput = {
   Seo?: InputMaybe<ComponentSeoSeoInput>;
   branchesServicesTo?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  date_added?: InputMaybe<Scalars['Date']>;
-  description?: InputMaybe<Scalars['String']>;
   layout?: InputMaybe<Enum_Page_Layout>;
   listingImage?: InputMaybe<Scalars['ID']>;
   pageCategory?: InputMaybe<Scalars['ID']>;
-  promoted?: InputMaybe<Scalars['Boolean']>;
+  perex?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']>>;
+  sitemapChildren?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  sitemapParent?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -3802,6 +3799,37 @@ export type UpdateMediaCaptionAndAltMutationVariables = Exact<{
 
 export type UpdateMediaCaptionAndAltMutation = { __typename?: 'Mutation', updateUploadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', caption?: string | null, alternativeText?: string | null, name: string } | null } | null } | null };
 
+export type UpdatePageMutationVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  id: Scalars['ID'];
+  data: PageInput;
+}>;
+
+
+export type UpdatePageMutation = { __typename?: 'Mutation', updatePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null };
+
+export type AllNewsPagesQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllNewsPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null }> } | null };
+
+export type DeletePageMutationVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  id: Scalars['ID'];
+}>;
+
+
+export type DeletePageMutation = { __typename?: 'Mutation', deletePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null };
+
+export type AllPagesSlugsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type AllPagesSlugsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug: string } | null }> } | null };
+
 export type CreateSkNoticeMutationVariables = Exact<{
   data: NoticeInput;
 }>;
@@ -4007,6 +4035,49 @@ export const UpdateMediaCaptionAndAltDocument = gql`
   }
 }
     `;
+export const UpdatePageDocument = gql`
+    mutation UpdatePage($locale: I18NLocaleCode!, $id: ID!, $data: PageInput!) {
+  updatePage(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const AllNewsPagesDocument = gql`
+    query AllNewsPages($locale: I18NLocaleCode!) {
+  pages(
+    locale: $locale
+    pagination: {start: 0, limit: -1}
+    filters: {layout: {eq: "news"}}
+  ) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const DeletePageDocument = gql`
+    mutation DeletePage($locale: I18NLocaleCode!, $id: ID!) {
+  deletePage(locale: $locale, id: $id) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const AllPagesSlugsDocument = gql`
+    query AllPagesSlugs($locale: I18NLocaleCode!) {
+  pages(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
+    `;
 export const CreateSkNoticeDocument = gql`
     mutation CreateSkNotice($data: NoticeInput!) {
   createNotice(data: $data, locale: "sk") {
@@ -4113,6 +4184,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     UpdateMediaCaptionAndAlt(variables: UpdateMediaCaptionAndAltMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateMediaCaptionAndAltMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateMediaCaptionAndAltMutation>(UpdateMediaCaptionAndAltDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateMediaCaptionAndAlt', 'mutation');
+    },
+    UpdatePage(variables: UpdatePageMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageMutation>(UpdatePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePage', 'mutation');
+    },
+    AllNewsPages(variables: AllNewsPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllNewsPagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllNewsPagesQuery>(AllNewsPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllNewsPages', 'query');
+    },
+    DeletePage(variables: DeletePageMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeletePageMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeletePageMutation>(DeletePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeletePage', 'mutation');
+    },
+    AllPagesSlugs(variables: AllPagesSlugsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesSlugsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllPagesSlugsQuery>(AllPagesSlugsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPagesSlugs', 'query');
     },
     CreateSkNotice(variables: CreateSkNoticeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateSkNoticeMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateSkNoticeMutation>(CreateSkNoticeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateSkNotice', 'mutation');

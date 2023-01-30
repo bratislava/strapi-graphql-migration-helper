@@ -142,3 +142,38 @@ mutation UpdateMediaCaptionAndAlt($id: ID!, $caption: String, $alternativeText: 
     }
   }
 }
+
+mutation UpdatePage($locale:I18NLocaleCode!, $id: ID!, $data: PageInput!) {
+  updatePage(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+query AllNewsPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}, filters: {layout: {eq: "news"}}) {
+    data {
+      id
+    }
+  }
+}
+
+mutation DeletePage($locale:I18NLocaleCode!, $id: ID!) {
+  deletePage(locale: $locale, id: $id) {
+    data {
+      id
+    }
+  }
+}
+
+query AllPagesSlugs($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
