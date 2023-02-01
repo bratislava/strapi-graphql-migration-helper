@@ -110,10 +110,10 @@ fragment PageForSections on Page {
   title
   slug
   layout
-  description
-  date_added
+  #  description
+  #  date_added
   publishedAt
-  promoted
+  #  promoted
   pageCategory {
     data {
       attributes {
@@ -138,11 +138,11 @@ fragment PageForSections on Page {
     }
     ... on ComponentSectionsFlatText {
       content
-      media {
-        data {
-          id
-        }
-      }
+      #      media {
+      #        data {
+      #          id
+      #        }
+      #      }
     }
     ... on ComponentSectionsSiteUsefullness {
       title
@@ -157,9 +157,9 @@ fragment PageForSections on Page {
     ... on ComponentSectionsAccordion {
       title
     }
-    ... on ComponentSectionsDivider {
-      shown
-    }
+    #    ... on ComponentSectionsDivider {
+    #      shown
+    #    }
     ... on ComponentSectionsColumnedText {
       title
     }

@@ -1,0 +1,31 @@
+mutation UpdatePage($data: PageInput!, $id: ID!, $locale:I18NLocaleCode!) {
+  updatePage(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation UpdateEvent($data: EventInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateEvent(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation UpdateNotice($data: NoticeInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateNotice(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation UpdateBlogPost($data: BlogPostInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateBlogPost(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}

@@ -11,9 +11,9 @@ const localhostCityLibraryClient = new GraphQLClient(
   'http://localhost:1338/graphql'
 );
 
-// We are connecting to dev, because staging is more used for testitng purposes and the database is changed more often
+// We are connecting to dev, because staging is more used for testing purposes and the database is changed more often
 const stagingCityLibraryClient = new GraphQLClient(
-  'https://city-library-strapi.dev.bratislava.sk/graphql'
+  'https://city-library-strapi.bratislava.sk/graphql'
 );
 
 export const localhostClient = localhostGetSdk(localhostCityLibraryClient);

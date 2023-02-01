@@ -21,10 +21,10 @@ query AllPagesBySlugContains($locale: I18NLocaleCode!, $slugPrefix: String!) {
 fragment PageForNotice on Page {
   title
   slug
-  date_added
+  #  date_added
   publishedAt
-  promoted
-  description
+  #  promoted
+  #  description
   Seo {
     metaTitle
     metaDescription

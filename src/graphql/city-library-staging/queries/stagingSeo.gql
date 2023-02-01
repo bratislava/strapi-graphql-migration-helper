@@ -1,0 +1,65 @@
+fragment Seo on ComponentSeoSeo {
+  metaTitle
+  metaDescription
+  keywords
+}
+
+query AllPagesWithSeo($locale: I18NLocaleCode!) {
+  pages(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+        Seo {
+          ...Seo
+        }
+      }
+    }
+  }
+}
+
+query AllEventsWithSeo($locale: I18NLocaleCode!) {
+  events(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+        Seo {
+          ...Seo
+        }
+      }
+    }
+  }
+}
+
+query AllNoticesWithSeo($locale: I18NLocaleCode!) {
+  notices(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+        seo {
+          ...Seo
+        }
+      }
+    }
+  }
+}
+
+query AllBlogPostsWithSeo($locale: I18NLocaleCode!) {
+  blogPosts(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+        title
+        Seo {
+          ...Seo
+        }
+      }
+    }
+  }
+}

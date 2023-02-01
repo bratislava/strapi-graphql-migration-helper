@@ -14,21 +14,7 @@ mutation CreateEnLocalizationNotice($data: NoticeInput!, $id: ID!) {
   }
 }
 
-mutation UpdateNotice($data: NoticeInput!, $id: ID!, $locale: I18NLocaleCode!) {
-  updateNotice(id: $id, data: $data, locale: $locale) {
-    data {
-      id
-    }
-  }
-}
 
-mutation UpdateBlogPost($data: BlogPostInput!, $id: ID!, $locale: I18NLocaleCode!) {
-  updateBlogPost(id: $id, data: $data, locale: $locale) {
-    data {
-      id
-    }
-  }
-}
 
 query NoticeById($id: ID!) {
   notice(id: $id) {

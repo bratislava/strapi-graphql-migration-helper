@@ -24,7 +24,7 @@ query EventsWithNoSlug($locale: I18NLocaleCode!) {
   }
 }
 
-mutation UpdateEvent(
+mutation UpdateEventNewSlug(
   $id: ID!
   $newSlug: String!
   $newTitle: String
@@ -139,14 +139,6 @@ mutation UpdateMediaCaptionAndAlt($id: ID!, $caption: String, $alternativeText: 
         alternativeText
         name
       }
-    }
-  }
-}
-
-mutation UpdatePage($locale:I18NLocaleCode!, $id: ID!, $data: PageInput!) {
-  updatePage(id: $id, locale: $locale, data: $data) {
-    data {
-      id
     }
   }
 }

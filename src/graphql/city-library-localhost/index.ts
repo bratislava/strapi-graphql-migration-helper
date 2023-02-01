@@ -96,13 +96,13 @@ export type BasicDocumentRelationResponseCollection = {
 
 export type BlogPost = {
   __typename?: 'BlogPost';
-  Seo?: Maybe<ComponentSeoSeo>;
   coverMedia?: Maybe<UploadFileEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<BlogPostRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<BlogPostSectionsDynamicZone>>>;
+  seo?: Maybe<ComponentCommonSeo>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -134,7 +134,6 @@ export type BlogPostEntityResponseCollection = {
 };
 
 export type BlogPostFiltersInput = {
-  Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -143,16 +142,17 @@ export type BlogPostFiltersInput = {
   not?: InputMaybe<BlogPostFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  seo?: InputMaybe<ComponentCommonSeoFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type BlogPostInput = {
-  Seo?: InputMaybe<ComponentSeoSeoInput>;
   coverMedia?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   sections?: InputMaybe<Array<Scalars['BlogPostSectionsDynamicZoneInput']>>;
+  seo?: InputMaybe<ComponentCommonSeoInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -696,6 +696,30 @@ export type ComponentBlocksTableRow = {
   label?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
   valueAlign?: Maybe<Enum_Componentblockstablerow_Valuealign>;
+};
+
+export type ComponentCommonSeo = {
+  __typename?: 'ComponentCommonSeo';
+  id: Scalars['ID'];
+  keywords?: Maybe<Scalars['String']>;
+  metaDescription?: Maybe<Scalars['String']>;
+  metaTitle?: Maybe<Scalars['String']>;
+};
+
+export type ComponentCommonSeoFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentCommonSeoFiltersInput>>>;
+  keywords?: InputMaybe<StringFilterInput>;
+  metaDescription?: InputMaybe<StringFilterInput>;
+  metaTitle?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentCommonSeoFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentCommonSeoFiltersInput>>>;
+};
+
+export type ComponentCommonSeoInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  keywords?: InputMaybe<Scalars['String']>;
+  metaDescription?: InputMaybe<Scalars['String']>;
+  metaTitle?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentFooterFooterColumn = {
@@ -1361,39 +1385,6 @@ export type ComponentSectionsVideo = {
   youtube_url?: Maybe<Scalars['String']>;
 };
 
-export type ComponentSeoSeo = {
-  __typename?: 'ComponentSeoSeo';
-  canonicalURL?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  keywords?: Maybe<Scalars['String']>;
-  metaDescription?: Maybe<Scalars['String']>;
-  metaRobots?: Maybe<Scalars['String']>;
-  metaTitle?: Maybe<Scalars['String']>;
-  metaViewport?: Maybe<Scalars['String']>;
-};
-
-export type ComponentSeoSeoFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
-  canonicalURL?: InputMaybe<StringFilterInput>;
-  keywords?: InputMaybe<StringFilterInput>;
-  metaDescription?: InputMaybe<StringFilterInput>;
-  metaRobots?: InputMaybe<StringFilterInput>;
-  metaTitle?: InputMaybe<StringFilterInput>;
-  metaViewport?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<ComponentSeoSeoFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
-};
-
-export type ComponentSeoSeoInput = {
-  canonicalURL?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  keywords?: InputMaybe<Scalars['String']>;
-  metaDescription?: InputMaybe<Scalars['String']>;
-  metaRobots?: InputMaybe<Scalars['String']>;
-  metaTitle?: InputMaybe<Scalars['String']>;
-  metaViewport?: InputMaybe<Scalars['String']>;
-};
-
 export type DateFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
@@ -1513,7 +1504,6 @@ export type Error = {
 
 export type Event = {
   __typename?: 'Event';
-  Seo?: Maybe<ComponentSeoSeo>;
   branch?: Maybe<BranchEntityResponse>;
   coverImage?: Maybe<UploadFileEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1529,6 +1519,7 @@ export type Event = {
   price?: Maybe<Scalars['Float']>;
   promoted?: Maybe<Scalars['Boolean']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  seo?: Maybe<ComponentCommonSeo>;
   showForm?: Maybe<Scalars['Boolean']>;
   slug: Scalars['String'];
   title: Scalars['String'];
@@ -1634,7 +1625,6 @@ export type EventEntityResponseCollection = {
 };
 
 export type EventFiltersInput = {
-  Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
   branch?: InputMaybe<BranchFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -1652,6 +1642,7 @@ export type EventFiltersInput = {
   price?: InputMaybe<FloatFilterInput>;
   promoted?: InputMaybe<BooleanFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  seo?: InputMaybe<ComponentCommonSeoFiltersInput>;
   showForm?: InputMaybe<BooleanFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -1659,7 +1650,6 @@ export type EventFiltersInput = {
 };
 
 export type EventInput = {
-  Seo?: InputMaybe<ComponentSeoSeoInput>;
   branch?: InputMaybe<Scalars['ID']>;
   coverImage?: InputMaybe<Scalars['ID']>;
   dateFrom?: InputMaybe<Scalars['DateTime']>;
@@ -1672,6 +1662,7 @@ export type EventInput = {
   price?: InputMaybe<Scalars['Float']>;
   promoted?: InputMaybe<Scalars['Boolean']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  seo?: InputMaybe<ComponentCommonSeoInput>;
   showForm?: InputMaybe<Scalars['Boolean']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
@@ -1913,11 +1904,10 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
-  Seo?: Maybe<ComponentSeoSeo>;
   createdAt?: Maybe<Scalars['DateTime']>;
   faqSection?: Maybe<ComponentHomepageFaqSection>;
   locale?: Maybe<Scalars['String']>;
@@ -1925,6 +1915,7 @@ export type HomePage = {
   mapSection?: Maybe<ComponentSectionsMap>;
   newsSection?: Maybe<ComponentHomepageNewsSection>;
   registrationInfoSection?: Maybe<ComponentHomepageRegistrationInfo>;
+  seo?: Maybe<ComponentCommonSeo>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -1940,11 +1931,11 @@ export type HomePageEntityResponse = {
 };
 
 export type HomePageInput = {
-  Seo?: InputMaybe<ComponentSeoSeoInput>;
   faqSection?: InputMaybe<ComponentHomepageFaqSectionInput>;
   mapSection?: InputMaybe<ComponentSectionsMapInput>;
   newsSection?: InputMaybe<ComponentHomepageNewsSectionInput>;
   registrationInfoSection?: InputMaybe<ComponentHomepageRegistrationInfoInput>;
+  seo?: InputMaybe<ComponentCommonSeoInput>;
 };
 
 export type HomePageRelationResponseCollection = {
@@ -2729,7 +2720,7 @@ export type Notice = {
   localizations?: Maybe<NoticeRelationResponseCollection>;
   promoted?: Maybe<Scalars['Boolean']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
-  seo?: Maybe<ComponentSeoSeo>;
+  seo?: Maybe<ComponentCommonSeo>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -2780,7 +2771,7 @@ export type NoticeFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<NoticeFiltersInput>>>;
   promoted?: InputMaybe<BooleanFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
-  seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
+  seo?: InputMaybe<ComponentCommonSeoFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -2793,7 +2784,7 @@ export type NoticeInput = {
   listingImage?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   promoted?: InputMaybe<Scalars['Boolean']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
-  seo?: InputMaybe<ComponentSeoSeoInput>;
+  seo?: InputMaybe<ComponentCommonSeoInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -2805,7 +2796,6 @@ export type NoticeRelationResponseCollection = {
 
 export type Page = {
   __typename?: 'Page';
-  Seo?: Maybe<ComponentSeoSeo>;
   branchesServicesTo?: Maybe<BranchRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']>;
   layout?: Maybe<Enum_Page_Layout>;
@@ -2816,8 +2806,7 @@ export type Page = {
   perex?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
-  sitemapChildren?: Maybe<PageRelationResponseCollection>;
-  sitemapParent?: Maybe<PageEntityResponse>;
+  seo?: Maybe<ComponentCommonSeo>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -2832,14 +2821,6 @@ export type PageBranchesServicesToArgs = {
 
 
 export type PageLocalizationsArgs = {
-  filters?: InputMaybe<PageFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type PageSitemapChildrenArgs = {
   filters?: InputMaybe<PageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -2864,7 +2845,6 @@ export type PageEntityResponseCollection = {
 };
 
 export type PageFiltersInput = {
-  Seo?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   branchesServicesTo?: InputMaybe<BranchFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -2877,15 +2857,13 @@ export type PageFiltersInput = {
   pageCategory?: InputMaybe<CategoryFiltersInput>;
   perex?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
-  sitemapChildren?: InputMaybe<PageFiltersInput>;
-  sitemapParent?: InputMaybe<PageFiltersInput>;
+  seo?: InputMaybe<ComponentCommonSeoFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type PageInput = {
-  Seo?: InputMaybe<ComponentSeoSeoInput>;
   branchesServicesTo?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   layout?: InputMaybe<Enum_Page_Layout>;
   listingImage?: InputMaybe<Scalars['ID']>;
@@ -2893,8 +2871,7 @@ export type PageInput = {
   perex?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']>>;
-  sitemapChildren?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  sitemapParent?: InputMaybe<Scalars['ID']>;
+  seo?: InputMaybe<ComponentCommonSeoInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -3728,14 +3705,14 @@ export type EventsWithNoSlugQueryVariables = Exact<{
 
 export type EventsWithNoSlugQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', slug: string, title: string } | null }> } | null };
 
-export type UpdateEventMutationVariables = Exact<{
+export type UpdateEventNewSlugMutationVariables = Exact<{
   id: Scalars['ID'];
   newSlug: Scalars['String'];
   newTitle?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', slug: string, title: string } | null } | null } | null };
+export type UpdateEventNewSlugMutation = { __typename?: 'Mutation', updateEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', slug: string, title: string } | null } | null } | null };
 
 export type EventsBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
@@ -3799,15 +3776,6 @@ export type UpdateMediaCaptionAndAltMutationVariables = Exact<{
 
 export type UpdateMediaCaptionAndAltMutation = { __typename?: 'Mutation', updateUploadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', caption?: string | null, alternativeText?: string | null, name: string } | null } | null } | null };
 
-export type UpdatePageMutationVariables = Exact<{
-  locale: Scalars['I18NLocaleCode'];
-  id: Scalars['ID'];
-  data: PageInput;
-}>;
-
-
-export type UpdatePageMutation = { __typename?: 'Mutation', updatePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null };
-
 export type AllNewsPagesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
@@ -3845,6 +3813,39 @@ export type CreateEnLocalizationNoticeMutationVariables = Exact<{
 
 export type CreateEnLocalizationNoticeMutation = { __typename?: 'Mutation', createNoticeLocalization?: { __typename?: 'NoticeEntityResponse', data?: { __typename?: 'NoticeEntity', id?: string | null } | null } | null };
 
+export type NoticeByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type NoticeByIdQuery = { __typename?: 'Query', notice?: { __typename?: 'NoticeEntityResponse', data?: { __typename?: 'NoticeEntity', id?: string | null, attributes?: { __typename?: 'Notice', slug: string, createdAt?: any | null, updatedAt?: any | null, publishedAt?: any | null } | null } | null } | null };
+
+export type NoticeBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type NoticeBySlugQuery = { __typename?: 'Query', notices?: { __typename?: 'NoticeEntityResponseCollection', data: Array<{ __typename?: 'NoticeEntity', id?: string | null, attributes?: { __typename?: 'Notice', slug: string, createdAt?: any | null, updatedAt?: any | null, publishedAt?: any | null } | null }> } | null };
+
+export type UpdatePageMutationVariables = Exact<{
+  data: PageInput;
+  id: Scalars['ID'];
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type UpdatePageMutation = { __typename?: 'Mutation', updatePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null } | null } | null };
+
+export type UpdateEventMutationVariables = Exact<{
+  data: EventInput;
+  id: Scalars['ID'];
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent?: { __typename?: 'EventEntityResponse', data?: { __typename?: 'EventEntity', id?: string | null } | null } | null };
+
 export type UpdateNoticeMutationVariables = Exact<{
   data: NoticeInput;
   id: Scalars['ID'];
@@ -3862,21 +3863,6 @@ export type UpdateBlogPostMutationVariables = Exact<{
 
 
 export type UpdateBlogPostMutation = { __typename?: 'Mutation', updateBlogPost?: { __typename?: 'BlogPostEntityResponse', data?: { __typename?: 'BlogPostEntity', id?: string | null } | null } | null };
-
-export type NoticeByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type NoticeByIdQuery = { __typename?: 'Query', notice?: { __typename?: 'NoticeEntityResponse', data?: { __typename?: 'NoticeEntity', id?: string | null, attributes?: { __typename?: 'Notice', slug: string, createdAt?: any | null, updatedAt?: any | null, publishedAt?: any | null } | null } | null } | null };
-
-export type NoticeBySlugQueryVariables = Exact<{
-  slug: Scalars['String'];
-  locale: Scalars['I18NLocaleCode'];
-}>;
-
-
-export type NoticeBySlugQuery = { __typename?: 'Query', notices?: { __typename?: 'NoticeEntityResponseCollection', data: Array<{ __typename?: 'NoticeEntity', id?: string | null, attributes?: { __typename?: 'Notice', slug: string, createdAt?: any | null, updatedAt?: any | null, publishedAt?: any | null } | null }> } | null };
 
 
 export const AllLocalhostEventsDocument = gql`
@@ -3911,8 +3897,8 @@ export const EventsWithNoSlugDocument = gql`
   }
 }
     `;
-export const UpdateEventDocument = gql`
-    mutation UpdateEvent($id: ID!, $newSlug: String!, $newTitle: String) {
+export const UpdateEventNewSlugDocument = gql`
+    mutation UpdateEventNewSlug($id: ID!, $newSlug: String!, $newTitle: String) {
   updateEvent(id: $id, data: {slug: $newSlug, title: $newTitle}) {
     data {
       id
@@ -4035,15 +4021,6 @@ export const UpdateMediaCaptionAndAltDocument = gql`
   }
 }
     `;
-export const UpdatePageDocument = gql`
-    mutation UpdatePage($locale: I18NLocaleCode!, $id: ID!, $data: PageInput!) {
-  updatePage(id: $id, locale: $locale, data: $data) {
-    data {
-      id
-    }
-  }
-}
-    `;
 export const AllNewsPagesDocument = gql`
     query AllNewsPages($locale: I18NLocaleCode!) {
   pages(
@@ -4096,24 +4073,6 @@ export const CreateEnLocalizationNoticeDocument = gql`
   }
 }
     `;
-export const UpdateNoticeDocument = gql`
-    mutation UpdateNotice($data: NoticeInput!, $id: ID!, $locale: I18NLocaleCode!) {
-  updateNotice(id: $id, data: $data, locale: $locale) {
-    data {
-      id
-    }
-  }
-}
-    `;
-export const UpdateBlogPostDocument = gql`
-    mutation UpdateBlogPost($data: BlogPostInput!, $id: ID!, $locale: I18NLocaleCode!) {
-  updateBlogPost(id: $id, data: $data, locale: $locale) {
-    data {
-      id
-    }
-  }
-}
-    `;
 export const NoticeByIdDocument = gql`
     query NoticeById($id: ID!) {
   notice(id: $id) {
@@ -4144,6 +4103,42 @@ export const NoticeBySlugDocument = gql`
   }
 }
     `;
+export const UpdatePageDocument = gql`
+    mutation UpdatePage($data: PageInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updatePage(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const UpdateEventDocument = gql`
+    mutation UpdateEvent($data: EventInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateEvent(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const UpdateNoticeDocument = gql`
+    mutation UpdateNotice($data: NoticeInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateNotice(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const UpdateBlogPostDocument = gql`
+    mutation UpdateBlogPost($data: BlogPostInput!, $id: ID!, $locale: I18NLocaleCode!) {
+  updateBlogPost(id: $id, locale: $locale, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -4158,8 +4153,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     EventsWithNoSlug(variables: EventsWithNoSlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsWithNoSlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EventsWithNoSlugQuery>(EventsWithNoSlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'EventsWithNoSlug', 'query');
     },
-    UpdateEvent(variables: UpdateEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateEventMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateEventMutation>(UpdateEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateEvent', 'mutation');
+    UpdateEventNewSlug(variables: UpdateEventNewSlugMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateEventNewSlugMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateEventNewSlugMutation>(UpdateEventNewSlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateEventNewSlug', 'mutation');
     },
     EventsBySlug(variables?: EventsBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EventsBySlugQuery>(EventsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'EventsBySlug', 'query');
@@ -4185,9 +4180,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     UpdateMediaCaptionAndAlt(variables: UpdateMediaCaptionAndAltMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateMediaCaptionAndAltMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateMediaCaptionAndAltMutation>(UpdateMediaCaptionAndAltDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateMediaCaptionAndAlt', 'mutation');
     },
-    UpdatePage(variables: UpdatePageMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageMutation>(UpdatePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePage', 'mutation');
-    },
     AllNewsPages(variables: AllNewsPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllNewsPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllNewsPagesQuery>(AllNewsPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllNewsPages', 'query');
     },
@@ -4203,17 +4195,23 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     CreateEnLocalizationNotice(variables: CreateEnLocalizationNoticeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateEnLocalizationNoticeMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateEnLocalizationNoticeMutation>(CreateEnLocalizationNoticeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateEnLocalizationNotice', 'mutation');
     },
-    UpdateNotice(variables: UpdateNoticeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateNoticeMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateNoticeMutation>(UpdateNoticeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateNotice', 'mutation');
-    },
-    UpdateBlogPost(variables: UpdateBlogPostMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateBlogPostMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateBlogPostMutation>(UpdateBlogPostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBlogPost', 'mutation');
-    },
     NoticeById(variables: NoticeByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NoticeByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<NoticeByIdQuery>(NoticeByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'NoticeById', 'query');
     },
     NoticeBySlug(variables: NoticeBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NoticeBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<NoticeBySlugQuery>(NoticeBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'NoticeBySlug', 'query');
+    },
+    UpdatePage(variables: UpdatePageMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageMutation>(UpdatePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePage', 'mutation');
+    },
+    UpdateEvent(variables: UpdateEventMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateEventMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateEventMutation>(UpdateEventDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateEvent', 'mutation');
+    },
+    UpdateNotice(variables: UpdateNoticeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateNoticeMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateNoticeMutation>(UpdateNoticeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateNotice', 'mutation');
+    },
+    UpdateBlogPost(variables: UpdateBlogPostMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateBlogPostMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateBlogPostMutation>(UpdateBlogPostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBlogPost', 'mutation');
     }
   };
 }

@@ -513,6 +513,45 @@ input ComponentBlocksExternalLinkInput {
   url: String
 }
 
+type ComponentBlocksFileItem {
+  attachment: UploadFileEntityResponse!
+  id: ID!
+  name: String
+}
+
+input ComponentBlocksFileItemFiltersInput {
+  and: [ComponentBlocksFileItemFiltersInput]
+  name: StringFilterInput
+  not: ComponentBlocksFileItemFiltersInput
+  or: [ComponentBlocksFileItemFiltersInput]
+}
+
+input ComponentBlocksFileItemInput {
+  attachment: ID
+  id: ID
+  name: String
+}
+
+type ComponentBlocksNoticeFiles {
+  files(filters: ComponentBlocksFileItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksFileItem]
+  id: ID!
+  title: String
+}
+
+input ComponentBlocksNoticeFilesFiltersInput {
+  and: [ComponentBlocksNoticeFilesFiltersInput]
+  files: ComponentBlocksFileItemFiltersInput
+  not: ComponentBlocksNoticeFilesFiltersInput
+  or: [ComponentBlocksNoticeFilesFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentBlocksNoticeFilesInput {
+  files: [ComponentBlocksFileItemInput]
+  id: ID
+  title: String
+}
+
 type ComponentBlocksOpeningHours {
   days(filters: ComponentBlocksOpeningHoursItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksOpeningHoursItem]!
   id: ID!
@@ -1211,6 +1250,20 @@ input ComponentSectionsAccordionInput {
   title: String
 }
 
+type ComponentSectionsBlogPostsListing {
+  id: ID!
+}
+
+input ComponentSectionsBlogPostsListingFiltersInput {
+  and: [ComponentSectionsBlogPostsListingFiltersInput]
+  not: ComponentSectionsBlogPostsListingFiltersInput
+  or: [ComponentSectionsBlogPostsListingFiltersInput]
+}
+
+input ComponentSectionsBlogPostsListingInput {
+  id: ID
+}
+
 type ComponentSectionsColumnedText {
   content: String
   id: ID!
@@ -1253,19 +1306,16 @@ input ComponentSectionsCtaInput {
 
 type ComponentSectionsDivider {
   id: ID!
-  shown: Boolean
 }
 
 input ComponentSectionsDividerFiltersInput {
   and: [ComponentSectionsDividerFiltersInput]
   not: ComponentSectionsDividerFiltersInput
   or: [ComponentSectionsDividerFiltersInput]
-  shown: BooleanFilterInput
 }
 
 input ComponentSectionsDividerInput {
   id: ID
-  shown: Boolean
 }
 
 type ComponentSectionsDocuments {
@@ -1289,6 +1339,34 @@ input ComponentSectionsDocumentsInput {
   id: ID
   moreLink: [ComponentBlocksPageLinkInput]
   title: String
+}
+
+type ComponentSectionsDocumentsListing {
+  id: ID!
+}
+
+input ComponentSectionsDocumentsListingFiltersInput {
+  and: [ComponentSectionsDocumentsListingFiltersInput]
+  not: ComponentSectionsDocumentsListingFiltersInput
+  or: [ComponentSectionsDocumentsListingFiltersInput]
+}
+
+input ComponentSectionsDocumentsListingInput {
+  id: ID
+}
+
+type ComponentSectionsEventsListing {
+  id: ID!
+}
+
+input ComponentSectionsEventsListingFiltersInput {
+  and: [ComponentSectionsEventsListingFiltersInput]
+  not: ComponentSectionsEventsListingFiltersInput
+  or: [ComponentSectionsEventsListingFiltersInput]
+}
+
+input ComponentSectionsEventsListingInput {
+  id: ID
 }
 
 type ComponentSectionsExternalLinks {
@@ -1337,13 +1415,11 @@ input ComponentSectionsFaqInput {
 type ComponentSectionsFlatText {
   content: String
   id: ID!
-  media: UploadFileEntityResponse
 }
 
 type ComponentSectionsFlatTextCenter {
   content: String
   id: ID!
-  image: UploadFileEntityResponse
 }
 
 input ComponentSectionsFlatTextCenterFiltersInput {
@@ -1356,7 +1432,6 @@ input ComponentSectionsFlatTextCenterFiltersInput {
 input ComponentSectionsFlatTextCenterInput {
   content: String
   id: ID
-  image: ID
 }
 
 input ComponentSectionsFlatTextFiltersInput {
@@ -1369,7 +1444,6 @@ input ComponentSectionsFlatTextFiltersInput {
 input ComponentSectionsFlatTextInput {
   content: String
   id: ID
-  media: ID
 }
 
 type ComponentSectionsForm {
@@ -1426,23 +1500,46 @@ input ComponentSectionsMapInput {
   title: String
 }
 
-type ComponentSectionsParnters {
+type ComponentSectionsNewBooksListing {
   id: ID!
-  image: UploadFileEntityResponse
-  title: String
 }
 
-input ComponentSectionsParntersFiltersInput {
-  and: [ComponentSectionsParntersFiltersInput]
-  not: ComponentSectionsParntersFiltersInput
-  or: [ComponentSectionsParntersFiltersInput]
-  title: StringFilterInput
+input ComponentSectionsNewBooksListingFiltersInput {
+  and: [ComponentSectionsNewBooksListingFiltersInput]
+  not: ComponentSectionsNewBooksListingFiltersInput
+  or: [ComponentSectionsNewBooksListingFiltersInput]
 }
 
-input ComponentSectionsParntersInput {
+input ComponentSectionsNewBooksListingInput {
   id: ID
-  image: ID
-  title: String
+}
+
+type ComponentSectionsNewsListing {
+  id: ID!
+}
+
+input ComponentSectionsNewsListingFiltersInput {
+  and: [ComponentSectionsNewsListingFiltersInput]
+  not: ComponentSectionsNewsListingFiltersInput
+  or: [ComponentSectionsNewsListingFiltersInput]
+}
+
+input ComponentSectionsNewsListingInput {
+  id: ID
+}
+
+type ComponentSectionsPartners {
+  id: ID!
+}
+
+input ComponentSectionsPartnersFiltersInput {
+  and: [ComponentSectionsPartnersFiltersInput]
+  not: ComponentSectionsPartnersFiltersInput
+  or: [ComponentSectionsPartnersFiltersInput]
+}
+
+input ComponentSectionsPartnersInput {
+  id: ID
 }
 
 type ComponentSectionsRental {
@@ -1717,17 +1814,9 @@ enum ENUM_COMPONENTSECTIONSFORM_TYPE {
 }
 
 enum ENUM_PAGE_LAYOUT {
-  blog_posts
-  book_news
   content_with_sidebar
-  documents
-  event
-  eventsListing
   full_content
   listing
-  news
-  newsListing
-  partners
   sublisting
 }
 
@@ -2088,7 +2177,7 @@ type FooterRelationResponseCollection {
   data: [FooterEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsParnters | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | ComponentSeoSeo | Event | EventCategory | EventSubscription | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   Seo: ComponentSeoSeo
@@ -2457,10 +2546,16 @@ type Mutation {
 }
 
 type Notice {
+  body: String
   createdAt: DateTime
+  dateAdded: Date
+  documents: ComponentSectionsDocuments
+  listingImage(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   locale: String
   localizations(filters: NoticeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NoticeRelationResponseCollection
+  promoted: Boolean
   publishedAt: DateTime
+  seo: ComponentSeoSeo
   slug: String!
   title: String!
   updatedAt: DateTime
@@ -2482,20 +2577,31 @@ type NoticeEntityResponseCollection {
 
 input NoticeFiltersInput {
   and: [NoticeFiltersInput]
+  body: StringFilterInput
   createdAt: DateTimeFilterInput
+  dateAdded: DateFilterInput
+  documents: ComponentSectionsDocumentsFiltersInput
   id: IDFilterInput
   locale: StringFilterInput
   localizations: NoticeFiltersInput
   not: NoticeFiltersInput
   or: [NoticeFiltersInput]
+  promoted: BooleanFilterInput
   publishedAt: DateTimeFilterInput
+  seo: ComponentSeoSeoFiltersInput
   slug: StringFilterInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
 input NoticeInput {
+  body: String
+  dateAdded: Date
+  documents: ComponentSectionsDocumentsInput
+  listingImage: [ID]
+  promoted: Boolean
   publishedAt: DateTime
+  seo: ComponentSeoSeoInput
   slug: String
   title: String
 }
@@ -2508,14 +2614,12 @@ type Page {
   Seo: ComponentSeoSeo
   branchesServicesTo(filters: BranchFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BranchRelationResponseCollection
   createdAt: DateTime
-  date_added: Date
-  description: String
   layout: ENUM_PAGE_LAYOUT
   listingImage: UploadFileEntityResponse
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   pageCategory: CategoryEntityResponse
-  promoted: Boolean
+  perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
   slug: String!
@@ -2542,8 +2646,6 @@ input PageFiltersInput {
   and: [PageFiltersInput]
   branchesServicesTo: BranchFiltersInput
   createdAt: DateTimeFilterInput
-  date_added: DateFilterInput
-  description: StringFilterInput
   id: IDFilterInput
   layout: StringFilterInput
   locale: StringFilterInput
@@ -2551,7 +2653,7 @@ input PageFiltersInput {
   not: PageFiltersInput
   or: [PageFiltersInput]
   pageCategory: CategoryFiltersInput
-  promoted: BooleanFilterInput
+  perex: StringFilterInput
   publishedAt: DateTimeFilterInput
   slug: StringFilterInput
   title: StringFilterInput
@@ -2561,12 +2663,10 @@ input PageFiltersInput {
 input PageInput {
   Seo: ComponentSeoSeoInput
   branchesServicesTo: [ID]
-  date_added: Date
-  description: String
   layout: ENUM_PAGE_LAYOUT
   listingImage: ID
   pageCategory: ID
-  promoted: Boolean
+  perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
   slug: String
@@ -2577,7 +2677,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 
