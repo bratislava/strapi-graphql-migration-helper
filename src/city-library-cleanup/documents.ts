@@ -4,17 +4,12 @@ import {
   DocumentInput,
   Enum_Disclosure_Type,
 } from '../graphql/city-library-localhost';
-import slugify = require('@sindresorhus/slugify');
-
-export function mySlugify(string: string) {
-  return slugify(string, {
-    customReplacements: [
-      ['ä', 'a'],
-      ['ö', 'o'],
-      ['ü', 'u'],
-    ],
-  });
-}
+import {
+  isUniqueSlug,
+  mySlugify,
+  parseFakturyTitle,
+  parseObjednavkyTitle,
+} from './documents-helpers';
 
 const disclosureCategories = [
   'faktury',
@@ -62,92 +57,6 @@ async function documentCategories() {
   }
 }
 
-function parseFakturyTitle(tmpTitle: string) {
-  tmpTitle = tmpTitle
-    .replace(/\s\s+/g, ' ')
-    .replace(/(faktúra|faktúry|faktura|faktury|fa)/i, 'faktúry')
-    .replace(/(prijaté|prijate)/i, 'prijaté')
-    .replace(/(prijaté faktúry|faktúry prijaté)/i, 'Faktúry prijaté')
-    .replace(/(odoslané|odoslane)/i, 'odoslané')
-    .replace(/(odoslané faktúry|faktúry odoslané)/i, 'Faktúry odoslané')
-    .replace(/(faktúry)/i, 'Faktúry');
-  let datePart =
-    tmpTitle.startsWith('Faktúry prijaté') ||
-    tmpTitle.startsWith('Faktúry odoslané')
-      ? tmpTitle.split(' ').slice(2).join(' ')
-      : tmpTitle.split(' ').slice(1).join(' ');
-  const titlePart =
-    tmpTitle.startsWith('Faktúry prijaté') ||
-    tmpTitle.startsWith('Faktúry odoslané')
-      ? tmpTitle.split(' ').slice(0, 2).join(' ')
-      : tmpTitle.split(' ').slice(0, 1).join(' ');
-  datePart = datePart
-    .replace(/(_)/gi, '.')
-    .replace(/(január|januar|jan)/gi, '1/')
-    // .replace(/^(^1\/|za 1\/)/gi, 'január ')
-    .replace(/(február|februar|feb)/gi, '2/')
-    // .replace(/^(^2\/|za 2\/)/gi, 'február ')
-    .replace(/(marec|mar)/gi, '3/')
-    // .replace(/^(3\/|za 3\/)/gi, 'marec ')
-    .replace(/(apríl|april|apr)/gi, '4/')
-    // .replace(/^(4\/|za 4\/)/gi, 'apríl ')
-    .replace(/(máj|maj)/gi, '5/')
-    // .replace(/^(5\/|za 5\/)/gi, 'máj ')
-    .replace(/(jún|jun)/gi, '6/')
-    // .replace(/^(6\/|za 6\/)/gi, 'jún ')
-    .replace(/(júl|jul)/gi, '7/')
-    // .replace(/^(7\/|za 7\/)/gi, 'júl ')
-    .replace(/(august|aug)/gi, '8/')
-    // .replace(/^(8\/|za 8\/)/gi, 'august ')
-    .replace(/(september|sep)/gi, '9/')
-    // .replace(/^(9\/|za 9\/)/gi, 'september ')
-    .replace(/(október|oktober|okt)/gi, '10/')
-    // .replace(/^(10\/|za 10\/)/gi, 'október ')
-    .replace(/(november|nov)/gi, '11/')
-    // .replace(/^(11\/|za 11\/)/gi, 'november ')
-    .replace(/(december|dec)/gi, '12/')
-    // .replace(/^(12\/|za 12\/)/gi, 'december ')
-    .replace(/\/ /gi, '/')
-    .replace(/\./gi, ' ')
-    .replace(/\s\s+/gi, ' ');
-
-  if (datePart.match(/^\d/g)) {
-    datePart = datePart.split(' ').join('. ');
-    // } else {
-    //   datePart = '- ' + datePart;
-  }
-  return {title: `${titlePart} ${datePart}`, datePart: datePart};
-}
-
-function parseObjednavkyTitle(tmpTitle: string) {
-  tmpTitle = tmpTitle
-    .replace(
-      /(objednavky|objednávky|objednávka|objednavka|objed\.|objed|objd\.|objd|obj\.|obj)/i,
-      'Objednávky '
-    )
-    .replace(/\s\s+/g, ' ')
-    .replace(/(január|januar|jan) /gi, '1/')
-    .replace(/(február|februar|feb)/gi, '2/')
-    .replace(/(marec|mar)/gi, '3/')
-    .replace(/(apríl|april|apr)/gi, '4/')
-    .replace(/(máj|maj)/gi, '5/')
-    .replace(/(jún|jun)/gi, '6/')
-    .replace(/(júl|jul)/gi, '7/')
-    .replace(/(august|aug)/gi, '8/')
-    .replace(/(september|sep)/gi, '9/')
-    .replace(/(október|oktober|okt)/gi, '10/')
-    .replace(/(november|nov)/gi, '11/')
-    .replace(/(december|dec)/gi, '12/')
-    .replace(/(\/ )/gi, '/');
-  // .replace(/(prijaté|prijate)/i, 'prijaté')
-  // .replace(/(prijaté faktúry|faktúry prijaté)/i, 'Faktúry prijaté')
-  // .replace(/(odoslané|odoslane)/i, 'odoslané')
-  // .replace(/(odoslané faktúry|faktúry odoslané)/i, 'Faktúry odoslané')
-  // .replace(/(faktúry)/i, 'Faktúry');
-
-  return tmpTitle;
-}
-
 async function documents() {
   const {documentCategories} = await localhostClient.AllDocumentCategories();
   const categoryMap = new Map<string, string>();
@@ -156,19 +65,10 @@ async function documents() {
   });
 
   const {basicDocuments} = await stagingClient.AllBasicDocuments({
-    categorySlugs: ['objednavky'],
+    categorySlugs: otherCategories,
   });
 
-  console.log('Fetched docmuents count:', basicDocuments.data.length);
-  // Check if there are any duplicate attachments for Faktury - none found
-  // const fakturyAttachments = basicDocuments.data
-  //   .filter(
-  //     doc => doc.attributes.file_category.data.attributes.slug === 'faktury'
-  //   )
-  //   .map(doc => doc.attributes.attachment.data?.id)
-  //   .filter(Boolean);
-  // const fakturyAttachmentsSet = new Set(fakturyAttachments);
-  // console.log(fakturyAttachmentsSet.size, fakturyAttachments.length);
+  console.log('Fetched documents count:', basicDocuments.data.length);
 
   for (const doc of basicDocuments.data) {
     const {
@@ -189,6 +89,11 @@ async function documents() {
       ? date_added + publishedAt.slice(10)
       : publishedAt;
     const fileId = attachment.data?.id;
+    const fileName = attachment.data?.attributes?.name;
+
+    if (!fileId) {
+      await stagingClient.UnpublishBasicDocument({id: doc.id});
+    }
 
     // if (date_added === '1970-01-01') {
     //   console.log(doc.id, title, 'date_added'); // none found
@@ -230,17 +135,32 @@ async function documents() {
         console.log(doc.id, title);
       }
 
+      isUniqueSlug(oldSlug, doc.id); // manually fixed by unpublishing or renaming duplicates
+      // checkForUniqueFile(fileId, doc.id); // manually fixed by unpublishing or renaming duplicates
+
       const data = {
         title,
-        slug: mySlugify(title),
+        slug: oldSlug,
         originalTitle: oldTitle,
-        originalSlug: oldSlug,
         description,
         publishedAt,
         addedAt,
         file: fileId,
         documentCategory: categoryMap.get(category.slug),
       } as DocumentInput;
+
+      const {documents: docsTmp} = await localhostClient.DocumentBySlug({
+        slug: oldSlug,
+      });
+      const docLocal = docsTmp.data[0];
+      if (docLocal) {
+        try {
+          await localhostClient.UpdateDocument({id: docLocal.id, data});
+        } catch (e) {
+          console.log(e.response.errors[0].message, e.request.variables);
+        }
+      }
+
       // Uncomment this to migrate documents (not disclosures)
       // try {
       //   await localhostClient.CreateDocument({data});
@@ -274,66 +194,36 @@ async function documents() {
       meta = null;
     }
 
-    // Then check for other incorrect metadata - none found
-    if (
-      meta &&
-      ((category.slug === 'faktury' &&
-        meta.__typename !== 'ComponentMetadataFaktury') ||
-        (category.slug === 'zmluvy' &&
-          meta.__typename !== 'ComponentMetadataZmluvy') ||
-        (category.slug === 'objednavky' &&
-          meta.__typename !== 'ComponentMetadataObjednavky') ||
-        (category.slug === 'verejne-obstaravanie' &&
-          meta.__typename !== 'ComponentMetadataVerejneObstaravanie') ||
-        (category.slug === 'obchodna-verejna-sutaz' &&
-          meta.__typename !== 'ComponentMetadataObchodnaVerejnaSutaz') ||
-        (category.slug === 'granty' &&
-          meta.__typename !== 'ComponentMetadataMetadata'))
-    ) {
-      console.log(doc.id, title, 'wrong metadata');
-    }
-
     if (category.slug === 'faktury') {
-      continue;
-      // if (!meta) {
-      //   // console.log(doc.id, title, 'no metadata');
-      // } else if (meta.__typename === 'ComponentMetadataFaktury') {
-      //   // if (meta.attachment.data?.id !== fileId) {
-      //   //   console.log(doc.id, title, 'different attachment'); // none found
-      //   }
-      //   // if (meta.name?.trim() !== title) {
-      //   //   console.log(doc.id, title, meta.name?.trim()); // ignore, just diacritics
-      //   // }
-      //   // if (meta.date !== date_added) {
-      //   //   console.log(doc.id, title, '|', meta.date, date_added); // ignore, use date_added
-      //   // }
-      // }
-      // if (titlePart === 'Faktúry') {
-      //   console.log(doc.id, [titlePart, datePart].join(' '));
-      // }
-
       const originalTitle = title;
       const {title: parsedTitle, datePart} = parseFakturyTitle(title);
       title = parsedTitle;
-      const period = datePart;
       description = null;
 
       // if (!title.match(/(Faktúry prijaté|Faktúry odoslané) \d{1,2}\/\d{4}/gi)) {
       //   console.log(doc.id, title);
       // }
 
+      // checkForUniqueSlug(mySlugify(title), doc.id); // manually fixed by unpublishing or renaming duplicates
+      // checkForUniqueFile(fileId, doc.id); // manually fixed by unpublishing or renaming duplicates
+
       const data = {
+        type: Enum_Disclosure_Type.Faktury,
         title,
         slug: mySlugify(title),
         originalTitle,
         originalSlug: oldSlug,
-        description,
-        publishedAt,
         addedAt,
         file: fileId,
-        period,
       } as DisclosureInput;
-      // console.log(doc.id, [titlePart, datePart].join(' '));
+
+      // try {
+      //   await localhostClient.CreateDisclosure({data});
+      // } catch (e) {
+      //   console.log(e.response.errors[0].message, e.request.variables);
+      // }
+
+      // console.log(data);
     }
 
     if (category.slug === 'objednavky') {
@@ -347,6 +237,18 @@ async function documents() {
       title = parseObjednavkyTitle(title);
       // console.log(doc.id, title);
       description = null;
+
+      // if (!isUniqueSlug(mySlugify(title), doc.id)) {
+      //   const updatedTitle = `${oldTitle}a`;
+      //   console.log(doc.id, title, updatedTitle);
+      //   // const {updateBasicDocument} =
+      //   //   await stagingClient.UpdateBasicDocumentTitle({
+      //   //     title: updatedTitle,
+      //   //     id: doc.id,
+      //   //   });
+      //   // console.log(doc.id, title, updateBasicDocument.data.attributes.title);
+      // } // manually fixed by unpublishing or renaming duplicates
+      // checkForUniqueFile(fileId, doc.id); // manually fixed by unpublishing or renaming duplicates
 
       const data = {
         type: Enum_Disclosure_Type.Objednavky,
@@ -364,7 +266,7 @@ async function documents() {
       //   console.log(e.response.errors[0].message, e.request.variables);
       // }
 
-      console.log(data.slug);
+      // console.log(data);
     }
 
     if (category.slug === 'zmluvy') {
@@ -372,41 +274,33 @@ async function documents() {
       if (meta && meta.__typename === 'ComponentMetadataZmluvy') {
         meta.amount = meta.amount.trim().replace(/,/g, '.').replace(/ /g, '');
         const amount = meta.amount !== '0' ? parseFloat(meta.amount) : null;
-        description = meta.subject?.trim() || description;
-        if (!meta.subject?.trim() && description) {
-          console.log(doc.id, title, description);
-        }
-        // if (meta.date !== date_added) {
-        //   console.log(doc.id, title, '|', meta.date, date_added); // ignore, use date_added
+        description = meta.subject?.trim() || description || null;
+        // if (!meta.subject?.trim() && description) {
+        //   console.log(doc.id, title, description);
         // }
-        // if (meta.type) {
-        //   console.log(doc.id, title, meta.type); // none found
-        // }
-        // if (!meta.supplier) {
-        //   console.log(doc.id, 'no supplier', title); // few, need to fix
-        // }
-        // if (!meta.subject) {
-        //   console.log(doc.id, 'no subject', title); // a lot
-        // }
-        // if (!meta.number) {
-        //   console.log(doc.id, 'no id number', title); // a bunch, need to fix
-        // }
-        // if (!meta.amount) {
-        //   console.log(doc.id, 'no amount', title); // 1, fixed
-        // }
-        // if (!amount) {
-        //   console.log(doc.id, amount, title); // a lot
-        // }
+        const contractor = meta.supplier?.trim();
+        const idNumber = meta.number?.trim();
+
+        // isUniqueSlug(oldSlug, doc.id); // manually fixed by unpublishing or renaming duplicates
+        // checkForUniqueFile(fileId, doc.id); // manually fixed by unpublishing or renaming duplicates
+
         const data = {
+          type: Enum_Disclosure_Type.Zmluva,
           title,
-          slug: mySlugify(title),
-          originalSlug: oldSlug,
+          slug: oldSlug,
           description,
-          publishedAt,
           addedAt,
           file: fileId,
           amount,
+          contractor,
+          idNumber,
         } as DisclosureInput;
+
+        // try {
+        //   await localhostClient.CreateDisclosure({data});
+        // } catch (e) {
+        //   console.log(e.response.errors[0].message, e.request.variables);
+        // }
       }
     }
 
@@ -415,14 +309,20 @@ async function documents() {
       //   console.log(doc.id, title); // none found, weird
       // }
       const data = {
+        type: Enum_Disclosure_Type.VerejneObstaravanie,
         title,
-        slug: mySlugify(title),
+        slug: oldSlug,
         originalSlug: oldSlug,
-        description,
-        publishedAt,
+        description: description?.trim() || null,
         addedAt,
         file: fileId,
       } as DisclosureInput;
+
+      // try {
+      //   await localhostClient.CreateDisclosure({data});
+      // } catch (e) {
+      //   console.log(e.response.errors[0].message, e.request.variables);
+      // }
     }
 
     if (category.slug === 'obchodna-verejna-sutaz') {
@@ -430,29 +330,68 @@ async function documents() {
       //   console.log(doc.id, title); // none found
       // }
       const data = {
+        type: Enum_Disclosure_Type.ObchodnaVerejnaSutaz,
         title,
-        slug: mySlugify(title),
-        originalSlug: oldSlug,
-        description,
-        publishedAt,
+        slug: oldSlug,
+        description: description?.trim() || null,
         addedAt,
         file: fileId,
       } as DisclosureInput;
+
+      // console.log(data);
+
+      // try {
+      //   await localhostClient.CreateDisclosure({data});
+      // } catch (e) {
+      //   console.log(e.response.errors[0].message, e.request.variables);
+      // }
     }
+
     if (category.slug === 'granty') {
       // console.log(doc.id, title);
-      if (meta && meta.__typename === 'ComponentMetadataMetadata') {
-        console.log(doc.id, title); // none found
-      }
+      // if (meta && meta.__typename === 'ComponentMetadataMetadata') {
+      //   console.log(doc.id, title); // none found
+      // }
       const data = {
+        type: Enum_Disclosure_Type.Grant,
         title,
         slug: mySlugify(title),
         originalSlug: oldSlug,
         description,
-        publishedAt,
         addedAt,
         file: fileId,
       } as DisclosureInput;
+
+      // console.log(data);
+
+      try {
+        await localhostClient.CreateDisclosure({data});
+      } catch (e) {
+        console.log(e.response.errors[0].message, e.request.variables);
+      }
+    }
+
+    if (category.slug === 'ostatne') {
+      // console.log(doc.id, title);
+      // if (meta && meta.__typename === 'ComponentMetadataMetadata') {
+      //   console.log(doc.id, title); // none found
+      // }
+      const data = {
+        type: Enum_Disclosure_Type.Ostatne,
+        title,
+        slug: oldSlug,
+        description: description?.trim() || null,
+        addedAt,
+        file: fileId,
+      } as DisclosureInput;
+
+      // console.log(data);
+
+      // try {
+      //   await localhostClient.CreateDisclosure({data});
+      // } catch (e) {
+      //   console.log(e.response.errors[0].message, e.request.variables);
+      // }
     }
   }
 }
@@ -460,9 +399,42 @@ async function documents() {
 // documentCategories();
 // documents();
 
-function tmp() {
-  console.log(slugify('a'));
-  console.log(slugify('a'));
+// async function removeDisclosuresWithoutFile() {
+//   const {disclosures} = await localhostClient.AllDisclosures();
+//   for (const disclosure of disclosures.data) {
+//     if (!disclosure.attributes.file.data) {
+//       console.log(disclosure.id, disclosure.attributes.slug);
+//       await localhostClient.DeleteDisclosure({id: disclosure.id});
+//     }
+//   }
+// }
+//
+// removeDisclosuresWithoutFile();
+
+async function cleanupTitleSlug() {
+  const {disclosures} = await localhostClient.AllDisclosures();
+
+  for (const doc of disclosures.data) {
+    // if (doc.attributes.title === doc.attributes.originalTitle?.trim()) {
+    //   newTitle = null;
+    // }
+    // if (doc.attributes.slug === doc.attributes.originalSlug?.trim()) {
+    //   newSlug = null;
+    // }
+    await localhostClient.UpdateDisclosure({
+      id: doc.id,
+      data: {
+        originalTitle:
+          doc.attributes.title === doc.attributes.originalTitle?.trim()
+            ? null
+            : doc.attributes.originalTitle,
+        originalSlug:
+          doc.attributes.slug === doc.attributes.originalSlug?.trim()
+            ? null
+            : doc.attributes.originalSlug,
+      } as DocumentInput,
+    });
+  }
 }
 
-tmp();
+cleanupTitleSlug();

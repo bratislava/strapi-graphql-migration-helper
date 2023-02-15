@@ -213,13 +213,81 @@ mutation CreateDisclosure($data: DisclosureInput!) {
   }
 }
 
-mutation UpdatePageSlug($id: ID!,$newSlug: String!) {
+mutation UpdatePageSlug($id: ID!, $newSlug: String!) {
   updatePage(id: $id, data: {newSlug: $newSlug}) {
     data {
       id
       attributes {
         slug
         newSlug
+      }
+    }
+  }
+}
+
+mutation DeleteDisclosure($id: ID!) {
+  deleteDisclosure(id: $id) {
+    data {
+      id
+    }
+  }
+}
+query AllDisclosures {
+  disclosures(pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        originalTitle
+        originalSlug
+        file {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+
+
+mutation UpdateDisclosure($id: ID!, $data: DisclosureInput!) {
+  updateDisclosure(id: $id, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation UpdateDocument($id: ID!, $data: DocumentInput!) {
+  updateDocument(id: $id, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+query DocumentBySlug($slug: String!) {
+  documents(filters: {slug: {eq: $slug}}) {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
+
+query AllDocuments {
+  documents(pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        originalTitle
+        originalSlug
       }
     }
   }

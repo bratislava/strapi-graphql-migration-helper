@@ -227,6 +227,9 @@ query AllBasicDocuments($categorySlugs: [String]) {
         attachment {
           data {
             id
+            attributes {
+              name
+            }
           }
         }
         file_category {
@@ -310,6 +313,28 @@ mutation UpdatePageSlug($id: ID!,$newSlug: String!) {
       attributes {
         slug
         newSlug
+      }
+    }
+  }
+}
+
+mutation UpdateBasicDocumentTitle($id: ID!, $title: String!) {
+  updateBasicDocument(id: $id, data: {title: $title}) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+mutation UnpublishBasicDocument($id: ID!) {
+  updateBasicDocument(id: $id, data: {publishedAt: null}) {
+    data {
+      id
+      attributes {
+        title
       }
     }
   }

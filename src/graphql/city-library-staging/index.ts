@@ -4806,7 +4806,7 @@ export type AllBasicDocumentsQueryVariables = Exact<{
 }>;
 
 
-export type AllBasicDocumentsQuery = { __typename?: 'Query', basicDocuments?: { __typename?: 'BasicDocumentEntityResponseCollection', data: Array<{ __typename: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', slug: string, title: string, description?: string | null, date_added?: any | null, publishedAt?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null, file_category?: { __typename?: 'FileCategoryEntityResponse', data?: { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', slug?: string | null } | null } | null } | null, metadata?: Array<{ __typename: 'ComponentMetadataFaktury', name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataMetadata', provider?: string | null, year?: number | null, description?: string | null, grant_name?: string | null, grant_number?: string | null, amount?: string | null } | { __typename: 'ComponentMetadataObchodnaVerejnaSutaz', date_added?: any | null, description?: string | null, number?: string | null, subject?: string | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataObjednavky', title?: string | null, date_added?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataVerejneObstaravanie', date_added?: any | null, description?: string | null, number?: string | null, subject?: string | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataZmluvy', date?: any | null, type?: string | null, number?: string | null, supplier?: string | null, subject?: string | null, amount?: string | null } | { __typename: 'Error' } | null> | null } | null }> } | null };
+export type AllBasicDocumentsQuery = { __typename?: 'Query', basicDocuments?: { __typename?: 'BasicDocumentEntityResponseCollection', data: Array<{ __typename: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', slug: string, title: string, description?: string | null, date_added?: any | null, publishedAt?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string } | null } | null } | null, file_category?: { __typename?: 'FileCategoryEntityResponse', data?: { __typename?: 'FileCategoryEntity', id?: string | null, attributes?: { __typename?: 'FileCategory', slug?: string | null } | null } | null } | null, metadata?: Array<{ __typename: 'ComponentMetadataFaktury', name?: string | null, date?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataMetadata', provider?: string | null, year?: number | null, description?: string | null, grant_name?: string | null, grant_number?: string | null, amount?: string | null } | { __typename: 'ComponentMetadataObchodnaVerejnaSutaz', date_added?: any | null, description?: string | null, number?: string | null, subject?: string | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataObjednavky', title?: string | null, date_added?: any | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataVerejneObstaravanie', date_added?: any | null, description?: string | null, number?: string | null, subject?: string | null, amount?: string | null, attachment?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | { __typename: 'ComponentMetadataZmluvy', date?: any | null, type?: string | null, number?: string | null, supplier?: string | null, subject?: string | null, amount?: string | null } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
 export type UpdatePageSlugMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -4815,6 +4815,21 @@ export type UpdatePageSlugMutationVariables = Exact<{
 
 
 export type UpdatePageSlugMutation = { __typename?: 'Mutation', updatePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug: string, newSlug: string } | null } | null } | null };
+
+export type UpdateBasicDocumentTitleMutationVariables = Exact<{
+  id: Scalars['ID'];
+  title: Scalars['String'];
+}>;
+
+
+export type UpdateBasicDocumentTitleMutation = { __typename?: 'Mutation', updateBasicDocument?: { __typename?: 'BasicDocumentEntityResponse', data?: { __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string } | null } | null } | null };
+
+export type UnpublishBasicDocumentMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type UnpublishBasicDocumentMutation = { __typename?: 'Mutation', updateBasicDocument?: { __typename?: 'BasicDocumentEntityResponse', data?: { __typename?: 'BasicDocumentEntity', id?: string | null, attributes?: { __typename?: 'BasicDocument', title: string } | null } | null } | null };
 
 export type AllPagesBySlugContainsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
@@ -5150,6 +5165,9 @@ export const AllBasicDocumentsDocument = gql`
         attachment {
           data {
             id
+            attributes {
+              name
+            }
           }
         }
         file_category {
@@ -5234,6 +5252,30 @@ export const UpdatePageSlugDocument = gql`
       attributes {
         slug
         newSlug
+      }
+    }
+  }
+}
+    `;
+export const UpdateBasicDocumentTitleDocument = gql`
+    mutation UpdateBasicDocumentTitle($id: ID!, $title: String!) {
+  updateBasicDocument(id: $id, data: {title: $title}) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+    `;
+export const UnpublishBasicDocumentDocument = gql`
+    mutation UnpublishBasicDocument($id: ID!) {
+  updateBasicDocument(id: $id, data: {publishedAt: null}) {
+    data {
+      id
+      attributes {
+        title
       }
     }
   }
@@ -5359,6 +5401,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     UpdatePageSlug(variables: UpdatePageSlugMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageSlugMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageSlugMutation>(UpdatePageSlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePageSlug', 'mutation');
+    },
+    UpdateBasicDocumentTitle(variables: UpdateBasicDocumentTitleMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateBasicDocumentTitleMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateBasicDocumentTitleMutation>(UpdateBasicDocumentTitleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBasicDocumentTitle', 'mutation');
+    },
+    UnpublishBasicDocument(variables: UnpublishBasicDocumentMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UnpublishBasicDocumentMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UnpublishBasicDocumentMutation>(UnpublishBasicDocumentDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UnpublishBasicDocument', 'mutation');
     },
     AllPagesBySlugContains(variables: AllPagesBySlugContainsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesBySlugContainsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllPagesBySlugContainsQuery>(AllPagesBySlugContainsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPagesBySlugContains', 'query');

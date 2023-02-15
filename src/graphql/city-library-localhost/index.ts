@@ -4116,6 +4116,46 @@ export type UpdatePageSlugMutationVariables = Exact<{
 
 export type UpdatePageSlugMutation = { __typename?: 'Mutation', updatePage?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug: string, newSlug: string } | null } | null } | null };
 
+export type DeleteDisclosureMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteDisclosureMutation = { __typename?: 'Mutation', deleteDisclosure?: { __typename?: 'DisclosureEntityResponse', data?: { __typename?: 'DisclosureEntity', id?: string | null } | null } | null };
+
+export type AllDisclosuresQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllDisclosuresQuery = { __typename?: 'Query', disclosures?: { __typename?: 'DisclosureEntityResponseCollection', data: Array<{ __typename?: 'DisclosureEntity', id?: string | null, attributes?: { __typename?: 'Disclosure', title: string, slug: string, originalTitle?: string | null, originalSlug?: string | null, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } } | null }> } | null };
+
+export type UpdateDisclosureMutationVariables = Exact<{
+  id: Scalars['ID'];
+  data: DisclosureInput;
+}>;
+
+
+export type UpdateDisclosureMutation = { __typename?: 'Mutation', updateDisclosure?: { __typename?: 'DisclosureEntityResponse', data?: { __typename?: 'DisclosureEntity', id?: string | null } | null } | null };
+
+export type UpdateDocumentMutationVariables = Exact<{
+  id: Scalars['ID'];
+  data: DocumentInput;
+}>;
+
+
+export type UpdateDocumentMutation = { __typename?: 'Mutation', updateDocument?: { __typename?: 'DocumentEntityResponse', data?: { __typename?: 'DocumentEntity', id?: string | null } | null } | null };
+
+export type DocumentBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type DocumentBySlugQuery = { __typename?: 'Query', documents?: { __typename?: 'DocumentEntityResponseCollection', data: Array<{ __typename?: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', slug: string } | null }> } | null };
+
+export type AllDocumentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllDocumentsQuery = { __typename?: 'Query', documents?: { __typename?: 'DocumentEntityResponseCollection', data: Array<{ __typename?: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, slug: string, originalTitle?: string | null, originalSlug?: string | null } | null }> } | null };
+
 export type CreateSkNoticeMutationVariables = Exact<{
   data: NoticeInput;
 }>;
@@ -4434,6 +4474,80 @@ export const UpdatePageSlugDocument = gql`
   }
 }
     `;
+export const DeleteDisclosureDocument = gql`
+    mutation DeleteDisclosure($id: ID!) {
+  deleteDisclosure(id: $id) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const AllDisclosuresDocument = gql`
+    query AllDisclosures {
+  disclosures(pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        originalTitle
+        originalSlug
+        file {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const UpdateDisclosureDocument = gql`
+    mutation UpdateDisclosure($id: ID!, $data: DisclosureInput!) {
+  updateDisclosure(id: $id, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const UpdateDocumentDocument = gql`
+    mutation UpdateDocument($id: ID!, $data: DocumentInput!) {
+  updateDocument(id: $id, data: $data) {
+    data {
+      id
+    }
+  }
+}
+    `;
+export const DocumentBySlugDocument = gql`
+    query DocumentBySlug($slug: String!) {
+  documents(filters: {slug: {eq: $slug}}) {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
+    `;
+export const AllDocumentsDocument = gql`
+    query AllDocuments {
+  documents(pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        originalTitle
+        originalSlug
+      }
+    }
+  }
+}
+    `;
 export const CreateSkNoticeDocument = gql`
     mutation CreateSkNotice($data: NoticeInput!) {
   createNotice(data: $data, locale: "sk") {
@@ -4585,6 +4699,24 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     UpdatePageSlug(variables: UpdatePageSlugMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdatePageSlugMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdatePageSlugMutation>(UpdatePageSlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdatePageSlug', 'mutation');
+    },
+    DeleteDisclosure(variables: DeleteDisclosureMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteDisclosureMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteDisclosureMutation>(DeleteDisclosureDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteDisclosure', 'mutation');
+    },
+    AllDisclosures(variables?: AllDisclosuresQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllDisclosuresQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllDisclosuresQuery>(AllDisclosuresDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllDisclosures', 'query');
+    },
+    UpdateDisclosure(variables: UpdateDisclosureMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateDisclosureMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateDisclosureMutation>(UpdateDisclosureDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateDisclosure', 'mutation');
+    },
+    UpdateDocument(variables: UpdateDocumentMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateDocumentMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateDocumentMutation>(UpdateDocumentDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateDocument', 'mutation');
+    },
+    DocumentBySlug(variables: DocumentBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DocumentBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DocumentBySlugQuery>(DocumentBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentBySlug', 'query');
+    },
+    AllDocuments(variables?: AllDocumentsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllDocumentsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllDocumentsQuery>(AllDocumentsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllDocuments', 'query');
     },
     CreateSkNotice(variables: CreateSkNoticeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateSkNoticeMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateSkNoticeMutation>(CreateSkNoticeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateSkNotice', 'mutation');
