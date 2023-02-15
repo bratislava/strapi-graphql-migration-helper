@@ -56,10 +56,10 @@ async function notices() {
 
       const {
         slug,
-        description,
-        promoted,
+        // description,
+        // promoted,
         title,
-        date_added,
+        // date_added,
         publishedAt,
         Seo,
         listingImage,

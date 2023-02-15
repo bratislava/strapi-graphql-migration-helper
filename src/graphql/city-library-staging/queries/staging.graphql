@@ -121,7 +121,7 @@ fragment PageForSections on Page {
       }
     }
   }
-  Seo {
+  seo {
     metaTitle
     metaDescription
     keywords
@@ -196,6 +196,121 @@ fragment PageForSections on Page {
     }
     ... on ComponentSectionsMap {
       title
+    }
+  }
+}
+
+query AllFileCategories {
+  fileCategories(pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        name
+        slug
+      }
+    }
+  }
+}
+
+
+query AllBasicDocuments($categorySlugs: [String]) {
+  basicDocuments(pagination: {start: 0, limit: -1}, filters: {file_category: {slug: {in: $categorySlugs}}}) {
+    data {
+      id
+      __typename
+      attributes {
+        slug
+        title
+        description
+        date_added
+        publishedAt
+        attachment {
+          data {
+            id
+          }
+        }
+        file_category {
+          data {
+            id
+            attributes {
+              slug
+            }
+          }
+        }
+        metadata {
+          __typename
+          ...on ComponentMetadataFaktury {
+            name
+            date
+            attachment {
+              data {
+                id
+              }
+            }
+          }
+          ...on ComponentMetadataObjednavky {
+            title
+            date_added
+            attachment {
+              data {
+                id
+              }
+            }
+          }
+          ...on ComponentMetadataZmluvy {
+            date
+            type
+            number
+            supplier
+            subject
+            amount
+          }
+          ...on ComponentMetadataObchodnaVerejnaSutaz {
+            date_added
+            description
+            number
+            subject
+            amount
+            attachment {
+              data {
+                id
+              }
+            }
+          }
+          ...on ComponentMetadataVerejneObstaravanie {
+            date_added
+            description
+            number
+            subject
+            amount
+            attachment {
+              data {
+                id
+              }
+            }
+          }
+          ...on ComponentMetadataMetadata {
+            provider
+            year
+            description
+            grant_name
+            grant_number
+            amount
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation UpdatePageSlug($id: ID!,$newSlug: String!) {
+  updatePage(id: $id, data: {newSlug: $newSlug}) {
+    data {
+      id
+      attributes {
+        slug
+        newSlug
+      }
     }
   }
 }

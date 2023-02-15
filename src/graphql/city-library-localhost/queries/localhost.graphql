@@ -169,3 +169,58 @@ query AllPagesSlugs($locale: I18NLocaleCode!) {
     }
   }
 }
+
+mutation CreateDocumentCategory($data: DocumentCategoryInput!) {
+  createDocumentCategory(data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+query AllDocumentCategories {
+  documentCategories(pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
+
+query DocumentCategoryBySlug($slug: String) {
+  documentCategories(filters: {slug: {eq: $slug}}) {
+    data {
+      id
+    }
+  }
+}
+
+mutation CreateDocument($data: DocumentInput!) {
+  createDocument(data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation CreateDisclosure($data: DisclosureInput!) {
+  createDisclosure(data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+mutation UpdatePageSlug($id: ID!,$newSlug: String!) {
+  updatePage(id: $id, data: {newSlug: $newSlug}) {
+    data {
+      id
+      attributes {
+        slug
+        newSlug
+      }
+    }
+  }
+}

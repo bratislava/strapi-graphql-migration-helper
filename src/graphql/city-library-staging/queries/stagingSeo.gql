@@ -1,4 +1,4 @@
-fragment Seo on ComponentSeoSeo {
+fragment Seo on ComponentCommonSeo {
   metaTitle
   metaDescription
   keywords
@@ -11,7 +11,7 @@ query AllPagesWithSeo($locale: I18NLocaleCode!) {
       attributes {
         slug
         title
-        Seo {
+        seo {
           ...Seo
         }
       }
@@ -26,7 +26,7 @@ query AllEventsWithSeo($locale: I18NLocaleCode!) {
       attributes {
         slug
         title
-        Seo {
+        seo {
           ...Seo
         }
       }
@@ -56,7 +56,7 @@ query AllBlogPostsWithSeo($locale: I18NLocaleCode!) {
       attributes {
         slug
         title
-        Seo {
+        seo {
           ...Seo
         }
       }

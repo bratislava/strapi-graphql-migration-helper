@@ -25,7 +25,7 @@ fragment PageForNotice on Page {
   publishedAt
   #  promoted
   #  description
-  Seo {
+  seo {
     metaTitle
     metaDescription
     keywords
