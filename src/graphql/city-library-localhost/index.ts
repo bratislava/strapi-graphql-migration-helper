@@ -1175,6 +1175,7 @@ export type ComponentSectionsDivider = {
 export type ComponentSectionsDocuments = {
   __typename?: 'ComponentSectionsDocuments';
   basicDocuments?: Maybe<BasicDocumentRelationResponseCollection>;
+  documents?: Maybe<DocumentRelationResponseCollection>;
   id: Scalars['ID'];
   moreLink?: Maybe<Array<Maybe<ComponentBlocksPageLink>>>;
   title?: Maybe<Scalars['String']>;
@@ -1183,6 +1184,14 @@ export type ComponentSectionsDocuments = {
 
 export type ComponentSectionsDocumentsBasicDocumentsArgs = {
   filters?: InputMaybe<BasicDocumentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type ComponentSectionsDocumentsDocumentsArgs = {
+  filters?: InputMaybe<DocumentFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -1198,6 +1207,7 @@ export type ComponentSectionsDocumentsMoreLinkArgs = {
 export type ComponentSectionsDocumentsFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>;
   basicDocuments?: InputMaybe<BasicDocumentFiltersInput>;
+  documents?: InputMaybe<DocumentFiltersInput>;
   moreLink?: InputMaybe<ComponentBlocksPageLinkFiltersInput>;
   not?: InputMaybe<ComponentSectionsDocumentsFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentSectionsDocumentsFiltersInput>>>;
@@ -1206,6 +1216,7 @@ export type ComponentSectionsDocumentsFiltersInput = {
 
 export type ComponentSectionsDocumentsInput = {
   basicDocuments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  documents?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   id?: InputMaybe<Scalars['ID']>;
   moreLink?: InputMaybe<Array<InputMaybe<ComponentBlocksPageLinkInput>>>;
   title?: InputMaybe<Scalars['String']>;
@@ -2082,7 +2093,42 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type General = {
+  __typename?: 'General';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  eventsPage?: Maybe<PageEntityResponse>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<GeneralRelationResponseCollection>;
+  newBooksPage?: Maybe<PageEntityResponse>;
+  openingHoursPage?: Maybe<PageEntityResponse>;
+  privacyTermsAndConditionsPage?: Maybe<PageEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type GeneralEntity = {
+  __typename?: 'GeneralEntity';
+  attributes?: Maybe<General>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type GeneralEntityResponse = {
+  __typename?: 'GeneralEntityResponse';
+  data?: Maybe<GeneralEntity>;
+};
+
+export type GeneralInput = {
+  eventsPage?: InputMaybe<Scalars['ID']>;
+  newBooksPage?: InputMaybe<Scalars['ID']>;
+  openingHoursPage?: InputMaybe<Scalars['ID']>;
+  privacyTermsAndConditionsPage?: InputMaybe<Scalars['ID']>;
+};
+
+export type GeneralRelationResponseCollection = {
+  __typename?: 'GeneralRelationResponseCollection';
+  data: Array<GeneralEntity>;
+};
+
+export type GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -2329,6 +2375,7 @@ export type Mutation = {
   createEventTagLocalization?: Maybe<EventTagEntityResponse>;
   createFileCategory?: Maybe<FileCategoryEntityResponse>;
   createFooterLocalization?: Maybe<FooterEntityResponse>;
+  createGeneralLocalization?: Maybe<GeneralEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
   createMenu?: Maybe<MenuEntityResponse>;
   createMenuLocalization?: Maybe<MenuEntityResponse>;
@@ -2357,6 +2404,7 @@ export type Mutation = {
   deleteEventTag?: Maybe<EventTagEntityResponse>;
   deleteFileCategory?: Maybe<FileCategoryEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
+  deleteGeneral?: Maybe<GeneralEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
   deleteMenu?: Maybe<MenuEntityResponse>;
   deleteNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>;
@@ -2394,6 +2442,7 @@ export type Mutation = {
   updateFileCategory?: Maybe<FileCategoryEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFooter?: Maybe<FooterEntityResponse>;
+  updateGeneral?: Maybe<GeneralEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
   updateMenu?: Maybe<MenuEntityResponse>;
   updateNavikronosNavikronosStorage?: Maybe<NavikronosNavikronosStorageEntityResponse>;
@@ -2527,6 +2576,13 @@ export type MutationCreateFileCategoryArgs = {
 
 export type MutationCreateFooterLocalizationArgs = {
   data?: InputMaybe<FooterInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateGeneralLocalizationArgs = {
+  data?: InputMaybe<GeneralInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -2678,6 +2734,11 @@ export type MutationDeleteFileCategoryArgs = {
 
 
 export type MutationDeleteFooterArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteGeneralArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -2857,6 +2918,12 @@ export type MutationUpdateFileInfoArgs = {
 
 export type MutationUpdateFooterArgs = {
   data: FooterInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateGeneralArgs = {
+  data: GeneralInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -3247,6 +3314,7 @@ export type Query = {
   fileCategories?: Maybe<FileCategoryEntityResponseCollection>;
   fileCategory?: Maybe<FileCategoryEntityResponse>;
   footer?: Maybe<FooterEntityResponse>;
+  general?: Maybe<GeneralEntityResponse>;
   homePage?: Maybe<HomePageEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
@@ -3439,6 +3507,11 @@ export type QueryFileCategoryArgs = {
 export type QueryFooterArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryGeneralArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 

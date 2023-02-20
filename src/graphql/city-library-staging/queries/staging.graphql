@@ -12,6 +12,30 @@ query AllEvents($locale: I18NLocaleCode!) {
   }
 }
 
+query AllEventsWithDocuments($locale: I18NLocaleCode!) {
+  events(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      __typename
+      attributes {
+        slug
+        title
+        documents {
+          title
+          basicDocuments {
+            data {
+              id
+              attributes {
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 query AllPages($locale: I18NLocaleCode!) {
   pages(locale: $locale , pagination: {start: 0, limit: -1}) {
     data {
@@ -177,6 +201,14 @@ fragment PageForSections on Page {
     }
     ... on ComponentSectionsDocuments {
       title
+      basicDocuments {
+        data {
+          id
+          attributes {
+            slug
+          }
+        }
+      }
     }
     ... on ComponentSectionsExternalLinks {
       title
