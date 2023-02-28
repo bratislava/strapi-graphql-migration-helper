@@ -1290,6 +1290,23 @@ input ComponentSectionsBlogPostsListingInput {
   id: ID
 }
 
+type ComponentSectionsChildrenListing {
+  depth: ENUM_COMPONENTSECTIONSCHILDRENLISTING_DEPTH!
+  id: ID!
+}
+
+input ComponentSectionsChildrenListingFiltersInput {
+  and: [ComponentSectionsChildrenListingFiltersInput]
+  depth: StringFilterInput
+  not: ComponentSectionsChildrenListingFiltersInput
+  or: [ComponentSectionsChildrenListingFiltersInput]
+}
+
+input ComponentSectionsChildrenListingInput {
+  depth: ENUM_COMPONENTSECTIONSCHILDRENLISTING_DEPTH
+  id: ID
+}
+
 type ComponentSectionsColumnedText {
   content: String
   id: ID!
@@ -1346,6 +1363,7 @@ input ComponentSectionsDividerInput {
 
 type ComponentSectionsDocuments {
   basicDocuments(filters: BasicDocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BasicDocumentRelationResponseCollection
+  documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
   id: ID!
   moreLink(filters: ComponentBlocksPageLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksPageLink]
   title: String
@@ -1354,6 +1372,7 @@ type ComponentSectionsDocuments {
 input ComponentSectionsDocumentsFiltersInput {
   and: [ComponentSectionsDocumentsFiltersInput]
   basicDocuments: BasicDocumentFiltersInput
+  documents: DocumentFiltersInput
   moreLink: ComponentBlocksPageLinkFiltersInput
   not: ComponentSectionsDocumentsFiltersInput
   or: [ComponentSectionsDocumentsFiltersInput]
@@ -1362,6 +1381,7 @@ input ComponentSectionsDocumentsFiltersInput {
 
 input ComponentSectionsDocumentsInput {
   basicDocuments: [ID]
+  documents: [ID]
   id: ID
   moreLink: [ComponentBlocksPageLinkInput]
   title: String
@@ -1971,6 +1991,11 @@ enum ENUM_COMPONENTBLOCKSTABLEROW_VALUEALIGN {
   start
 }
 
+enum ENUM_COMPONENTSECTIONSCHILDRENLISTING_DEPTH {
+  depth_1
+  depth_2
+}
+
 enum ENUM_COMPONENTSECTIONSFORM_TYPE {
   aka_kniha_vam_v_kniznici_chyba
   ako_sa_prihlasit_do_kniznice
@@ -2326,7 +2351,60 @@ type FooterRelationResponseCollection {
   data: [FooterEntity!]!
 }
 
-union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+type General {
+  createdAt: DateTime
+  eventsPage: PageEntityResponse
+  locale: String
+  localizations: GeneralRelationResponseCollection
+  newBooksPage: PageEntityResponse
+  noticesPage: PageEntityResponse
+  openingHoursPage: PageEntityResponse
+  privacyTermsAndConditionsPage: PageEntityResponse
+  updatedAt: DateTime
+}
+
+type GeneralEntity {
+  attributes: General
+  id: ID
+}
+
+type GeneralEntityResponse {
+  data: GeneralEntity
+}
+
+type GeneralEntityResponseCollection {
+  data: [GeneralEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input GeneralFiltersInput {
+  and: [GeneralFiltersInput]
+  createdAt: DateTimeFilterInput
+  eventsPage: PageFiltersInput
+  locale: StringFilterInput
+  localizations: GeneralFiltersInput
+  newBooksPage: PageFiltersInput
+  not: GeneralFiltersInput
+  noticesPage: PageFiltersInput
+  openingHoursPage: PageFiltersInput
+  or: [GeneralFiltersInput]
+  privacyTermsAndConditionsPage: PageFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input GeneralInput {
+  eventsPage: ID
+  newBooksPage: ID
+  noticesPage: ID
+  openingHoursPage: ID
+  privacyTermsAndConditionsPage: ID
+}
+
+type GeneralRelationResponseCollection {
+  data: [GeneralEntity!]!
+}
+
+union GenericMorph = BasicDocument | BlogPost | BookTag | Branch | Category | ComponentAccordionItemsFlatText | ComponentAccordionItemsForm | ComponentAccordionItemsTableRow | ComponentAddressAddress | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksBranchItemWithPage | ComponentBlocksExternalLink | ComponentBlocksFileItem | ComponentBlocksNoticeFiles | ComponentBlocksOpeningHours | ComponentBlocksOpeningHoursItem | ComponentBlocksPageLink | ComponentBlocksSubpage | ComponentBlocksTableRow | ComponentCommonSeo | ComponentFooterFooterColumn | ComponentFooterFooterLink | ComponentGuestsGuest | ComponentHomepageBenefits | ComponentHomepageCta | ComponentHomepageFaqSection | ComponentHomepageFaqs | ComponentHomepageNewsSection | ComponentHomepageRegistrationInfo | ComponentLocalityPartsGalleryParts | ComponentLocalityPartsLocalitySection | ComponentLocalityPartsLocalityServices | ComponentMenuSectionLinks | ComponentMenuSections | ComponentMenuSubsection | ComponentMenuSubsectionLinks | ComponentMetadataFaktury | ComponentMetadataMetadata | ComponentMetadataObchodnaVerejnaSutaz | ComponentMetadataObjednavky | ComponentMetadataVerejneObstaravanie | ComponentMetadataZmluvy | ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Disclosure | Document | DocumentCategory | Event | EventCategory | EventTag | FileCategory | Footer | General | HomePage | I18NLocale | Menu | NavikronosNavikronosStorage | Notice | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2610,6 +2688,7 @@ type Mutation {
   createEventTagLocalization(data: EventTagInput, id: ID, locale: I18NLocaleCode): EventTagEntityResponse
   createFileCategory(data: FileCategoryInput!): FileCategoryEntityResponse
   createFooterLocalization(data: FooterInput, id: ID, locale: I18NLocaleCode): FooterEntityResponse
+  createGeneralLocalization(data: GeneralInput, id: ID, locale: I18NLocaleCode): GeneralEntityResponse
   createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
   createMenu(data: MenuInput!, locale: I18NLocaleCode): MenuEntityResponse
   createMenuLocalization(data: MenuInput, id: ID, locale: I18NLocaleCode): MenuEntityResponse
@@ -2640,6 +2719,7 @@ type Mutation {
   deleteEventTag(id: ID!, locale: I18NLocaleCode): EventTagEntityResponse
   deleteFileCategory(id: ID!): FileCategoryEntityResponse
   deleteFooter(locale: I18NLocaleCode): FooterEntityResponse
+  deleteGeneral(locale: I18NLocaleCode): GeneralEntityResponse
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
   deleteMenu(id: ID!, locale: I18NLocaleCode): MenuEntityResponse
   deleteNavikronosNavikronosStorage: NavikronosNavikronosStorageEntityResponse
@@ -2685,6 +2765,7 @@ type Mutation {
   updateFileCategory(data: FileCategoryInput!, id: ID!): FileCategoryEntityResponse
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateFooter(data: FooterInput!, locale: I18NLocaleCode): FooterEntityResponse
+  updateGeneral(data: GeneralInput!, locale: I18NLocaleCode): GeneralEntityResponse
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
   updateMenu(data: MenuInput!, id: ID!, locale: I18NLocaleCode): MenuEntityResponse
   updateNavikronosNavikronosStorage(data: NavikronosNavikronosStorageInput!): NavikronosNavikronosStorageEntityResponse
@@ -2874,7 +2955,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsBlogPostsListing | ComponentSectionsChildrenListing | ComponentSectionsColumnedText | ComponentSectionsCta | ComponentSectionsDivider | ComponentSectionsDocuments | ComponentSectionsDocumentsListing | ComponentSectionsEventsListing | ComponentSectionsExternalLinks | ComponentSectionsFaq | ComponentSectionsFlatText | ComponentSectionsFlatTextCenter | ComponentSectionsForm | ComponentSectionsGallery | ComponentSectionsMap | ComponentSectionsNewBooksListing | ComponentSectionsNewsListing | ComponentSectionsPartners | ComponentSectionsRental | ComponentSectionsSiteUsefullness | ComponentSectionsSubListing | ComponentSectionsSubpages | ComponentSectionsTable | ComponentSectionsVideo | Error
 
 scalar PageSectionsDynamicZoneInput
 
@@ -2979,6 +3060,7 @@ type Query {
   fileCategories(filters: FileCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): FileCategoryEntityResponseCollection
   fileCategory(id: ID): FileCategoryEntityResponse
   footer(locale: I18NLocaleCode, publicationState: PublicationState = LIVE): FooterEntityResponse
+  general(locale: I18NLocaleCode): GeneralEntityResponse
   homePage(locale: I18NLocaleCode): HomePageEntityResponse
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection

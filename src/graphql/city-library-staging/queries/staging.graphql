@@ -36,6 +36,39 @@ query AllEventsWithDocuments($locale: I18NLocaleCode!) {
   }
 }
 
+query AllNoticesWithDocuments($locale: I18NLocaleCode!) {
+  notices(locale: $locale, pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      __typename
+      attributes {
+        slug
+        title
+        documents {
+          title
+          basicDocuments {
+            data {
+              id
+              attributes {
+                slug
+              }
+            }
+          }
+          moreLink {
+            title
+            url
+            page {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 query AllPages($locale: I18NLocaleCode!) {
   pages(locale: $locale , pagination: {start: 0, limit: -1}) {
     data {
@@ -201,6 +234,15 @@ fragment PageForSections on Page {
     }
     ... on ComponentSectionsDocuments {
       title
+      moreLink {
+        title
+        url
+        page {
+          data {
+            id
+          }
+        }
+      }
       basicDocuments {
         data {
           id
@@ -368,6 +410,14 @@ mutation UnpublishBasicDocument($id: ID!) {
       attributes {
         title
       }
+    }
+  }
+}
+
+query DocumentBySlug($slug: String!) {
+  documents(filters: {slug: {eq: $slug}}) {
+    data {
+      id
     }
   }
 }
