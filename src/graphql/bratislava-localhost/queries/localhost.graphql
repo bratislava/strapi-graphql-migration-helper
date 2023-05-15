@@ -1,0 +1,13 @@
+query AllPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        sections {
+          __typename
+        }
+      }
+    }
+  }
+}

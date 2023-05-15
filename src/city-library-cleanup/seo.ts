@@ -1,4 +1,4 @@
-import {localhostClient, stagingClient} from './gql';
+import {stagingClient} from './gql';
 import {SeoFragment} from '../graphql/city-library-staging';
 
 function parseSeo(Seo: SeoFragment) {
@@ -53,15 +53,15 @@ async function migrateSeo() {
 
     const allBlogPosts = await stagingClient.AllBlogPostsWithSeo({locale});
     for (const blogPost of allBlogPosts.blogPosts.data) {
-      const seo = parseSeo(blogPost.attributes.Seo);
-      if (seo) {
-        const {updateBlogPost} = await localhostClient.UpdateBlogPost({
-          id: blogPost.id,
-          locale,
-          data: {seo},
-        });
-        console.log(updateBlogPost);
-      }
+      // const seo = parseSeo(blogPost.attributes.Seo);
+      // if (seo) {
+      //   const {updateBlogPost} = await localhostClient.UpdateBlogPost({
+      //     id: blogPost.id,
+      //     locale,
+      //     data: {seo},
+      //   });
+      //   console.log(updateBlogPost);
+      // }
     }
   }
 }

@@ -61,7 +61,7 @@ async function notices() {
         title,
         // date_added,
         publishedAt,
-        Seo,
+        // Seo,
         listingImage,
       } = newsPage.attributes;
 

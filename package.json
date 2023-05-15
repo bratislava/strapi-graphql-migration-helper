@@ -14,7 +14,8 @@
     "pretest": "yarn run compile",
     "posttest": "yarn run lint",
     "gen-city-library-v3-v4": "graphql-codegen --config ./src/graphql/city-library-v3/codegen.yml && graphql-codegen --config ./src/graphql/city-library-v4/codegen.yml",
-    "gen-city-library": "graphql-codegen --config src/graphql/city-library-localhost/codegen.yml && graphql-codegen --config src/graphql/city-library-staging/codegen.yml"
+    "gen-city-library": "graphql-codegen --config src/graphql/city-library-localhost/codegen.yml && graphql-codegen --config src/graphql/city-library-staging/codegen.yml",
+    "gen-bratislava": "graphql-codegen --config src/graphql/bratislava-localhost/codegen.yml && graphql-codegen --config src/graphql/bratislava-staging/codegen.yml"
   },
   "author": "",
   "license": "ISC",

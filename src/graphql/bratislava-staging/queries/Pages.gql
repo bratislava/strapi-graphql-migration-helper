@@ -1,0 +1,92 @@
+query AllPages($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      ...PageEntity
+    }
+  }
+}
+
+query PageBySlug($slug: String!) {
+  pages(locale: "all", filters: {slug: {eq: $slug}}) {
+    data {
+      ...PageEntity
+    }
+  }
+}
+
+mutation UpdatePage($id: ID!, $data: PageInput!) {
+  updatePage(id: $id, data: $data) {
+    data {
+      id
+    }
+  }
+}
+
+
+#fragment PageEntity on PageEntity {
+#  id
+#  attributes {
+#    title
+#    slug
+#    sections {
+#      __typename
+#      ... on ComponentSectionsNumericalList {
+#        variant
+#      }
+#      ... on ComponentSectionsFileList {
+#        id
+#        hasBackground
+#        title
+#        fileList(pagination: {start: 0, limit: -1}) {
+#          title
+#          category
+#          media {
+#            data {
+#              attributes {
+#                name
+#                url
+#              }
+#            }
+#          }
+#        }
+#      }
+#      ... on ComponentSectionsAccordion {
+#        title
+#        flatText {
+#          align
+#          category
+#          content
+#          moreLinkPage {
+#            data {
+#              id
+#              attributes {
+#                title
+#                slug
+#              }
+#            }
+#          }
+#          moreLinkTitle
+#          moreLinkUrl
+#          width
+#        }
+#        institutions {
+#          title
+#          subtitle
+#          url
+#          urlLabel
+#          category
+#          firstColumn
+#          secondColumn
+#          thirdColumn
+#        }
+#        institutionsNarrow {
+#          title
+#          subtitle
+#          category
+#          url
+#          urlLabel
+#        }
+#      }
+#    }
+#  }
+#}

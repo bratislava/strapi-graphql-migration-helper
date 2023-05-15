@@ -1,0 +1,43 @@
+query AllBlogPosts($locale: I18NLocaleCode!) {
+  blogPosts(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+        }
+        tag {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query AllSkTags {
+  tags(locale: "sk", pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+        locale
+        localizations {
+          data {
+            id
+            attributes {
+              title
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}

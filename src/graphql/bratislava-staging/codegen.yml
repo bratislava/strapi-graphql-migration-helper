@@ -1,0 +1,8 @@
+schema: './src/graphql/bratislava-staging/schema.graphql'
+documents: './src/graphql/bratislava-staging/queries/**/*.{gql,graphql}'
+generates:
+  src/graphql/bratislava-staging/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

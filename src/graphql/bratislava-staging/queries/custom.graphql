@@ -1,0 +1,27 @@
+query AllTags {
+  tags(locale: "all" , pagination: {start: 0, limit: -1}) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+mutation UpdateBlogPost($id: ID!, $data: BlogPostInput!) {
+  updateBlogPost(id: $id, data: $data) {
+    data {
+      id
+      attributes {
+        tag {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
