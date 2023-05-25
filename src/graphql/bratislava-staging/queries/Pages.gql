@@ -14,6 +14,14 @@ query PageBySlug($slug: String!) {
   }
 }
 
+query PageById($id: ID!) {
+  pages(locale: "all", filters: {id: {eq: $id}}) {
+    data {
+      ...PageEntity
+    }
+  }
+}
+
 mutation UpdatePage($id: ID!, $data: PageInput!) {
   updatePage(id: $id, data: $data) {
     data {

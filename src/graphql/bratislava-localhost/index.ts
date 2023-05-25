@@ -592,28 +592,6 @@ export type ComponentBlocksHomepageBookmarkInput = {
   variant?: InputMaybe<Scalars['String']>;
 };
 
-export type ComponentBlocksHomepageHeader = {
-  __typename?: 'ComponentBlocksHomepageHeader';
-  headline: Scalars['String'];
-  id: Scalars['ID'];
-  mobilePicture?: Maybe<UploadFileEntityResponse>;
-  picture?: Maybe<UploadFileEntityResponse>;
-};
-
-export type ComponentBlocksHomepageHeaderFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksHomepageHeaderFiltersInput>>>;
-  headline?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<ComponentBlocksHomepageHeaderFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksHomepageHeaderFiltersInput>>>;
-};
-
-export type ComponentBlocksHomepageHeaderInput = {
-  headline?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  mobilePicture?: InputMaybe<Scalars['ID']>;
-  picture?: InputMaybe<Scalars['ID']>;
-};
-
 export type ComponentBlocksHomepageHighlightsItem = {
   __typename?: 'ComponentBlocksHomepageHighlightsItem';
   id: Scalars['ID'];
@@ -632,32 +610,6 @@ export type ComponentBlocksHomepageHighlightsItemInput = {
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['ID']>;
   link?: InputMaybe<ComponentBlocksCommonLinkInput>;
-};
-
-export type ComponentBlocksHomepagePost = {
-  __typename?: 'ComponentBlocksHomepagePost';
-  id: Scalars['ID'];
-  image?: Maybe<UploadFileEntityResponse>;
-  plausibleId?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type ComponentBlocksHomepagePostFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksHomepagePostFiltersInput>>>;
-  not?: InputMaybe<ComponentBlocksHomepagePostFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksHomepagePostFiltersInput>>>;
-  plausibleId?: InputMaybe<StringFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentBlocksHomepagePostInput = {
-  id?: InputMaybe<Scalars['ID']>;
-  image?: InputMaybe<Scalars['ID']>;
-  plausibleId?: InputMaybe<Scalars['String']>;
-  slug?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentBlocksIconWithTitleAndDescription = {
@@ -687,16 +639,12 @@ export type ComponentBlocksInBa = {
   __typename?: 'ComponentBlocksInBa';
   content?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  images?: Maybe<ComponentBlocksInBaPictures>;
-  link?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
 
 export type ComponentBlocksInBaFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentBlocksInBaFiltersInput>>>;
   content?: InputMaybe<StringFilterInput>;
-  images?: InputMaybe<ComponentBlocksInBaPicturesFiltersInput>;
-  link?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentBlocksInBaFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksInBaFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
@@ -705,28 +653,7 @@ export type ComponentBlocksInBaFiltersInput = {
 export type ComponentBlocksInBaInput = {
   content?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
-  images?: InputMaybe<ComponentBlocksInBaPicturesInput>;
-  link?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
-};
-
-export type ComponentBlocksInBaPictures = {
-  __typename?: 'ComponentBlocksInBaPictures';
-  frontImage?: Maybe<UploadFileEntityResponse>;
-  id: Scalars['ID'];
-  rearImage?: Maybe<UploadFileEntityResponse>;
-};
-
-export type ComponentBlocksInBaPicturesFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksInBaPicturesFiltersInput>>>;
-  not?: InputMaybe<ComponentBlocksInBaPicturesFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksInBaPicturesFiltersInput>>>;
-};
-
-export type ComponentBlocksInBaPicturesInput = {
-  frontImage?: InputMaybe<Scalars['ID']>;
-  id?: InputMaybe<Scalars['ID']>;
-  rearImage?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentBlocksListItem = {
@@ -1601,6 +1528,30 @@ export type ComponentSectionsGalleryInput = {
   galleryItems?: InputMaybe<Array<InputMaybe<ComponentBlocksGalleryItemInput>>>;
   id?: InputMaybe<Scalars['ID']>;
   subtitle?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentSectionsHomepageEvents = {
+  __typename?: 'ComponentSectionsHomepageEvents';
+  eventsPageLink?: Maybe<ComponentBlocksCommonLink>;
+  id: Scalars['ID'];
+  text?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ComponentSectionsHomepageEventsFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsHomepageEventsFiltersInput>>>;
+  eventsPageLink?: InputMaybe<ComponentBlocksCommonLinkFiltersInput>;
+  not?: InputMaybe<ComponentSectionsHomepageEventsFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsHomepageEventsFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentSectionsHomepageEventsInput = {
+  eventsPageLink?: InputMaybe<ComponentBlocksCommonLinkInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  text?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -2647,29 +2598,27 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Alert | BlogPost | ComponentAccordionItemsFlatText | ComponentAccordionItemsInstitution | ComponentAccordionItemsInstitutionNarrow | ComponentBlocksBlogPostLink | ComponentBlocksBookmarkLink | ComponentBlocksCommonLink | ComponentBlocksComparisonCard | ComponentBlocksComparisonItem | ComponentBlocksDocListExtensions | ComponentBlocksFile | ComponentBlocksFileItem | ComponentBlocksFooterColumn | ComponentBlocksFooterSection | ComponentBlocksGalleryItem | ComponentBlocksHomepageBookmark | ComponentBlocksHomepageHeader | ComponentBlocksHomepageHighlightsItem | ComponentBlocksHomepagePost | ComponentBlocksIconWithTitleAndDescription | ComponentBlocksInBa | ComponentBlocksInBaPictures | ComponentBlocksListItem | ComponentBlocksNumericalListItem | ComponentBlocksPageLink | ComponentBlocksProsAndConsCard | ComponentBlocksSpaceInfo | ComponentBlocksSubpage | ComponentBlocksTimelineItem | ComponentBlocksTopServicesItem | ComponentBlocksVideo | ComponentGeneralHeader | ComponentGeneralHeaderLink | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentOsItemsAdvancedAccordionDepartment | ComponentOsItemsAdvancedAccordionItem | ComponentOsItemsAdvancedAccordionSubItem | ComponentOsItemsAdvancedAccordionSubSubItem | ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsHomepageHighlights | ComponentSectionsHomepageMayorAndCouncil | ComponentSectionsHomepageTabs | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsListItems | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsSubpageList | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsTopServices | ComponentSectionsVideos | ComponentSectionsWaves | Footer | General | Homepage | I18NLocale | Menu | Page | PageCategory | PageSubcategory | Tag | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vzn;
+export type GenericMorph = Alert | BlogPost | ComponentAccordionItemsFlatText | ComponentAccordionItemsInstitution | ComponentAccordionItemsInstitutionNarrow | ComponentBlocksBlogPostLink | ComponentBlocksBookmarkLink | ComponentBlocksCommonLink | ComponentBlocksComparisonCard | ComponentBlocksComparisonItem | ComponentBlocksDocListExtensions | ComponentBlocksFile | ComponentBlocksFileItem | ComponentBlocksFooterColumn | ComponentBlocksFooterSection | ComponentBlocksGalleryItem | ComponentBlocksHomepageBookmark | ComponentBlocksHomepageHighlightsItem | ComponentBlocksIconWithTitleAndDescription | ComponentBlocksInBa | ComponentBlocksListItem | ComponentBlocksNumericalListItem | ComponentBlocksPageLink | ComponentBlocksProsAndConsCard | ComponentBlocksSpaceInfo | ComponentBlocksSubpage | ComponentBlocksTimelineItem | ComponentBlocksTopServicesItem | ComponentBlocksVideo | ComponentGeneralHeader | ComponentGeneralHeaderLink | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentOsItemsAdvancedAccordionDepartment | ComponentOsItemsAdvancedAccordionItem | ComponentOsItemsAdvancedAccordionSubItem | ComponentOsItemsAdvancedAccordionSubSubItem | ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsHomepageEvents | ComponentSectionsHomepageHighlights | ComponentSectionsHomepageMayorAndCouncil | ComponentSectionsHomepageTabs | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsListItems | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsSubpageList | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsTopServices | ComponentSectionsVideos | ComponentSectionsWaves | Footer | General | Homepage | I18NLocale | Menu | Page | PageCategory | PageSubcategory | Tag | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vzn;
 
 export type Homepage = {
   __typename?: 'Homepage';
+  bookmarkTourists?: Maybe<ComponentBlocksHomepageBookmark>;
+  bookmarkUkraine?: Maybe<ComponentBlocksHomepageBookmark>;
   cards?: Maybe<Array<Maybe<ComponentBlocksHomepageBookmark>>>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  header?: Maybe<ComponentBlocksHomepageHeader>;
+  eventsSection?: Maybe<ComponentSectionsHomepageEvents>;
   highlights?: Maybe<ComponentSectionsHomepageHighlights>;
   inba?: Maybe<ComponentBlocksInBa>;
   inbaFrontImage: UploadFileEntityResponse;
   inbaRearImage: UploadFileEntityResponse;
   inbaUrl?: Maybe<Scalars['String']>;
-  left_highlight?: Maybe<BlogPostEntityResponse>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<HomepageRelationResponseCollection>;
   mayorAndCouncil?: Maybe<ComponentSectionsHomepageMayorAndCouncil>;
   metaDescription: Scalars['String'];
   metaTitle: Scalars['String'];
-  posts?: Maybe<Array<Maybe<ComponentBlocksHomepagePost>>>;
   publishedAt?: Maybe<Scalars['DateTime']>;
-  right_highlight?: Maybe<BlogPostEntityResponse>;
   tabs?: Maybe<ComponentSectionsHomepageTabs>;
-  title?: Maybe<Scalars['String']>;
   topServices?: Maybe<ComponentSectionsTopServices>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   welcomeHeadline: Scalars['String'];
@@ -2686,13 +2635,6 @@ export type HomepageCardsArgs = {
 
 export type HomepageLocalizationsArgs = {
   publicationState?: InputMaybe<PublicationState>;
-};
-
-
-export type HomepagePostsArgs = {
-  filters?: InputMaybe<ComponentBlocksHomepagePostFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type HomepageEntity = {
@@ -2714,13 +2656,14 @@ export type HomepageEntityResponseCollection = {
 
 export type HomepageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<HomepageFiltersInput>>>;
+  bookmarkTourists?: InputMaybe<ComponentBlocksHomepageBookmarkFiltersInput>;
+  bookmarkUkraine?: InputMaybe<ComponentBlocksHomepageBookmarkFiltersInput>;
   cards?: InputMaybe<ComponentBlocksHomepageBookmarkFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  header?: InputMaybe<ComponentBlocksHomepageHeaderFiltersInput>;
+  eventsSection?: InputMaybe<ComponentSectionsHomepageEventsFiltersInput>;
   highlights?: InputMaybe<ComponentSectionsHomepageHighlightsFiltersInput>;
   inba?: InputMaybe<ComponentBlocksInBaFiltersInput>;
   inbaUrl?: InputMaybe<StringFilterInput>;
-  left_highlight?: InputMaybe<BlogPostFiltersInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<HomepageFiltersInput>;
   mayorAndCouncil?: InputMaybe<ComponentSectionsHomepageMayorAndCouncilFiltersInput>;
@@ -2728,33 +2671,28 @@ export type HomepageFiltersInput = {
   metaTitle?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<HomepageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<HomepageFiltersInput>>>;
-  posts?: InputMaybe<ComponentBlocksHomepagePostFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
-  right_highlight?: InputMaybe<BlogPostFiltersInput>;
   tabs?: InputMaybe<ComponentSectionsHomepageTabsFiltersInput>;
-  title?: InputMaybe<StringFilterInput>;
   topServices?: InputMaybe<ComponentSectionsTopServicesFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   welcomeHeadline?: InputMaybe<StringFilterInput>;
 };
 
 export type HomepageInput = {
+  bookmarkTourists?: InputMaybe<ComponentBlocksHomepageBookmarkInput>;
+  bookmarkUkraine?: InputMaybe<ComponentBlocksHomepageBookmarkInput>;
   cards?: InputMaybe<Array<InputMaybe<ComponentBlocksHomepageBookmarkInput>>>;
-  header?: InputMaybe<ComponentBlocksHomepageHeaderInput>;
+  eventsSection?: InputMaybe<ComponentSectionsHomepageEventsInput>;
   highlights?: InputMaybe<ComponentSectionsHomepageHighlightsInput>;
   inba?: InputMaybe<ComponentBlocksInBaInput>;
   inbaFrontImage?: InputMaybe<Scalars['ID']>;
   inbaRearImage?: InputMaybe<Scalars['ID']>;
   inbaUrl?: InputMaybe<Scalars['String']>;
-  left_highlight?: InputMaybe<Scalars['ID']>;
   mayorAndCouncil?: InputMaybe<ComponentSectionsHomepageMayorAndCouncilInput>;
   metaDescription?: InputMaybe<Scalars['String']>;
   metaTitle?: InputMaybe<Scalars['String']>;
-  posts?: InputMaybe<Array<InputMaybe<ComponentBlocksHomepagePostInput>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
-  right_highlight?: InputMaybe<Scalars['ID']>;
   tabs?: InputMaybe<ComponentSectionsHomepageTabsInput>;
-  title?: InputMaybe<Scalars['String']>;
   topServices?: InputMaybe<ComponentSectionsTopServicesInput>;
   welcomeHeadline?: InputMaybe<Scalars['String']>;
   welcomeMedia?: InputMaybe<Scalars['ID']>;
@@ -3597,14 +3535,14 @@ export type PageInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type PagePageHeaderSectionsDynamicZone = ComponentSectionsFeaturedBlogPosts | ComponentSectionsSubpageList | Error;
+export type PagePageHeaderSectionsDynamicZone = ComponentSectionsSubpageList | Error;
 
 export type PageRelationResponseCollection = {
   __typename?: 'PageRelationResponseCollection';
   data: Array<PageEntity>;
 };
 
-export type PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsListItems | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsVideos | ComponentSectionsWaves | Error;
+export type PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsListItems | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsVideos | ComponentSectionsWaves | Error;
 
 export type PageSubcategory = {
   __typename?: 'PageSubcategory';
@@ -4497,7 +4435,7 @@ export type AllPagesQueryVariables = Exact<{
 }>;
 
 
-export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsArticlesList' } | { __typename: 'ComponentSectionsBanner' } | { __typename: 'ComponentSectionsCalculator' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsComparisonSection' } | { __typename: 'ComponentSectionsContact' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocumentList' } | { __typename: 'ComponentSectionsFileList' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsIconTitleDesc' } | { __typename: 'ComponentSectionsIframe' } | { __typename: 'ComponentSectionsLinks' } | { __typename: 'ComponentSectionsListItems' } | { __typename: 'ComponentSectionsNarrowText' } | { __typename: 'ComponentSectionsNewsletter' } | { __typename: 'ComponentSectionsNumericalList' } | { __typename: 'ComponentSectionsOfficialBoard' } | { __typename: 'ComponentSectionsOrganizationalStructure' } | { __typename: 'ComponentSectionsProsAndConsSection' } | { __typename: 'ComponentSectionsSpace' } | { __typename: 'ComponentSectionsTextWithImage' } | { __typename: 'ComponentSectionsTimeline' } | { __typename: 'ComponentSectionsVideos' } | { __typename: 'ComponentSectionsWaves' } | { __typename: 'Error' } | null> | null } | null }> } | null };
+export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsArticlesList' } | { __typename: 'ComponentSectionsBanner' } | { __typename: 'ComponentSectionsCalculator' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsComparisonSection' } | { __typename: 'ComponentSectionsContact' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocumentList' } | { __typename: 'ComponentSectionsFeaturedBlogPosts' } | { __typename: 'ComponentSectionsFileList' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsIconTitleDesc' } | { __typename: 'ComponentSectionsIframe' } | { __typename: 'ComponentSectionsLinks' } | { __typename: 'ComponentSectionsListItems' } | { __typename: 'ComponentSectionsNarrowText' } | { __typename: 'ComponentSectionsNewsletter' } | { __typename: 'ComponentSectionsNumericalList' } | { __typename: 'ComponentSectionsOfficialBoard' } | { __typename: 'ComponentSectionsOrganizationalStructure' } | { __typename: 'ComponentSectionsProsAndConsSection' } | { __typename: 'ComponentSectionsSpace' } | { __typename: 'ComponentSectionsTextWithImage' } | { __typename: 'ComponentSectionsTimeline' } | { __typename: 'ComponentSectionsVideos' } | { __typename: 'ComponentSectionsWaves' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
 
 export const AllPagesDocument = gql`

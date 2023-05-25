@@ -84,18 +84,6 @@ fragment PageEntity on PageEntity {
           ...PageLinkBlock
         }
       }
-      ... on ComponentSectionsFeaturedBlogPosts {
-        id
-        first_blog {
-          ...BlogSection
-        }
-        second_blog {
-          ...BlogSection
-        }
-        third_blog {
-          ...BlogSection
-        }
-      }
     }
     pageCategory {
       data {
@@ -108,6 +96,57 @@ fragment PageEntity on PageEntity {
     }
   }
   ...PageParentPages
+}
+
+fragment PageForMigrationEntity on PageEntity {
+  id
+  attributes {
+    #    slug
+    #    title
+    #    subtext
+    #    pageColor
+    #    metaDiscription
+    #    pageBackgroundImage {
+    #      data {
+    #        id
+    #      }
+    #    }
+    #    headerLinks {
+    #      ...CommonLinkForMigration
+    #    }
+    sections {
+      ...SectionsForMigration
+    }
+    #    locale
+    #    localizations {
+    #      ...Localization
+    #    }
+    #    pageHeaderSections {
+    #      ...on ComponentSectionsSubpageList {
+    #        hasBackground
+    #        subpageList {
+    #          title
+    #          url
+    #          anchor
+    #          page {
+    #            data {
+    #              id
+    #            }
+    #          }
+    #        }
+    #      }
+    #    }
+    #    pageCategory {
+    #      data {
+    #        id
+    #      }
+    #    }
+    #    parentPage {
+    #      data {
+    #        id
+    #      }
+    #    }
+  }
 }
 
 fragment BlogSection on BlogPostEntityResponse {

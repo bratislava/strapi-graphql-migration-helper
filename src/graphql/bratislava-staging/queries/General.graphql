@@ -29,6 +29,23 @@ fragment CommonLink on ComponentBlocksCommonLink {
   }
 }
 
+fragment CommonLinkForMigration on ComponentBlocksCommonLink {
+  label
+  url
+  plausibleId
+  page {
+    data {
+      id
+    }
+  }
+  blogPost {
+    data {
+      id
+    }
+  }
+}
+
+
 fragment FooterColumnBlock on ComponentBlocksFooterColumn {
   title
   links {

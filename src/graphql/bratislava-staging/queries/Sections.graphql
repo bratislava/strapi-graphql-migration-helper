@@ -519,6 +519,10 @@ fragment Sections on PageSectionsDynamicZone {
   ... on ComponentSectionsTimeline {
     ...TimelineSection
   }
+
+  ... on ComponentSectionsFeaturedBlogPosts {
+    ...FeaturedBlogPostsPageHeaderSection
+  }
 }
 
 fragment SubpageListPageHeaderSection on ComponentSectionsSubpageList {
@@ -546,8 +550,5 @@ fragment PageHeaderSections on PagePageHeaderSectionsDynamicZone {
 
   ... on ComponentSectionsSubpageList {
     ...SubpageListPageHeaderSection
-  }
-  ... on ComponentSectionsFeaturedBlogPosts {
-    ...FeaturedBlogPostsPageHeaderSection
   }
 }

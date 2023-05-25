@@ -1,0 +1,159 @@
+fragment SectionsForMigration on PageSectionsDynamicZone {
+  #  ... on ComponentSectionsIconTitleDesc {
+  #    ...IconTitleDescSection
+  #  }
+  #
+  #  ... on ComponentSectionsDocumentList {
+  #    ...DocumentListSection
+  #  }
+  #
+  #  ... on ComponentSectionsDivider {
+  #    ...DividerSection
+  #  }
+  #
+  #  ... on ComponentSectionsTextWithImage {
+  #    ...TextWithImageSection
+  #  }
+  #
+  #  ... on ComponentSectionsIframe {
+  #    ...IframeSection
+  #  }
+  #
+  #  ... on ComponentSectionsGallery {
+  #    ...GallerySection
+  #  }
+
+  ... on ComponentSectionsFileList {
+    ...FileListSectionForMigration
+  }
+  #
+  #  ... on ComponentSectionsColumnedText {
+  #    ...ColumnedTextSection
+  #  }
+  #
+  ... on ComponentSectionsNarrowText {
+    ...NarrowTextSection
+  }
+
+  ... on ComponentSectionsWaves {
+    ...WavesSection
+  }
+
+  ... on ComponentSectionsLinks {
+    ...LinksSectionForMigration
+  }
+  ... on ComponentSectionsContact {
+    ...ContactSection
+  }
+
+  ... on ComponentSectionsAccordion {
+    ...AccordionSection
+  }
+  #
+  #  ... on ComponentSectionsCalculator {
+  #    ...CalculatorSection
+  #  }
+  #
+  #  ... on ComponentSectionsListItems {
+  #    ...ListItemsSection
+  #  }
+  #
+  #  ... on ComponentSectionsVideos {
+  #    ...VideosSection
+  #  }
+  #
+  #  ... on ComponentSectionsNumericalList {
+  #    ...NumericalListSection
+  #  }
+  #
+  #  ... on ComponentSectionsArticlesList {
+  #    ...ArticlesListSection
+  #  }
+  #
+  #  ... on ComponentSectionsOrganizationalStructure {
+  #    ...OrganizationalStructureSection
+  #  }
+  #
+  #  # ComponentSectionsOfficialBoard has no attributes
+  #
+  #  ... on ComponentSectionsProsAndConsSection {
+  #    ...ProsAndConsSection
+  #  }
+  #
+  #  ... on ComponentSectionsComparisonSection {
+  #    ...ComparisonSection
+  #  }
+  #
+  #  ... on ComponentSectionsBanner {
+  #    ...BannerSection
+  #  }
+  #
+  #  ... on ComponentSectionsTimeline {
+  #    ...TimelineSection
+  #  }
+  #
+  #  ... on ComponentSectionsFeaturedBlogPosts {
+  #    ...FeaturedBlogPostsPageHeaderSection
+  #  }
+}
+
+fragment AccordionSectionForMigration on ComponentSectionsAccordion {
+  title
+  hasBackground
+  institutions(pagination: { limit: -1 }) {
+    ...ComponentAccordionItemsInstitution
+  }
+  flatText(pagination: { limit: -1 }) {
+    ...ComponentAccordionItemsFlatTextForMigration
+  }
+  institutionsNarrow(pagination: { limit: -1 }) {
+    ...ComponentAccordionItemsInstitutionNarrow
+  }
+}
+
+
+fragment ComponentAccordionItemsFlatTextForMigration on ComponentAccordionItemsFlatText {
+  category
+  content
+  width
+  align
+  moreLinkTitle
+  moreLinkUrl
+  moreLinkPage {
+    data {
+      id
+    }
+  }
+}
+
+
+fragment LinksSectionForMigration on ComponentSectionsLinks {
+  title
+  hasBackground
+  pageLinks(pagination: { limit: -1 }) {
+    title
+    url
+    anchor
+    page {
+      data {
+        id
+      }
+    }
+  }
+}
+
+
+fragment FileListSectionForMigration on ComponentSectionsFileList {
+  id
+  hasBackground
+  title
+  fileList(pagination: { limit: -1 }) {
+    title
+    category
+    media {
+      data {
+        id
+      }
+    }
+  }
+}

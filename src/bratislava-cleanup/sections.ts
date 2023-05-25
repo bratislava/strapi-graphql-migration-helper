@@ -3,8 +3,7 @@ import * as groupBy from 'lodash/groupBy';
 import {PageInput} from '../graphql/bratislava-staging';
 
 async function sections() {
-  console.log('here I am');
-  for (const locale of ['sk']) {
+  for (const locale of ['sk', 'en']) {
     const {pages} = await stagingClient.AllPages({locale});
     const flatTextMap = [];
     const institutionsMap = [];
@@ -18,7 +17,7 @@ async function sections() {
         );
 
       const ComponentSectionsFeaturedBlogPosts =
-        page.attributes.pageHeaderSections.filter(
+        page.attributes.sections.filter(
           section => section.__typename === 'ComponentSectionsFeaturedBlogPosts'
         );
 
@@ -97,6 +96,12 @@ async function sections() {
       );
 
       // if (ComponentSectionsFileList.length) {
+      //   const sectionsSet = new Set(
+      //     page.attributes.sections.map(section => section.__typename)
+      //   );
+      //
+      //   console.log(sectionsSet);
+      //
       //   ComponentSectionsFileList.map(section => {
       //     if (section.__typename === 'ComponentSectionsFileList') {
       //       const set = new Set(section.fileList.map(file => file.category));
@@ -114,11 +119,11 @@ async function sections() {
       //   });
       // }
 
-      if (ComponentSectionsFeaturedBlogPosts.length) {
+      if (ComponentSectionsLinks.length) {
         console.log(
           page.id,
           page.attributes.slug,
-          ComponentSectionsFeaturedBlogPosts.length
+          ComponentSectionsLinks.length
         );
       }
 
@@ -188,8 +193,8 @@ async function sections() {
 }
 
 async function byPage() {
-  const {pages} = await stagingClient.PageBySlug({
-    slug: 'testtesttest',
+  const {pages} = await stagingClient.PageById({
+    id: '307',
   });
   const page = pages.data[0];
 
@@ -219,7 +224,7 @@ async function byPage() {
           ...file,
         }));
         const grouped = groupBy(fileList, 'category');
-        // console.log(grouped);
+        console.log(grouped);
 
         Object.keys(grouped).map(key => {
           const newSection = newSections.find(
@@ -232,12 +237,20 @@ async function byPage() {
             newSection &&
             newSection.__typename === 'ComponentSectionsFileList'
           ) {
-            const newFileList = grouped[key].map(file => ({
-              title: file.title,
-              category: file.category,
-              media: file.media.data.id,
-            }));
-            console.log(newFileList);
+            const newFileList = grouped[key]
+              .map(file => {
+                if (!file.media.data) {
+                  console.log(file);
+                  return null;
+                }
+                return {
+                  title: file.title,
+                  category: file.category,
+                  media: file.media.data.id,
+                };
+              })
+              .filter(Boolean);
+            // console.log(newFileList);
 
             const data = {
               sections: [
@@ -249,8 +262,8 @@ async function byPage() {
                 },
               ],
             } as PageInput;
-            console.log(data);
-            stagingClient.UpdatePage({id: '935', data});
+            // console.log(data);
+            // stagingClient.UpdatePage({id: '935', data});
           }
         });
       }
