@@ -80,6 +80,7 @@ export type AlertRelationResponseCollection = {
 
 export type BlogPost = {
   __typename?: 'BlogPost';
+  addedAt?: Maybe<Scalars['DateTime']>;
   author?: Maybe<UsersPermissionsUserEntityResponse>;
   coverImage?: Maybe<UploadFileEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -122,6 +123,7 @@ export type BlogPostEntityResponseCollection = {
 };
 
 export type BlogPostFiltersInput = {
+  addedAt?: InputMaybe<DateTimeFilterInput>;
   and?: InputMaybe<Array<InputMaybe<BlogPostFiltersInput>>>;
   author?: InputMaybe<UsersPermissionsUserFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -141,6 +143,7 @@ export type BlogPostFiltersInput = {
 };
 
 export type BlogPostInput = {
+  addedAt?: InputMaybe<Scalars['DateTime']>;
   author?: InputMaybe<Scalars['ID']>;
   coverImage?: InputMaybe<Scalars['ID']>;
   date_added?: InputMaybe<Scalars['DateTime']>;
@@ -654,36 +657,6 @@ export type ComponentBlocksInBaInput = {
   content?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   title?: InputMaybe<Scalars['String']>;
-};
-
-export type ComponentBlocksListItem = {
-  __typename?: 'ComponentBlocksListItem';
-  circleOption?: Maybe<Enum_Componentblockslistitem_Circleoption>;
-  content?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  moreLinkPage?: Maybe<PageEntityResponse>;
-  moreLinkTitle?: Maybe<Scalars['String']>;
-  moreLinkUrl?: Maybe<Scalars['String']>;
-};
-
-export type ComponentBlocksListItemFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksListItemFiltersInput>>>;
-  circleOption?: InputMaybe<StringFilterInput>;
-  content?: InputMaybe<StringFilterInput>;
-  moreLinkPage?: InputMaybe<PageFiltersInput>;
-  moreLinkTitle?: InputMaybe<StringFilterInput>;
-  moreLinkUrl?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<ComponentBlocksListItemFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksListItemFiltersInput>>>;
-};
-
-export type ComponentBlocksListItemInput = {
-  circleOption?: InputMaybe<Enum_Componentblockslistitem_Circleoption>;
-  content?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  moreLinkPage?: InputMaybe<Scalars['ID']>;
-  moreLinkTitle?: InputMaybe<Scalars['String']>;
-  moreLinkUrl?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentBlocksNumericalListItem = {
@@ -1261,6 +1234,37 @@ export type ComponentSectionsBannerInput = {
   variant?: InputMaybe<Enum_Componentsectionsbanner_Variant>;
 };
 
+export type ComponentSectionsBlogPostsList = {
+  __typename?: 'ComponentSectionsBlogPostsList';
+  id: Scalars['ID'];
+  tags?: Maybe<TagRelationResponseCollection>;
+  text?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+export type ComponentSectionsBlogPostsListTagsArgs = {
+  filters?: InputMaybe<TagFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentSectionsBlogPostsListFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsBlogPostsListFiltersInput>>>;
+  not?: InputMaybe<ComponentSectionsBlogPostsListFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsBlogPostsListFiltersInput>>>;
+  tags?: InputMaybe<TagFiltersInput>;
+  text?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentSectionsBlogPostsListInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  text?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentSectionsCalculator = {
   __typename?: 'ComponentSectionsCalculator';
   another_adult_value?: Maybe<Scalars['Float']>;
@@ -1741,37 +1745,6 @@ export type ComponentSectionsLinksInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type ComponentSectionsListItems = {
-  __typename?: 'ComponentSectionsListItems';
-  hasBackground?: Maybe<Scalars['Boolean']>;
-  id: Scalars['ID'];
-  listItems?: Maybe<Array<Maybe<ComponentBlocksListItem>>>;
-  title?: Maybe<Scalars['String']>;
-};
-
-
-export type ComponentSectionsListItemsListItemsArgs = {
-  filters?: InputMaybe<ComponentBlocksListItemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type ComponentSectionsListItemsFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentSectionsListItemsFiltersInput>>>;
-  hasBackground?: InputMaybe<BooleanFilterInput>;
-  listItems?: InputMaybe<ComponentBlocksListItemFiltersInput>;
-  not?: InputMaybe<ComponentSectionsListItemsFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentSectionsListItemsFiltersInput>>>;
-  title?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentSectionsListItemsInput = {
-  hasBackground?: InputMaybe<Scalars['Boolean']>;
-  id?: InputMaybe<Scalars['ID']>;
-  listItems?: InputMaybe<Array<InputMaybe<ComponentBlocksListItemInput>>>;
-  title?: InputMaybe<Scalars['String']>;
-};
-
 export type ComponentSectionsNarrowText = {
   __typename?: 'ComponentSectionsNarrowText';
   align?: Maybe<Enum_Componentsectionsnarrowtext_Align>;
@@ -2176,11 +2149,6 @@ export enum Enum_Componentaccordionitemsflattext_Width {
   Full = 'full',
   Narrow = 'narrow',
   Wide = 'wide'
-}
-
-export enum Enum_Componentblockslistitem_Circleoption {
-  Primary = 'primary',
-  Secondary = 'secondary'
 }
 
 export enum Enum_Componentblocksspaceinfo_Imageposition {
@@ -2598,7 +2566,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Alert | BlogPost | ComponentAccordionItemsFlatText | ComponentAccordionItemsInstitution | ComponentAccordionItemsInstitutionNarrow | ComponentBlocksBlogPostLink | ComponentBlocksBookmarkLink | ComponentBlocksCommonLink | ComponentBlocksComparisonCard | ComponentBlocksComparisonItem | ComponentBlocksDocListExtensions | ComponentBlocksFile | ComponentBlocksFileItem | ComponentBlocksFooterColumn | ComponentBlocksFooterSection | ComponentBlocksGalleryItem | ComponentBlocksHomepageBookmark | ComponentBlocksHomepageHighlightsItem | ComponentBlocksIconWithTitleAndDescription | ComponentBlocksInBa | ComponentBlocksListItem | ComponentBlocksNumericalListItem | ComponentBlocksPageLink | ComponentBlocksProsAndConsCard | ComponentBlocksSpaceInfo | ComponentBlocksSubpage | ComponentBlocksTimelineItem | ComponentBlocksTopServicesItem | ComponentBlocksVideo | ComponentGeneralHeader | ComponentGeneralHeaderLink | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentOsItemsAdvancedAccordionDepartment | ComponentOsItemsAdvancedAccordionItem | ComponentOsItemsAdvancedAccordionSubItem | ComponentOsItemsAdvancedAccordionSubSubItem | ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsHomepageEvents | ComponentSectionsHomepageHighlights | ComponentSectionsHomepageMayorAndCouncil | ComponentSectionsHomepageTabs | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsListItems | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsSubpageList | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsTopServices | ComponentSectionsVideos | ComponentSectionsWaves | Footer | General | Homepage | I18NLocale | Menu | Page | PageCategory | PageSubcategory | Tag | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vzn;
+export type GenericMorph = Alert | BlogPost | ComponentAccordionItemsFlatText | ComponentAccordionItemsInstitution | ComponentAccordionItemsInstitutionNarrow | ComponentBlocksBlogPostLink | ComponentBlocksBookmarkLink | ComponentBlocksCommonLink | ComponentBlocksComparisonCard | ComponentBlocksComparisonItem | ComponentBlocksDocListExtensions | ComponentBlocksFile | ComponentBlocksFileItem | ComponentBlocksFooterColumn | ComponentBlocksFooterSection | ComponentBlocksGalleryItem | ComponentBlocksHomepageBookmark | ComponentBlocksHomepageHighlightsItem | ComponentBlocksIconWithTitleAndDescription | ComponentBlocksInBa | ComponentBlocksNumericalListItem | ComponentBlocksPageLink | ComponentBlocksProsAndConsCard | ComponentBlocksSpaceInfo | ComponentBlocksSubpage | ComponentBlocksTimelineItem | ComponentBlocksTopServicesItem | ComponentBlocksVideo | ComponentGeneralHeader | ComponentGeneralHeaderLink | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentOsItemsAdvancedAccordionDepartment | ComponentOsItemsAdvancedAccordionItem | ComponentOsItemsAdvancedAccordionSubItem | ComponentOsItemsAdvancedAccordionSubSubItem | ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsBlogPostsList | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsHomepageEvents | ComponentSectionsHomepageHighlights | ComponentSectionsHomepageMayorAndCouncil | ComponentSectionsHomepageTabs | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsSubpageList | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsTopServices | ComponentSectionsVideos | ComponentSectionsWaves | Footer | General | Homepage | I18NLocale | Menu | Page | PageCategory | PageSubcategory | Tag | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vzn;
 
 export type Homepage = {
   __typename?: 'Homepage';
@@ -3542,7 +3510,7 @@ export type PageRelationResponseCollection = {
   data: Array<PageEntity>;
 };
 
-export type PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsListItems | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsVideos | ComponentSectionsWaves | Error;
+export type PageSectionsDynamicZone = ComponentSectionsAccordion | ComponentSectionsArticlesList | ComponentSectionsBanner | ComponentSectionsBlogPostsList | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContact | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsLinks | ComponentSectionsNarrowText | ComponentSectionsNewsletter | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsVideos | ComponentSectionsWaves | Error;
 
 export type PageSubcategory = {
   __typename?: 'PageSubcategory';
@@ -4435,7 +4403,7 @@ export type AllPagesQueryVariables = Exact<{
 }>;
 
 
-export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsArticlesList' } | { __typename: 'ComponentSectionsBanner' } | { __typename: 'ComponentSectionsCalculator' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsComparisonSection' } | { __typename: 'ComponentSectionsContact' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocumentList' } | { __typename: 'ComponentSectionsFeaturedBlogPosts' } | { __typename: 'ComponentSectionsFileList' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsIconTitleDesc' } | { __typename: 'ComponentSectionsIframe' } | { __typename: 'ComponentSectionsLinks' } | { __typename: 'ComponentSectionsListItems' } | { __typename: 'ComponentSectionsNarrowText' } | { __typename: 'ComponentSectionsNewsletter' } | { __typename: 'ComponentSectionsNumericalList' } | { __typename: 'ComponentSectionsOfficialBoard' } | { __typename: 'ComponentSectionsOrganizationalStructure' } | { __typename: 'ComponentSectionsProsAndConsSection' } | { __typename: 'ComponentSectionsSpace' } | { __typename: 'ComponentSectionsTextWithImage' } | { __typename: 'ComponentSectionsTimeline' } | { __typename: 'ComponentSectionsVideos' } | { __typename: 'ComponentSectionsWaves' } | { __typename: 'Error' } | null> | null } | null }> } | null };
+export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsArticlesList' } | { __typename: 'ComponentSectionsBanner' } | { __typename: 'ComponentSectionsBlogPostsList' } | { __typename: 'ComponentSectionsCalculator' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsComparisonSection' } | { __typename: 'ComponentSectionsContact' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocumentList' } | { __typename: 'ComponentSectionsFeaturedBlogPosts' } | { __typename: 'ComponentSectionsFileList' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsIconTitleDesc' } | { __typename: 'ComponentSectionsIframe' } | { __typename: 'ComponentSectionsLinks' } | { __typename: 'ComponentSectionsNarrowText' } | { __typename: 'ComponentSectionsNewsletter' } | { __typename: 'ComponentSectionsNumericalList' } | { __typename: 'ComponentSectionsOfficialBoard' } | { __typename: 'ComponentSectionsOrganizationalStructure' } | { __typename: 'ComponentSectionsProsAndConsSection' } | { __typename: 'ComponentSectionsSpace' } | { __typename: 'ComponentSectionsTextWithImage' } | { __typename: 'ComponentSectionsTimeline' } | { __typename: 'ComponentSectionsVideos' } | { __typename: 'ComponentSectionsWaves' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
 
 export const AllPagesDocument = gql`

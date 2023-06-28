@@ -1,99 +1,93 @@
-import {stagingClient} from './gql';
-import * as groupBy from 'lodash/groupBy';
-import {PageInput} from '../graphql/bratislava-staging';
+import { stagingClient } from './gql'
 
 async function sections() {
   for (const locale of ['sk', 'en']) {
-    const {pages} = await stagingClient.AllPages({locale});
-    const flatTextMap = [];
-    const institutionsMap = [];
-    const institutionsNarrowMap = [];
-    const othersMap = [];
+    const { pages } = await stagingClient.AllPages({ locale })
+    const flatTextMap = []
+    const institutionsMap = []
+    const institutionsNarrowMap = []
+    const othersMap = []
 
-    for (const page of pages.data) {
-      const ComponentSectionsSubpageList =
-        page.attributes.pageHeaderSections.filter(
-          section => section.__typename === 'ComponentSectionsSubpageList'
-        );
+    for (const page of pages?.data ?? []) {
+      if (!page.id || !page.attributes) {
+        continue
+      }
 
-      const ComponentSectionsFeaturedBlogPosts =
-        page.attributes.sections.filter(
-          section => section.__typename === 'ComponentSectionsFeaturedBlogPosts'
-        );
+      const ComponentSectionsSubpageList = page.attributes.pageHeaderSections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsSubpageList'
+      )
 
-      const ComponentSectionsGallery = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsGallery'
-      );
+      const ComponentSectionsFeaturedBlogPosts = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsFeaturedBlogPosts'
+      )
 
-      const ComponentSectionsIframe = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsIframe'
-      );
+      const ComponentSectionsGallery = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsGallery'
+      )
 
-      const ComponentSectionsOrganizationalStructure =
-        page.attributes.sections.filter(
-          section =>
-            section.__typename === 'ComponentSectionsOrganizationalStructure'
-        );
+      const ComponentSectionsIframe = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsIframe'
+      )
 
-      const ComponentSectionsArticlesList = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsArticlesList'
-      );
+      const ComponentSectionsOrganizationalStructure = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsOrganizationalStructure'
+      )
 
-      const ComponentSectionsListItems = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsListItems'
-      );
+      const ComponentSectionsArticlesList = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsArticlesList'
+      )
 
-      const ComponentSectionsIconTitleDesc = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsIconTitleDesc'
-      );
+      const ComponentSectionsIconTitleDesc = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsIconTitleDesc'
+      )
 
-      const ComponentSectionsNumericalList = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsNumericalList'
-      );
+      const ComponentSectionsNumericalList = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsNumericalList'
+      )
 
-      const ComponentSectionsVideos = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsVideos'
-      );
+      const ComponentSectionsVideos = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsVideos'
+      )
 
-      const ComponentSectionsAccordion = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsAccordion'
-      );
+      const ComponentSectionsAccordion = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsAccordion'
+      )
 
-      const ComponentSectionsCalculator = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsCalculator'
-      );
+      const ComponentSectionsCalculator = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsCalculator'
+      )
 
-      const ComponentSectionsContact = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsContact'
-      );
+      const ComponentSectionsContact = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsContact'
+      )
 
-      const ComponentSectionsDivider = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsDivider'
-      );
+      const ComponentSectionsDivider = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsDivider'
+      )
 
-      const ComponentSectionsWaves = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsWaves'
-      );
+      const ComponentSectionsWaves = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsWaves'
+      )
 
-      const ComponentSectionsLinks = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsLinks'
-      );
+      const ComponentSectionsLinks = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsLinks'
+      )
 
-      const ComponentSectionsNarrowText = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsNarrowText'
-      );
+      const ComponentSectionsNarrowText = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsNarrowText'
+      )
 
-      const ComponentSectionsFileList = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsFileList'
-      );
+      const ComponentSectionsFileList = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsFileList'
+      )
 
-      const ComponentSectionsTextWithImage = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsTextWithImage'
-      );
+      const ComponentSectionsTextWithImage = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsTextWithImage'
+      )
 
-      const ComponentSectionsColumnedText = page.attributes.sections.filter(
-        section => section.__typename === 'ComponentSectionsColumnedText'
-      );
+      const ComponentSectionsColumnedText = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsColumnedText'
+      )
 
       // if (ComponentSectionsFileList.length) {
       //   const sectionsSet = new Set(
@@ -119,12 +113,22 @@ async function sections() {
       //   });
       // }
 
-      if (ComponentSectionsLinks.length) {
+      // if (ComponentSectionsNarrowText?.length) {
+      //   const centered = ComponentSectionsNarrowText?.filter(
+      //     (section) => section?.__typename === 'ComponentSectionsNarrowText' && section.align === 'center'
+      //   )
+      //   if (centered?.length) {
+      //     console.log(page.id, page.attributes.slug, centered.length)
+      //   }
+      // }
+
+      if (ComponentSectionsContact?.length) {
+        const HOST = 'https://bratislava.sk/'
         console.log(
           page.id,
-          page.attributes.slug,
-          ComponentSectionsLinks.length
-        );
+          `${HOST}${locale === 'en' ? 'en/' : ''}${page.attributes.slug}`,
+          ComponentSectionsContact.length
+        )
       }
 
       // if (ComponentSectionsIconTitleDesc.length) {
@@ -192,94 +196,87 @@ async function sections() {
   }
 }
 
-async function byPage() {
-  const {pages} = await stagingClient.PageById({
-    id: '307',
-  });
-  const page = pages.data[0];
+// async function byPage() {
+//   const { pages } = await stagingClient.PageById({
+//     id: '307',
+//   })
+//   const page = pages.data[0]
+//
+//   if (!page) {
+//     console.log('no page')
+//     return
+//   }
+//
+//   const ComponentSectionsFileList = page.attributes.sections.filter(
+//     (section) => section.__typename === 'ComponentSectionsFileList'
+//   )
+//
+//   if (ComponentSectionsFileList.length) {
+//     const oldSections = ComponentSectionsFileList.filter(
+//       (section) => section.__typename === 'ComponentSectionsFileList' && !section.title
+//     )
+//     const newSections = ComponentSectionsFileList.filter(
+//       (section) => section.__typename === 'ComponentSectionsFileList' && section.title
+//     )
+//
+//     oldSections.map((section) => {
+//       if (section.__typename === 'ComponentSectionsFileList') {
+//         const fileList = section.fileList.map((file) => ({
+//           category: file.category ?? '',
+//           ...file,
+//         }))
+//         const grouped = groupBy(fileList, 'category')
+//         console.log(grouped)
+//
+//         Object.keys(grouped).map((key) => {
+//           const newSection = newSections.find(
+//             (section) => section.__typename === 'ComponentSectionsFileList' && section.title === key
+//           )
+//
+//           if (newSection && newSection.__typename === 'ComponentSectionsFileList') {
+//             const newFileList = grouped[key]
+//               .map((file) => {
+//                 if (!file.media.data) {
+//                   console.log(file)
+//                   return null
+//                 }
+//                 return {
+//                   title: file.title,
+//                   category: file.category,
+//                   media: file.media.data.id,
+//                 }
+//               })
+//               .filter(Boolean)
+//             // console.log(newFileList);
+//
+//             const data = {
+//               sections: [
+//                 ...page.attributes.sections,
+//                 {
+//                   id: newSection.id,
+//                   __typename: 'ComponentSectionsFileList',
+//                   fileList: newFileList,
+//                 },
+//               ],
+//             } as PageInput
+//             // console.log(data);
+//             // stagingClient.UpdatePage({id: '935', data});
+//           }
+//         })
+//       }
+//     })
+//   }
+// }
 
-  if (!page) {
-    console.log('no page');
-    return;
-  }
+// async function tags() {
+//   const { tags } = await stagingClient.AllTags()
+//   tags.data
+//     .sort((tagA, tagB) => parseInt(tagA.id) - parseInt(tagB.id))
+//     .map((tag) => {
+//       console.log(tag.id, tag.attributes.title)
+//     })
+// }
 
-  const ComponentSectionsFileList = page.attributes.sections.filter(
-    section => section.__typename === 'ComponentSectionsFileList'
-  );
-
-  if (ComponentSectionsFileList.length) {
-    const oldSections = ComponentSectionsFileList.filter(
-      section =>
-        section.__typename === 'ComponentSectionsFileList' && !section.title
-    );
-    const newSections = ComponentSectionsFileList.filter(
-      section =>
-        section.__typename === 'ComponentSectionsFileList' && section.title
-    );
-
-    oldSections.map(section => {
-      if (section.__typename === 'ComponentSectionsFileList') {
-        const fileList = section.fileList.map(file => ({
-          category: file.category ?? '',
-          ...file,
-        }));
-        const grouped = groupBy(fileList, 'category');
-        console.log(grouped);
-
-        Object.keys(grouped).map(key => {
-          const newSection = newSections.find(
-            section =>
-              section.__typename === 'ComponentSectionsFileList' &&
-              section.title === key
-          );
-
-          if (
-            newSection &&
-            newSection.__typename === 'ComponentSectionsFileList'
-          ) {
-            const newFileList = grouped[key]
-              .map(file => {
-                if (!file.media.data) {
-                  console.log(file);
-                  return null;
-                }
-                return {
-                  title: file.title,
-                  category: file.category,
-                  media: file.media.data.id,
-                };
-              })
-              .filter(Boolean);
-            // console.log(newFileList);
-
-            const data = {
-              sections: [
-                ...page.attributes.sections,
-                {
-                  id: newSection.id,
-                  __typename: 'ComponentSectionsFileList',
-                  fileList: newFileList,
-                },
-              ],
-            } as PageInput;
-            // console.log(data);
-            // stagingClient.UpdatePage({id: '935', data});
-          }
-        });
-      }
-    });
-  }
-}
-
-async function tags() {
-  const {tags} = await stagingClient.AllTags();
-  tags.data
-    .sort((tagA, tagB) => parseInt(tagA.id) - parseInt(tagB.id))
-    .map(tag => {
-      console.log(tag.id, tag.attributes.title);
-    });
-}
-
-sections();
+sections()
 // byPage();
 // tags();

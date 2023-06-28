@@ -1,0 +1,92 @@
+query AllContentPages {
+  contentPages(pagination: {start: 0, limit: -1}, locale: "all") {
+    data {
+      id
+      attributes {
+        title
+        slug
+        subtitle
+        tags {
+          data {
+            id
+            attributes {
+              title
+              slug
+            }
+          }
+        }
+        dateFrom
+        dateTo
+      }
+    }
+  }
+}
+
+query TagCategories($ids: [ID]!) {
+  tagCategories(pagination: {start: 0, limit: -1}, locale: "all", filters: {id: {in: $ids}}) {
+    data {
+      id
+      attributes {
+        title
+        tags {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation UpdateContentPage($id: ID!, $data: ContentPageInput!) {
+  updateContentPage(id: $id, data: $data) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        dateFrom
+        dateTo
+        addedAt
+      }
+    }
+  }
+}
+
+
+query AllTags {
+  tags(pagination: {start: 0, limit: -1}, locale: "all") {
+    data {
+      id
+      attributes {
+        title
+        slug
+        tagCategory {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+mutation UpdateTag($id: ID!, $data: TagInput!) {
+  updateTag(id: $id, data: $data) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        titleInternal
+      }
+    }
+  }
+}

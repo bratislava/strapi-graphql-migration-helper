@@ -1,0 +1,9 @@
+schema: 'http://localhost:1337/graphql'
+#schema: './src/graphql/gallery-localhost/schema.graphql'
+documents: './src/graphql/gallery-localhost/queries/**/*.{gql,graphql}'
+generates:
+  src/graphql/gallery-localhost/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
