@@ -9,14 +9,6 @@ query PagesStaticPaths {
   }
 }
 
-#query PageBySlug($slug: String!, $locale: I18NLocaleCode!) {
-#  pages(filters: { slug: { eq: $slug } }, locale: $locale) {
-#    data {
-#      ...PageEntity
-#    }
-#  }
-#}
-
 fragment PageParentPages on PageEntity {
   attributes {
     ...ParentPage
@@ -59,11 +51,10 @@ fragment PageEntity on PageEntity {
     subtext
     pageColor
     metaDiscription
+    keywords
     pageBackgroundImage {
       data {
-        attributes {
-          url
-        }
+        ...UploadImageSrcEntity
       }
     }
     headerLinks {
@@ -77,13 +68,7 @@ fragment PageEntity on PageEntity {
       ...Localization
     }
     pageHeaderSections {
-      __typename
-      ... on ComponentSectionsSubpageList {
-        id
-        subpageList(pagination: { limit: 50 }) {
-          ...PageLinkBlock
-        }
-      }
+      ...PageHeaderSections
     }
     pageCategory {
       data {
@@ -94,90 +79,13 @@ fragment PageEntity on PageEntity {
         }
       }
     }
+    relatedContents {
+      data {
+        ...TagEntity
+      }
+    }
   }
   ...PageParentPages
-}
-
-fragment PageForMigrationEntity on PageEntity {
-  id
-  attributes {
-    #    slug
-    #    title
-    #    subtext
-    #    pageColor
-    #    metaDiscription
-    #    pageBackgroundImage {
-    #      data {
-    #        id
-    #      }
-    #    }
-    #    headerLinks {
-    #      ...CommonLinkForMigration
-    #    }
-    sections {
-      ...SectionsForMigration
-    }
-    #    locale
-    #    localizations {
-    #      ...Localization
-    #    }
-    #    pageHeaderSections {
-    #      ...on ComponentSectionsSubpageList {
-    #        hasBackground
-    #        subpageList {
-    #          title
-    #          url
-    #          anchor
-    #          page {
-    #            data {
-    #              id
-    #            }
-    #          }
-    #        }
-    #      }
-    #    }
-    #    pageCategory {
-    #      data {
-    #        id
-    #      }
-    #    }
-    #    parentPage {
-    #      data {
-    #        id
-    #      }
-    #    }
-  }
-}
-
-fragment BlogSection on BlogPostEntityResponse {
-  data {
-    attributes {
-      title
-      publishedAt
-      coverImage {
-        data {
-          attributes {
-            url
-          }
-        }
-      }
-      tag {
-        data {
-          attributes {
-            pageCategory {
-              data {
-                attributes {
-                  color
-                  shortTitle
-                }
-              }
-            }
-          }
-        }
-      }
-      slug
-    }
-  }
 }
 
 fragment ParentPage on Page {

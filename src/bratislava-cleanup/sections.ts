@@ -1,4 +1,4 @@
-import { stagingClient } from './gql'
+import { stagingClient, localhostClient } from './gql'
 
 async function sections() {
   for (const locale of ['sk', 'en']) {
@@ -7,6 +7,9 @@ async function sections() {
     const institutionsMap = []
     const institutionsNarrowMap = []
     const othersMap = []
+
+    //TODO: vymaz
+    console.log('startin')
 
     for (const page of pages?.data ?? []) {
       if (!page.id || !page.attributes) {
@@ -31,10 +34,6 @@ async function sections() {
 
       const ComponentSectionsOrganizationalStructure = page.attributes.sections?.filter(
         (section) => section?.__typename === 'ComponentSectionsOrganizationalStructure'
-      )
-
-      const ComponentSectionsArticlesList = page.attributes.sections?.filter(
-        (section) => section?.__typename === 'ComponentSectionsArticlesList'
       )
 
       const ComponentSectionsIconTitleDesc = page.attributes.sections?.filter(

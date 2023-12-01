@@ -3,7 +3,7 @@ fragment IconTitleDescriptionBlock on ComponentBlocksIconWithTitleAndDescription
   desc
   icon {
     data {
-      ...ImageSrcEntity
+      ...UploadImageSrcEntity
     }
   }
 }
@@ -21,12 +21,7 @@ fragment DocumentListSection on ComponentSectionsDocumentList {
           validFrom
           document {
             data {
-              attributes {
-                url
-                size
-                ext
-                createdAt
-              }
+              ...UploadFileEntity
             }
           }
         }
@@ -36,12 +31,7 @@ fragment DocumentListSection on ComponentSectionsDocumentList {
           validFrom
           document {
             data {
-              attributes {
-                url
-                size
-                ext
-                createdAt
-              }
+              ...UploadFileEntity
             }
           }
         }
@@ -49,23 +39,12 @@ fragment DocumentListSection on ComponentSectionsDocumentList {
         validFrom
         mainDocument {
           data {
-            attributes {
-              url
-              size
-              ext
-              createdAt
-            }
+            ...UploadFileEntity
           }
         }
         consolidatedText {
           data {
-            id
-            attributes {
-              url
-              size
-              ext
-              createdAt
-            }
+            ...UploadFileEntity
           }
         }
       }
@@ -98,6 +77,12 @@ fragment TimelineItemBlock on ComponentBlocksTimelineItem {
 
 fragment GallerySection on ComponentSectionsGallery {
   title
+  text
+  medias(pagination: { limit: -1 }) {
+    data {
+      ...UploadImageEntity
+    }
+  }
   subtitle
   galleryItems {
     ...GalleryItemBlock
@@ -110,16 +95,47 @@ fragment TimelineSection on ComponentSectionsTimeline {
   }
 }
 
-fragment ArticlesListSection on ComponentSectionsArticlesList {
+fragment BlogPostsListSection on ComponentSectionsBlogPostsList {
   title
+  text
+}
+
+fragment BlogPostsByTagsSection on ComponentSectionsBlogPostsByTags {
+  title
+  text
+  tags {
+    data {
+      id
+    }
+  }
+}
+
+fragment BlogPostsByCategorySection on ComponentSectionsBlogPostsByCategory {
+  title
+  text
   category {
     data {
+      id
       attributes {
         title
       }
     }
   }
-  filtering
+}
+
+fragment InbaArticlesListSection on ComponentSectionsInbaArticlesList {
+  title
+  text
+  featuredArticles: featuredArts {
+    data {
+      ...InbaArticleEntity
+    }
+  }
+}
+
+fragment InbaReleasesSection on ComponentSectionsInbaReleases {
+  title
+  text
 }
 
 fragment IconTitleDescSection on ComponentSectionsIconTitleDesc {
@@ -167,30 +183,33 @@ fragment FileBlock on ComponentBlocksFile {
   category
   media {
     data {
-      id
-      attributes {
-        url
-        createdAt
-        size
-        ext
-      }
+      ...UploadFileEntity
     }
   }
 }
 
 fragment FileListSection on ComponentSectionsFileList {
-  id
   hasBackground
-  title
+  variantFileList: variant
   # TODO consider limit -1
   fileList(pagination: { limit: 500 }) {
     ...FileBlock
   }
 }
 
+fragment FileItemBlock on ComponentBlocksFileItem {
+  title
+  media {
+    data {
+      ...UploadFileEntity
+    }
+  }
+}
+
 fragment ColumnedTextSection on ComponentSectionsColumnedText {
   hasBackground
   content
+  contentAlignment
 }
 
 fragment NarrowTextSection on ComponentSectionsNarrowText {
@@ -262,6 +281,9 @@ fragment ComponentAccordionItemsFlatText on ComponentAccordionItemsFlatText {
         locale
       }
     }
+  }
+  fileList {
+    ...FileItemBlock
   }
 }
 
@@ -404,6 +426,50 @@ fragment BannerSection on ComponentSectionsBanner {
   }
 }
 
+fragment FeaturedBlogPostsSection on ComponentSectionsFeaturedBlogPosts {
+  id
+  first_blog {
+    data {
+      ...LatestBlogPostEntity
+    }
+  }
+  second_blog {
+    data {
+      ...LatestBlogPostEntity
+    }
+  }
+  third_blog {
+    data {
+      ...LatestBlogPostEntity
+    }
+  }
+}
+
+fragment ContactCardBlock on ComponentBlocksContactCard {
+  overrideLabel
+  value
+}
+
+fragment ContactsSection on ComponentSectionsContactsSection {
+  id
+  title
+  description
+  hasBackground
+  addressContacts {
+    ...ContactCardBlock
+  }
+  emailContacts {
+    ...ContactCardBlock
+  }
+  phoneContacts {
+    ...ContactCardBlock
+  }
+  webContacts {
+    ...ContactCardBlock
+  }
+  type
+}
+
 fragment Sections on PageSectionsDynamicZone {
   __typename
 
@@ -470,8 +536,24 @@ fragment Sections on PageSectionsDynamicZone {
     ...NumericalListSection
   }
 
-  ... on ComponentSectionsArticlesList {
-    ...ArticlesListSection
+  ... on ComponentSectionsBlogPostsList {
+    ...BlogPostsListSection
+  }
+
+  ... on ComponentSectionsBlogPostsByTags {
+    ...BlogPostsByTagsSection
+  }
+
+  ... on ComponentSectionsBlogPostsByCategory {
+    ...BlogPostsByCategorySection
+  }
+
+  ... on ComponentSectionsInbaArticlesList {
+    ...InbaArticlesListSection
+  }
+
+  ... on ComponentSectionsInbaReleases {
+    ...InbaReleasesSection
   }
 
   ... on ComponentSectionsOrganizationalStructure {
@@ -497,7 +579,11 @@ fragment Sections on PageSectionsDynamicZone {
   }
 
   ... on ComponentSectionsFeaturedBlogPosts {
-    ...FeaturedBlogPostsPageHeaderSection
+    ...FeaturedBlogPostsSection
+  }
+
+  ... on ComponentSectionsContactsSection {
+    ...ContactsSection
   }
 }
 
@@ -505,19 +591,6 @@ fragment SubpageListPageHeaderSection on ComponentSectionsSubpageList {
   id
   subpageList(pagination: { limit: -1 }) {
     ...PageLinkBlock
-  }
-}
-
-fragment FeaturedBlogPostsPageHeaderSection on ComponentSectionsFeaturedBlogPosts {
-  id
-  first_blog {
-    ...BlogSection
-  }
-  second_blog {
-    ...BlogSection
-  }
-  third_blog {
-    ...BlogSection
   }
 }
 
