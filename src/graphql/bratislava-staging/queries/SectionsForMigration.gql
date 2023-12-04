@@ -66,10 +66,6 @@ fragment SectionsForMigration on PageSectionsDynamicZone {
   #    ...NumericalListSection
   #  }
   #
-  #  ... on ComponentSectionsArticlesList {
-  #    ...ArticlesListSection
-  #  }
-  #
   #  ... on ComponentSectionsOrganizationalStructure {
   #    ...OrganizationalStructureSection
   #  }
@@ -111,7 +107,6 @@ fragment AccordionSectionForMigration on ComponentSectionsAccordion {
   }
 }
 
-
 fragment ComponentAccordionItemsFlatTextForMigration on ComponentAccordionItemsFlatText {
   category
   content
@@ -125,7 +120,6 @@ fragment ComponentAccordionItemsFlatTextForMigration on ComponentAccordionItemsF
     }
   }
 }
-
 
 fragment LinksSectionForMigration on ComponentSectionsLinks {
   title
@@ -141,7 +135,6 @@ fragment LinksSectionForMigration on ComponentSectionsLinks {
     }
   }
 }
-
 
 fragment FileListSectionForMigration on ComponentSectionsFileList {
   id
