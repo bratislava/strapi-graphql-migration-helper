@@ -8,9 +8,6 @@ async function sections() {
     const institutionsNarrowMap = []
     const othersMap = []
 
-    //TODO: vymaz
-    console.log('startin')
-
     for (const page of pages?.data ?? []) {
       if (!page.id || !page.attributes) {
         continue
@@ -88,6 +85,10 @@ async function sections() {
         (section) => section?.__typename === 'ComponentSectionsColumnedText'
       )
 
+      const ComponentSectionsNewsletter = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsNewsletter'
+      )
+
       // if (ComponentSectionsFileList.length) {
       //   const sectionsSet = new Set(
       //     page.attributes.sections.map(section => section.__typename)
@@ -121,12 +122,13 @@ async function sections() {
       //   }
       // }
 
-      if (ComponentSectionsContact?.length) {
+      if (ComponentSectionsNewsletter?.length) {
         const HOST = 'https://bratislava.sk/'
         console.log(
+          'Newsletter section found: ',
           page.id,
           `${HOST}${locale === 'en' ? 'en/' : ''}${page.attributes.slug}`,
-          ComponentSectionsContact.length
+          ComponentSectionsNewsletter.length
         )
       }
 
@@ -277,5 +279,5 @@ async function sections() {
 // }
 
 sections()
-// byPage();
-// tags();
+// byPage()
+// tags()
