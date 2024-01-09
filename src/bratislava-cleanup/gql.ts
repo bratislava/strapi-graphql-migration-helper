@@ -10,7 +10,9 @@ import { GraphQLClient } from 'graphql-request'
 const localhostBratislavaClient = new GraphQLClient('http://localhost:1337/graphql')
 
 // We are connecting to dev, because staging is more used for testing purposes and the database is changed more often
-const stagingBratislavaClient = new GraphQLClient('https://bratislava-strapi.bratislava.sk/graphql')
+const productionBratislavaClient = new GraphQLClient('https://bratislava-strapi.bratislava.sk/graphql')
+const stagingBratislavaClient = new GraphQLClient('https://bratislava-strapi.staging.bratislava.sk/graphql')
 
 export const localhostClient = localhostGetSdk(localhostBratislavaClient)
 export const stagingClient = stagingGetSdk(stagingBratislavaClient)
+export const productionClient = stagingGetSdk(productionBratislavaClient)

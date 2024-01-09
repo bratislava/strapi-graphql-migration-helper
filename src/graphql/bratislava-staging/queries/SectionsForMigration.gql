@@ -42,9 +42,6 @@ fragment SectionsForMigration on PageSectionsDynamicZone {
   ... on ComponentSectionsLinks {
     ...LinksSectionForMigration
   }
-  ... on ComponentSectionsContact {
-    ...ContactSection
-  }
 
   ... on ComponentSectionsAccordion {
     ...AccordionSection

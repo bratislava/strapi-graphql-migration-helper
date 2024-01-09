@@ -1,8 +1,17 @@
-import { stagingClient } from './gql'
+import { stagingClient, productionClient, localhostClient } from './gql'
 
-async function sections() {
+// sections(localhostClient, 'LOCAL')
+sections(stagingClient, 'STAGING')
+//sections(productionClient, 'PRODUCTION')
+
+async function sections(client: any, message = '') {
+  const waitTimer = setInterval(() => {
+    console.log('waiting...')
+  }, 6000)
+
   for (const locale of ['sk', 'en']) {
-    const { pages } = await stagingClient.AllPages({ locale })
+    const { pages } = await client.AllPages({ locale })
+    console.log(message + ' Locale: ' + locale)
     const flatTextMap = []
     const institutionsMap = []
     const institutionsNarrowMap = []
@@ -51,10 +60,6 @@ async function sections() {
 
       const ComponentSectionsCalculator = page.attributes.sections?.filter(
         (section) => section?.__typename === 'ComponentSectionsCalculator'
-      )
-
-      const ComponentSectionsContact = page.attributes.sections?.filter(
-        (section) => section?.__typename === 'ComponentSectionsContact'
       )
 
       const ComponentSectionsDivider = page.attributes.sections?.filter(
@@ -113,22 +118,13 @@ async function sections() {
       //   });
       // }
 
-      // if (ComponentSectionsNarrowText?.length) {
-      //   const centered = ComponentSectionsNarrowText?.filter(
-      //     (section) => section?.__typename === 'ComponentSectionsNarrowText' && section.align === 'center'
-      //   )
-      //   if (centered?.length) {
-      //     console.log(page.id, page.attributes.slug, centered.length)
-      //   }
-      // }
-
-      if (ComponentSectionsContact?.length) {
-        const HOST = 'https://bratislava.sk/'
-        console.log(
-          page.id,
-          `${HOST}${locale === 'en' ? 'en/' : ''}${page.attributes.slug}`,
-          ComponentSectionsContact.length
+      if (ComponentSectionsNarrowText?.length) {
+        const centered = ComponentSectionsNarrowText?.filter(
+          (section) => section?.__typename === 'ComponentSectionsNarrowText' && section.align === 'center'
         )
+        if (centered?.length) {
+          console.log(page.id, page.attributes.slug, centered.length)
+        }
       }
 
       // if (ComponentSectionsIconTitleDesc.length) {
@@ -194,6 +190,8 @@ async function sections() {
     // console.log(institutionsNarrowMap);
     // console.log(othersMap);
   }
+
+  clearInterval(waitTimer)
 }
 
 // async function byPage() {
@@ -277,6 +275,5 @@ async function sections() {
 //     })
 // }
 
-sections()
 // byPage();
 // tags();

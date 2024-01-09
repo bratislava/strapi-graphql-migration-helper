@@ -216,17 +216,6 @@ fragment LinksSection on ComponentSectionsLinks {
   }
 }
 
-fragment ContactSection on ComponentSectionsContact {
-  title
-  hasBackground
-  description
-  phone
-  phoneLabel
-  email
-  emailLabel
-  address
-}
-
 fragment ComponentAccordionItemsInstitutionNarrow on ComponentAccordionItemsInstitutionNarrow {
   title
   subtitle
@@ -437,9 +426,6 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsLinks {
     ...LinksSection
-  }
-  ... on ComponentSectionsContact {
-    ...ContactSection
   }
 
   ... on ComponentSectionsAccordion {
