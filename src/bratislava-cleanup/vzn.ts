@@ -12,8 +12,7 @@ async function vzn(client: typeof stagingClient | typeof productionClient | type
   const logger: string[] = ['']
 
   // const data = await client.AllVZNs()
-  const data = a
-  wait client.AllPages({ locale: 'sk' })
+  const data = await client.AllPages({ locale: 'sk' })
 
   logger.push(JSON.stringify(data))
 
