@@ -1,7 +1,7 @@
 import { stagingClient, productionClient, localhostClient } from './gql'
 
-// sections(localhostClient, 'LOCAL')
-sections(stagingClient, 'STAGING')
+sections(localhostClient, 'LOCAL')
+// sections(stagingClient, 'STAGING')
 //sections(productionClient, 'PRODUCTION')
 
 async function sections(client: any, message = '') {

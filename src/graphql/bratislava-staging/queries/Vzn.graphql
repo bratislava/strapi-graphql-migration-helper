@@ -1,0 +1,46 @@
+query AllVZNs {
+  vzns {
+    data {
+      id
+      attributes {
+        title
+        validFrom
+        mainDocument {
+          data {
+            ...UploadFileEntity
+          }
+        }
+        cancellationDocument {
+          id
+          title
+          document {
+            data {
+              ...UploadFileEntity
+            }
+          }
+        }
+        amedmentDocument {
+          id
+          title
+          document {
+            data {
+              ...UploadFileEntity
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    ext
+    size
+    createdAt
+    updatedAt
+  }
+}

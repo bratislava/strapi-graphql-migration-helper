@@ -4398,6 +4398,13 @@ export type VznRelationResponseCollection = {
   data: Array<VznEntity>;
 };
 
+export type AllVzNsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllVzNsQuery = { __typename?: 'Query', vzns?: { __typename?: 'VznEntityResponseCollection', data: Array<{ __typename?: 'VznEntity', id?: string | null, attributes?: { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null } | null }> } | null };
+
+export type UploadFileEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null };
+
 export type AllPagesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
@@ -4405,7 +4412,55 @@ export type AllPagesQueryVariables = Exact<{
 
 export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsArticlesList' } | { __typename: 'ComponentSectionsBanner' } | { __typename: 'ComponentSectionsBlogPostsList' } | { __typename: 'ComponentSectionsCalculator' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsComparisonSection' } | { __typename: 'ComponentSectionsContact' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocumentList' } | { __typename: 'ComponentSectionsFeaturedBlogPosts' } | { __typename: 'ComponentSectionsFileList' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsIconTitleDesc' } | { __typename: 'ComponentSectionsIframe' } | { __typename: 'ComponentSectionsLinks' } | { __typename: 'ComponentSectionsNarrowText' } | { __typename: 'ComponentSectionsNewsletter' } | { __typename: 'ComponentSectionsNumericalList' } | { __typename: 'ComponentSectionsOfficialBoard' } | { __typename: 'ComponentSectionsOrganizationalStructure' } | { __typename: 'ComponentSectionsProsAndConsSection' } | { __typename: 'ComponentSectionsSpace' } | { __typename: 'ComponentSectionsTextWithImage' } | { __typename: 'ComponentSectionsTimeline' } | { __typename: 'ComponentSectionsVideos' } | { __typename: 'ComponentSectionsWaves' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
-
+export const UploadFileEntityFragmentDoc = gql`
+    fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    ext
+    size
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export const AllVzNsDocument = gql`
+    query AllVZNs {
+  vzns {
+    data {
+      id
+      attributes {
+        title
+        validFrom
+        mainDocument {
+          data {
+            ...UploadFileEntity
+          }
+        }
+        cancellationDocument {
+          id
+          title
+          document {
+            data {
+              ...UploadFileEntity
+            }
+          }
+        }
+        amedmentDocument {
+          id
+          title
+          document {
+            data {
+              ...UploadFileEntity
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    ${UploadFileEntityFragmentDoc}`;
 export const AllPagesDocument = gql`
     query AllPages($locale: I18NLocaleCode!) {
   pages(locale: $locale, pagination: {start: 0, limit: -1}) {
@@ -4429,6 +4484,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    AllVZNs(variables?: AllVzNsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllVzNsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllVzNsQuery>(AllVzNsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllVZNs', 'query');
+    },
     AllPages(variables: AllPagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllPagesQuery>(AllPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllPages', 'query');
     }
