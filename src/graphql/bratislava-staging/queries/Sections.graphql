@@ -110,18 +110,6 @@ fragment TimelineSection on ComponentSectionsTimeline {
   }
 }
 
-fragment ArticlesListSection on ComponentSectionsArticlesList {
-  title
-  category {
-    data {
-      attributes {
-        title
-      }
-    }
-  }
-  filtering
-}
-
 fragment IconTitleDescSection on ComponentSectionsIconTitleDesc {
   title
   hasBackground
@@ -468,10 +456,6 @@ fragment Sections on PageSectionsDynamicZone {
 
   ... on ComponentSectionsNumericalList {
     ...NumericalListSection
-  }
-
-  ... on ComponentSectionsArticlesList {
-    ...ArticlesListSection
   }
 
   ... on ComponentSectionsOrganizationalStructure {

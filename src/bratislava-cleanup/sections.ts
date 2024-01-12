@@ -33,10 +33,6 @@ async function sections() {
         (section) => section?.__typename === 'ComponentSectionsOrganizationalStructure'
       )
 
-      const ComponentSectionsArticlesList = page.attributes.sections?.filter(
-        (section) => section?.__typename === 'ComponentSectionsArticlesList'
-      )
-
       const ComponentSectionsIconTitleDesc = page.attributes.sections?.filter(
         (section) => section?.__typename === 'ComponentSectionsIconTitleDesc'
       )
@@ -87,6 +83,10 @@ async function sections() {
 
       const ComponentSectionsColumnedText = page.attributes.sections?.filter(
         (section) => section?.__typename === 'ComponentSectionsColumnedText'
+      )
+
+      const ComponentSectionsNewsletter = page.attributes.sections?.filter(
+        (section) => section?.__typename === 'ComponentSectionsNewsletter'
       )
 
       // if (ComponentSectionsFileList.length) {
