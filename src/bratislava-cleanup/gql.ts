@@ -7,7 +7,11 @@ import { GraphQLClient } from 'graphql-request'
 
 // the target client is usually on localhost with rights set up so that a public user can write to it freely - if using this t owritte directly o deployment, accesses need to be sorted out
 
-const localhostBratislavaClient = new GraphQLClient('http://localhost:1337/graphql')
+const URL_LOCALHOST = 'http://localhost:1337/graphql'
+const URL_EIS40 = 'http://192.168.1.16:1337/graphql'
+const URL_OFIS1 = 'http://172.25.37.23:1337/graphql'
+const URL_OFIS2 = 'http://172.25.37.48:1337/graphql'
+const localhostBratislavaClient = new GraphQLClient(URL_OFIS2)
 
 // We are connecting to dev, because staging is more used for testing purposes and the database is changed more often
 const productionBratislavaClient = new GraphQLClient('https://bratislava-strapi.bratislava.sk/graphql')

@@ -1,0 +1,29 @@
+query allRegulationtest1s {
+  regulationtest1S(pagination: { limit: -1 }) {
+    data {
+      id
+      attributes {
+        Title
+      }
+    }
+  }
+}
+
+mutation newRegulationTest1ByName($name: String) {
+  createRegulationtest1(data: { Title: $name }) {
+    data {
+      id
+      attributes {
+        Title
+      }
+    }
+  }
+}
+
+mutation deleteRegulationTest1ById($id: ID!) {
+  deleteRegulationtest1(id: $id) {
+    data {
+      id
+    }
+  }
+}
