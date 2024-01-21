@@ -3,30 +3,72 @@ query AllVZNs {
     data {
       id
       attributes {
-        title
-        validFrom
-        mainDocument {
-          data {
-            ...UploadFileEntity
-          }
+        ...VznDetail
+      }
+    }
+  }
+}
+
+fragment VznDetail on Vzn {
+  title
+  validFrom
+  mainDocument {
+    data {
+      ...UploadFileEntity
+    }
+  }
+  cancellationDocument {
+    id
+    title
+    document {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+  amedmentDocument {
+    id
+    title
+    document {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+
+fragment VznEntity on VznEntity {
+  id
+  attributes {
+    title
+    validFrom
+    details
+    category
+    consolidatedText {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    mainDocument {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    cancellationDocument {
+      id
+      title
+      document {
+        data {
+          ...UploadFileEntity
         }
-        cancellationDocument {
-          id
-          title
-          document {
-            data {
-              ...UploadFileEntity
-            }
-          }
-        }
-        amedmentDocument {
-          id
-          title
-          document {
-            data {
-              ...UploadFileEntity
-            }
-          }
+      }
+    }
+    amedmentDocument {
+      id
+      title
+      document {
+        data {
+          ...UploadFileEntity
         }
       }
     }

@@ -4073,10 +4073,21 @@ export type DeleteRegulationTest1ByIdMutationVariables = Exact<{
 
 export type DeleteRegulationTest1ByIdMutation = { __typename?: 'Mutation', deleteRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null } | null } | null };
 
+export type AllFilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllFilesQuery = { __typename?: 'Query', uploadFiles?: { __typename?: 'UploadFileEntityResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null }> } | null };
+
+export type UploadFileVznInfoFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null };
+
 export type AllVzNsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AllVzNsQuery = { __typename?: 'Query', vzns?: { __typename?: 'VznEntityResponseCollection', data: Array<{ __typename?: 'VznEntity', id?: string | null, attributes?: { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null } | null }> } | null };
+
+export type VznDetailFragment = { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null };
+
+export type VznEntityFragment = { __typename?: 'VznEntity', id?: string | null, attributes?: { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, details?: string | null, category?: Enum_Vzn_Category | null, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null } | null };
 
 export type UploadFileEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null };
 
@@ -4087,6 +4098,15 @@ export type AllPagesQueryVariables = Exact<{
 
 export type AllPagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title?: string | null, sections?: Array<{ __typename: 'ComponentSectionsAccordion' } | { __typename: 'ComponentSectionsBanner' } | { __typename: 'ComponentSectionsBlogPostsByCategory' } | { __typename: 'ComponentSectionsBlogPostsByTags' } | { __typename: 'ComponentSectionsBlogPostsList' } | { __typename: 'ComponentSectionsCalculator' } | { __typename: 'ComponentSectionsColumnedText' } | { __typename: 'ComponentSectionsComparisonSection' } | { __typename: 'ComponentSectionsContactsSection' } | { __typename: 'ComponentSectionsDivider' } | { __typename: 'ComponentSectionsDocumentList' } | { __typename: 'ComponentSectionsFeaturedBlogPosts' } | { __typename: 'ComponentSectionsFileList' } | { __typename: 'ComponentSectionsGallery' } | { __typename: 'ComponentSectionsIconTitleDesc' } | { __typename: 'ComponentSectionsIframe' } | { __typename: 'ComponentSectionsInbaArticlesList' } | { __typename: 'ComponentSectionsInbaReleases' } | { __typename: 'ComponentSectionsLinks' } | { __typename: 'ComponentSectionsNarrowText' } | { __typename: 'ComponentSectionsNumericalList' } | { __typename: 'ComponentSectionsOfficialBoard' } | { __typename: 'ComponentSectionsOrganizationalStructure' } | { __typename: 'ComponentSectionsProsAndConsSection' } | { __typename: 'ComponentSectionsSpace' } | { __typename: 'ComponentSectionsTextWithImage' } | { __typename: 'ComponentSectionsTimeline' } | { __typename: 'ComponentSectionsVideos' } | { __typename: 'ComponentSectionsWaves' } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
+export const UploadFileVznInfoFragmentDoc = gql`
+    fragment uploadFileVznInfo on UploadFileEntity {
+  id
+  attributes {
+    name
+    url
+  }
+}
+    `;
 export const UploadFileEntityFragmentDoc = gql`
     fragment UploadFileEntity on UploadFileEntity {
   id
@@ -4100,6 +4120,74 @@ export const UploadFileEntityFragmentDoc = gql`
   }
 }
     `;
+export const VznDetailFragmentDoc = gql`
+    fragment VznDetail on Vzn {
+  title
+  validFrom
+  mainDocument {
+    data {
+      ...UploadFileEntity
+    }
+  }
+  cancellationDocument {
+    id
+    title
+    document {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+  amedmentDocument {
+    id
+    title
+    document {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+    ${UploadFileEntityFragmentDoc}`;
+export const VznEntityFragmentDoc = gql`
+    fragment VznEntity on VznEntity {
+  id
+  attributes {
+    title
+    validFrom
+    details
+    category
+    consolidatedText {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    mainDocument {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    cancellationDocument {
+      id
+      title
+      document {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+    amedmentDocument {
+      id
+      title
+      document {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+  }
+}
+    ${UploadFileEntityFragmentDoc}`;
 export const AllRegulationtest1sDocument = gql`
     query allRegulationtest1s {
   regulationtest1S(pagination: {limit: -1}) {
@@ -4133,42 +4221,31 @@ export const DeleteRegulationTest1ByIdDocument = gql`
   }
 }
     `;
+export const AllFilesDocument = gql`
+    query AllFiles {
+  uploadFiles(pagination: {limit: -1}, sort: "id") {
+    data {
+      id
+      attributes {
+        name
+        url
+      }
+    }
+  }
+}
+    `;
 export const AllVzNsDocument = gql`
     query AllVZNs {
   vzns(pagination: {limit: -1}) {
     data {
       id
       attributes {
-        title
-        validFrom
-        mainDocument {
-          data {
-            ...UploadFileEntity
-          }
-        }
-        cancellationDocument {
-          id
-          title
-          document {
-            data {
-              ...UploadFileEntity
-            }
-          }
-        }
-        amedmentDocument {
-          id
-          title
-          document {
-            data {
-              ...UploadFileEntity
-            }
-          }
-        }
+        ...VznDetail
       }
     }
   }
 }
-    ${UploadFileEntityFragmentDoc}`;
+    ${VznDetailFragmentDoc}`;
 export const AllPagesDocument = gql`
     query AllPages($locale: I18NLocaleCode!) {
   pages(locale: $locale, pagination: {start: 0, limit: -1}) {
@@ -4200,6 +4277,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     deleteRegulationTest1ById(variables: DeleteRegulationTest1ByIdMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteRegulationTest1ByIdMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<DeleteRegulationTest1ByIdMutation>(DeleteRegulationTest1ByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteRegulationTest1ById', 'mutation');
+    },
+    AllFiles(variables?: AllFilesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllFilesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllFilesQuery>(AllFilesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllFiles', 'query');
     },
     AllVZNs(variables?: AllVzNsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllVzNsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllVzNsQuery>(AllVzNsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllVZNs', 'query');

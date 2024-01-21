@@ -1,5 +1,7 @@
 /*
 
+
+
 function checkVznTitleValidity(client: QueryCLient) {
   const dataVzns = getAllVzns(client)
   const enhancedDataVzns: any[] = []

@@ -1,7 +1,7 @@
 # schema: './src/graphql/bratislava-localhost/schema.graphql'
 # const URL_EIS40 = 'http://192.168.1.16:1337/graphql'
 # const URL_OFIS = 'http://172.25.37.23:1337/graphql'
-schema: 'http://172.25.37.23:1337/graphql'
+schema: 'http://192.168.1.16:1337/graphql'
 documents: './src/graphql/bratislava-localhost/queries/**/*.{gql,graphql}'
 generates:
   src/graphql/bratislava-localhost/index.ts:
