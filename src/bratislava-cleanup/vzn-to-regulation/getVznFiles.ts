@@ -15,6 +15,7 @@ export async function getSortedVznFilesWithCodes(client: QueryCLient) {
     }
   })
   const sortedVznFilesData = vznFilesData.sort((a, b) => {
+    if (!a.code || !b.code) return 0
     return a.code.localeCompare(b.code)
   })
   console.log(sortedVznFilesData)
@@ -22,15 +23,12 @@ export async function getSortedVznFilesWithCodes(client: QueryCLient) {
 }
 
 export function logAllUploadVZNFiles(client: QueryCLient) {
-  console.log('Calling logAllUploadVZNFiles')
-
   getAllUploadVZNFiles(client).then((data) => {
     console.log(data)
   })
 }
 
 export async function getAllUploadVZNFiles(client: QueryCLient) {
-  console.log('Calling getAllUploadFiles')
   const dataUploadFiles = await getAllUploadFiles(client)
   const transformedDataUploadFiles = [{ name: '' }]
   dataUploadFiles.map((file) => {
@@ -46,7 +44,6 @@ export async function getAllUploadVZNFiles(client: QueryCLient) {
 // Basic data fetching functions ----------------------------------------------
 
 export async function getAllUploadFiles(client: QueryCLient) {
-  console.log('Calling getAllUploadFiles')
   const dataUploadFiles = await client.AllFiles()
   return dataUploadFiles.uploadFiles?.data ?? []
 }

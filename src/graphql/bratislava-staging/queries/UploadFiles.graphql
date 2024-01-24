@@ -1,0 +1,19 @@
+query AllFiles {
+  uploadFiles(pagination: { limit: -1 }, sort: "id") {
+    data {
+      id
+      attributes {
+        name
+        url
+      }
+    }
+  }
+}
+
+fragment uploadFileVznInfo on UploadFileEntity {
+  id
+  attributes {
+    name
+    url
+  }
+}

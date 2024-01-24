@@ -1,7 +1,7 @@
 import { VznEntity, VznEntityFragment } from '../../graphql/bratislava-localhost'
 import { stagingClient, productionClient, localhostClient } from '../gql'
-import { parseVznCodeFromTitle } from './utils'
-import { getAllVzns, logAllVzns } from './vzns'
+import { parseVznCodeFromTitle } from '../vzn-to-regulation/utils'
+import { getAllVzns, logAllVzns } from '../vzn-to-regulation/getVzns'
 
 type QueryCLient = typeof localhostClient
 type Options = { id: string; displayName: string; executeFn: () => void }

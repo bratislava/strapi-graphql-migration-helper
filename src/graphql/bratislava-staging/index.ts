@@ -4685,10 +4685,21 @@ export type LinksSectionForMigrationFragment = { __typename?: 'ComponentSections
 
 export type FileListSectionForMigrationFragment = { __typename?: 'ComponentSectionsFileList', id: string, hasBackground?: boolean | null, title?: string | null, fileList?: Array<{ __typename?: 'ComponentBlocksFile', title?: string | null, category?: string | null, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null } | null } | null } | null> | null };
 
+export type AllFilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllFilesQuery = { __typename?: 'Query', uploadFiles?: { __typename?: 'UploadFileEntityResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null }> } | null };
+
+export type UploadFileVznInfoFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null };
+
 export type AllVzNsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllVzNsQuery = { __typename?: 'Query', vzns?: { __typename?: 'VznEntityResponseCollection', data: Array<{ __typename?: 'VznEntity', id?: string | null, attributes?: { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null } | null }> } | null };
+export type AllVzNsQuery = { __typename?: 'Query', vzns?: { __typename?: 'VznEntityResponseCollection', data: Array<{ __typename?: 'VznEntity', id?: string | null, attributes?: { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, details?: string | null, category?: Enum_Vzn_Category | null, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, validFrom?: any | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, validFrom?: any | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null } | null }> } | null };
+
+export type VznDetailFragment = { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, validFrom?: any | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, validFrom?: any | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null };
+
+export type VznEntityFragment = { __typename?: 'VznEntity', id?: string | null, attributes?: { __typename?: 'Vzn', title?: string | null, validFrom?: any | null, details?: string | null, category?: Enum_Vzn_Category | null, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, cancellationDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, validFrom?: any | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null, amedmentDocument?: Array<{ __typename?: 'ComponentBlocksDocListExtensions', id: string, title?: string | null, validFrom?: any | null, document?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null } | null> | null } | null };
 
 export type UploadFileEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null };
 
@@ -5664,6 +5675,15 @@ export const AccordionSectionForMigrationFragmentDoc = gql`
     ${ComponentAccordionItemsInstitutionFragmentDoc}
 ${ComponentAccordionItemsFlatTextForMigrationFragmentDoc}
 ${ComponentAccordionItemsInstitutionNarrowFragmentDoc}`;
+export const UploadFileVznInfoFragmentDoc = gql`
+    fragment uploadFileVznInfo on UploadFileEntity {
+  id
+  attributes {
+    name
+    url
+  }
+}
+    `;
 export const UploadFileEntityFragmentDoc = gql`
     fragment UploadFileEntity on UploadFileEntity {
   id
@@ -5677,6 +5697,78 @@ export const UploadFileEntityFragmentDoc = gql`
   }
 }
     `;
+export const VznDetailFragmentDoc = gql`
+    fragment VznDetail on Vzn {
+  title
+  validFrom
+  mainDocument {
+    data {
+      ...UploadFileEntity
+    }
+  }
+  cancellationDocument {
+    id
+    title
+    validFrom
+    document {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+  amedmentDocument {
+    id
+    title
+    validFrom
+    document {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+    ${UploadFileEntityFragmentDoc}`;
+export const VznEntityFragmentDoc = gql`
+    fragment VznEntity on VznEntity {
+  id
+  attributes {
+    title
+    validFrom
+    details
+    category
+    consolidatedText {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    mainDocument {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    cancellationDocument {
+      id
+      title
+      validFrom
+      document {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+    amedmentDocument {
+      id
+      title
+      validFrom
+      document {
+        data {
+          ...UploadFileEntity
+        }
+      }
+    }
+  }
+}
+    ${UploadFileEntityFragmentDoc}`;
 export const AllBlogPostsDocument = gql`
     query AllBlogPosts($locale: I18NLocaleCode!) {
   blogPosts(locale: $locale, pagination: {start: 0, limit: -1}) {
@@ -5800,42 +5892,28 @@ export const PagesStaticPathsDocument = gql`
   }
 }
     `;
-export const AllVzNsDocument = gql`
-    query AllVZNs {
-  vzns {
+export const AllFilesDocument = gql`
+    query AllFiles {
+  uploadFiles(pagination: {limit: -1}, sort: "id") {
     data {
       id
       attributes {
-        title
-        validFrom
-        mainDocument {
-          data {
-            ...UploadFileEntity
-          }
-        }
-        cancellationDocument {
-          id
-          title
-          document {
-            data {
-              ...UploadFileEntity
-            }
-          }
-        }
-        amedmentDocument {
-          id
-          title
-          document {
-            data {
-              ...UploadFileEntity
-            }
-          }
-        }
+        name
+        url
       }
     }
   }
 }
-    ${UploadFileEntityFragmentDoc}`;
+    `;
+export const AllVzNsDocument = gql`
+    query AllVZNs {
+  vzns(pagination: {limit: -1}) {
+    data {
+      ...VznEntity
+    }
+  }
+}
+    ${VznEntityFragmentDoc}`;
 export const AllTagsDocument = gql`
     query AllTags {
   tags(locale: "all", pagination: {start: 0, limit: -1}) {
@@ -5897,6 +5975,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     PagesStaticPaths(variables?: PagesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesStaticPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PagesStaticPathsQuery>(PagesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PagesStaticPaths', 'query');
+    },
+    AllFiles(variables?: AllFilesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllFilesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllFilesQuery>(AllFilesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllFiles', 'query');
     },
     AllVZNs(variables?: AllVzNsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllVzNsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllVzNsQuery>(AllVzNsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllVZNs', 'query');

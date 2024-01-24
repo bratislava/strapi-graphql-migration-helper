@@ -33,7 +33,6 @@ export function getSortedVZNsWithCodes(client: QueryCLient): Promise<any[]> {
 }
 
 export function logAllVzns(client: QueryCLient) {
-  console.log('Calling logAllVzns')
   const dataVzn = getAllVzns(client)
   dataVzn.then((data) => {
     console.log('AllVzns:')
@@ -45,7 +44,6 @@ export function logAllVzns(client: QueryCLient) {
 }
 
 export async function getAllVzns(client: QueryCLient) {
-  console.log('Calling getAllVzns')
   const dataVzn = await client.AllVZNs()
   return dataVzn.vzns?.data ?? []
 }

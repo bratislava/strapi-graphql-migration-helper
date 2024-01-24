@@ -1,21 +1,54 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import { RegulationForMigration } from './main'
 
-export function parseVznCodeFromTitle(vznTitle: string | null | undefined): {
+//NEW
+export function parseVznCodeFromTitle(
+  vznTitle: string | null | undefined,
+  attachmentBehaviour: 'ignoreAttachments' | 'includeAttachments' = 'ignoreAttachments'
+): {
   vznYear: number
   vznNumber: number
-  vznCode: string
+  vznCode: string | null
 } {
   if (!vznTitle) {
     return { vznYear: -1, vznNumber: -1, vznCode: 'invalid' }
   }
-  const matches = vznTitle.match(/[Vv][Zz][Nn].*?([0-9]{1,2}).*?(\d{4})/)
-  if (!matches) return { vznYear: -1, vznNumber: -1, vznCode: 'invalid' }
-  const vznYear = +matches?.[2] ?? -1
-  const vznNumber = +matches?.[1] ?? -1
-  const isValidVznName = vznYear > 1000 && vznNumber > 0 && !vznTitle.includes('priloh')
-  const vznCode = isValidVznName ? `VZN_${vznYear}_${vznNumber < 10 ? '0' + vznNumber : vznNumber}` : 'invalid'
+  const matches = vznTitle.match(/[Vv][Zz][Nn].*?(?<numberMatch>[0-9]{1,2}).*?(?<yearMatch>\d{4})/)
+  const vznYear = +(matches?.groups?.yearMatch ?? -1)
+  const vznNumber = +(matches?.groups?.numberMatch ?? -1)
+  const isAttachment = vznTitle.match('[pP]r[ií]loh')?.length
+  const isValidVznCode = vznYear > 1000 && vznNumber > 0
+  const vznCode =
+    isValidVznCode && !(isAttachment && attachmentBehaviour === 'ignoreAttachments')
+      ? `VZN_${vznYear}_${vznNumber < 10 ? '0' + vznNumber : vznNumber}`
+      : 'invalid'
   return { vznYear, vznNumber, vznCode }
+}
+
+// //OLD
+// export function parseVznCodeFromTitle(vznTitle: string | null | undefined): {
+//   vznYear: number
+//   vznNumber: number
+//   vznCode: string
+// } {
+//   if (!vznTitle) {
+//     return { vznYear: -1, vznNumber: -1, vznCode: 'invalid' }
+//   }
+//   const matches = vznTitle.match(/[Vv][Zz][Nn].*?([0-9]{1,2}).*?(\d{4})/)
+//   if (!matches) return { vznYear: -1, vznNumber: -1, vznCode: 'invalid' }
+//   const vznYear = +matches?.[2] ?? -1
+//   const vznNumber = +matches?.[1] ?? -1
+//   const isValidVznName = vznYear > 1000 && vznNumber > 0 && !vznTitle.includes('priloh')
+//   const vznCode = isValidVznName ? `VZN_${vznYear}_${vznNumber < 10 ? '0' + vznNumber : vznNumber}` : 'invalid'
+//   return { vznYear, vznNumber, vznCode }
+// }
+
+export function getRegulationByCode(
+  regulations: RegulationForMigration[],
+  code: string
+): RegulationForMigration | undefined {
+  return regulations.find((reg) => reg._code === code)
 }
 
 export function dataAsObject(objectArray, property) {
