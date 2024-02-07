@@ -4,7 +4,7 @@ import {
   VznEntityFragment,
   UploadFileVznInfoFragment,
   Enum_Vzn_Category,
-  RegulationTest1EntityFragment,
+  RegulationEntityFragment,
   UploadFileEntityFragment,
 } from '../../graphql/bratislava-localhost'
 import { stagingClient, productionClient, localhostClient } from '../gql'
@@ -31,13 +31,14 @@ export type RegulationForMigration = {
   _year: number
   _number: number
   _source: string
-  title: string
+  code: string
   slug: string
+  fullTitle?: string
+  effectiveFrom?: any //FIXME: be better than any
+  category?: Enum_Vzn_Category | null
+  isFullTextRegulation: boolean
   mainDocument: UploadFileVznInfoFragment
   attachmentDocuments: UploadFileVznInfoFragment[]
-  validFrom?: any //FIXME: be better than any
-  details?: string | null
-  category?: Enum_Vzn_Category | null
   consolidatedText?: UploadFileVznInfoFragment
   _cancellationRegulationDocumentsInfo?: UploadFileVznInfoFragment[] | null
   _cancellationAttachmentDocumentsInfo?: UploadFileVznInfoFragment[] | null
@@ -133,7 +134,7 @@ async function doTheWork(client): Promise<RegulationForMigration[]> {
     return a.type.localeCompare(b.type)
   })
 
-  logCheckIfAnyVznFilesAreNotAssignedToAnyRegulation(originalUploadFiles, regulationsFromVznsAndRelations)
+  // logCheckIfAnyVznFilesAreNotAssignedToAnyRegulation(originalUploadFiles, regulationsFromVznsAndRelations)
 
   //Write map with names
   // const nameMap: any[] = []
@@ -371,9 +372,11 @@ function transformVznRelationsToRegulations(vzn: VznEntityFragment): RegulationF
       _year: relationYear,
       _number: relationNumber,
       _source: 'relation of original vzn ' + vznCode,
-      title: relationNumber + '/' + relationYear,
+      code: relationNumber + '/' + relationYear,
       slug: relationNumber + '-' + relationYear,
-      validFrom: relation.validFrom,
+      fullTitle: relation.title,
+      effectiveFrom: relation.validFrom,
+      isFullTextRegulation: relation.title.match(/[uú]pln[eé]/i) ? true : false,
       mainDocument: relation?.document?.data,
       attachmentDocuments: [],
     }
@@ -494,12 +497,13 @@ function transformOriginalVznToRegulation(vzn: VznEntityFragment): RegulationFor
     _year: vznYear,
     _number: vznNumber,
     _source: 'original vzn',
-    title: vznNumber + '/' + vznYear,
+    code: vznNumber + '/' + vznYear,
     slug: vznNumber + '-' + vznYear,
+    fullTitle: vzn.attributes?.title,
+    isFullTextRegulation: vzn.attributes.title.match(/[uú]pln[eé]/i) ? true : false,
     mainDocument: { ...vzn.attributes?.mainDocument?.data },
     attachmentDocuments: attachmentDocuments,
-    validFrom: vzn.attributes?.validFrom,
-    details: vzn.attributes?.details,
+    effectiveFrom: vzn.attributes?.validFrom,
     category: vzn.attributes?.category,
     consolidatedText: { ...vzn.attributes?.consolidatedText?.data },
     _cancellationRegulationDocumentsInfo: cancellationRegulationDocumentsData,

@@ -125,6 +125,7 @@ fragment RegulationEntity on RegulationEntity {
         attributes {
           code
           effectiveFrom
+          isFullTextRegulation
         }
       }
     }

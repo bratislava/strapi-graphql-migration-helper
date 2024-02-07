@@ -4,7 +4,7 @@ import {
   VznEntityFragment,
   UploadFileVznInfoFragment,
   Enum_Vzn_Category,
-  RegulationTest1EntityFragment,
+  RegulationEntityFragment,
 } from '../../graphql/bratislava-localhost'
 import { stagingClient, productionClient, localhostClient } from '../gql'
 import { logAllRegs, CopyVznsToRegs, deleteAllRegs } from '../vzn-all-unused/vznsToRegulations_legacy'
@@ -29,14 +29,14 @@ const client = localhostClient
 main()
 
 async function main() {
-  const regulations = await client.allRegulationTest1s()
-  const promises = regulations.regulationtest1S?.data.map(async (regulation) => {
+  const regulations = await client.allRegulations()
+  const promises = regulations.regulations?.data.map(async (regulation) => {
     if (!regulation.id) {
       console.log('regulation without id')
       return
     }
     const title = fullTitleData.find(
-      (entry) => entry.code === parseVznCodeFromTitle('VZN ' + regulation.attributes?.title).vznCode
+      (entry) => entry.code === parseVznCodeFromTitle('VZN ' + regulation.attributes?.code).vznCode
     )?.fullTitle
     return client.setFullTitleToRegulation({ regulationId: regulation.id, fullTitle: title }).then(() => {
       console.log('Added title ' + title + ' to regulation with id: ' + regulation.id)

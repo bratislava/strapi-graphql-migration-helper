@@ -146,7 +146,7 @@ export function logCheckIfAllRegulationsHaveMainDocument(regulations: Regulation
 export function logCheckIfAllRegulationsHaveValidFrom(regulations: RegulationForMigration[]) {
   const regulationsWithInvalidValidFrom: RegulationForMigration[] = []
   regulations.forEach((regulation) => {
-    if (!regulation.validFrom) {
+    if (!regulation.effectiveFrom) {
       regulationsWithInvalidValidFrom.push(regulation)
     }
   })
