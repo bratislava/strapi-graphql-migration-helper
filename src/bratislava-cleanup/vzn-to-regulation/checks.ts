@@ -2,6 +2,7 @@ import {
   VznEntity,
   VznEntityFragment,
   UploadFileVznInfoFragment,
+  UploadFileEntityFragment,
   Enum_Vzn_Category,
 } from '../../graphql/bratislava-localhost'
 import { stagingClient, productionClient, localhostClient } from '../gql'
@@ -10,6 +11,194 @@ import { parseVznCodeFromTitle, writeDataToFile, dataAsObject, getRegulationByCo
 import { getAllVzns, logAllVzns, getSortedVZNsWithCodes } from './getVzns'
 import { getAllUploadFiles, getSortedVznFilesWithCodes } from './getVznFiles'
 import { RegulationForMigration } from './main'
+
+export function logcheckIfRegulationsCorrespondWithOldVzns(client, oldVzns) {
+  console.log('checking if all regulations correspond with old vzns')
+  const regulations = client.allRegulationTest1s()
+  console.log('all regulations:')
+  console.log(regulations)
+}
+
+export function logCheckIfAllRegulationsHaveActualUplneZnenie(regulations: RegulationForMigration[]) {
+  const regulationsWithoutActualUplneZnenie: RegulationForMigration[] = []
+  regulations.forEach((regulation) => {})
+  if (regulationsWithoutActualUplneZnenie.length > 0) {
+    console.log(
+      `\x1b[31mCHECK FAILED: \x1b[0m ${regulationsWithoutActualUplneZnenie.length} regulations don't have actual uplne znenie`
+    )
+    const shouldLog = prompt('should we log all regulations with no actual uplne znenie? (y/n)')
+    if (shouldLog === 'y') {
+      console.log(
+        'Regulations with no actual uplne znenie: ' + JSON.stringify(regulationsWithoutActualUplneZnenie, null, 2)
+      )
+    }
+  } else {
+    console.log('\x1b[32mCHECK PASSED:\x1b[0m All ' + regulations.length + ' regulations have actual uplne znenie')
+  }
+}
+
+export function logCheckIfAnyVznFilesAreNotAssignedToAnyRegulation(
+  files: UploadFileVznInfoFragment[],
+  regulations: RegulationForMigration[]
+) {
+  const unassignedFiles: UploadFileVznInfoFragment[] = []
+  files.forEach((file) => {
+    const shortVznMatch = file.attributes?.name.match(/[vV][zZ][nN]/)
+    const longVznMatch = file.attributes?.name.match(/z[aá]v[äae]zn/)
+    if (!shortVznMatch && !longVznMatch) return
+
+    const fileCode = parseVznCodeFromTitle(file.attributes?.name).vznCode
+
+    if (!regulations.find((regulation) => regulation._code === fileCode)) {
+      unassignedFiles.push(file)
+    }
+  })
+  if (unassignedFiles.length > 0) {
+    console.log(
+      `\x1b[33mFriendly warning: \x1b[0m ${unassignedFiles.length} vzn files are not assigned to any regulation`
+    )
+    const shouldLog = prompt('should we log all unassigned files? (y/n)')
+    if (shouldLog === 'y') {
+      console.log('Unassigned files:')
+      console.log(
+        unassignedFiles.map((file) => {
+          return {
+            code: '',
+            ...file,
+          }
+        })
+      )
+    }
+  } else {
+    console.log('\x1b[32mCHECK PASSED:\x1b[0m all vzn files are assigned to a regulation')
+  }
+}
+
+export function logCheckForDuplicateRegulations(regulations: RegulationForMigration[]) {
+  const duplicateRegulations = regulations.filter((regulation, index, self) => {
+    return index !== self.findIndex((t) => t._code === regulation._code)
+  })
+  if (duplicateRegulations.length > 0) {
+    console.log(`\x1b[31mCHECK FAILED: \x1b[0m ${duplicateRegulations.length} duplicate regulations found`)
+    const shouldLog = prompt('should we log all duplicate regulations? (y/n)')
+    if (shouldLog === 'y') {
+      console.log('Duplicate regulations: ' + JSON.stringify(duplicateRegulations, null, 2))
+    }
+  } else {
+    console.log('\x1b[32mCHECK PASSED:\x1b[0m no duplicate regulations found')
+  }
+}
+
+export function logWarnIfAnyRegulationAmendsMoreRegulations(amendedByMap: Map<string, string[]>) {
+  const amendingMap = new Map<string, string[]>()
+  amendedByMap.forEach((amendments, amendee) => {
+    amendments.forEach((amendment) => {
+      if (amendingMap.has(amendment)) {
+        amendingMap.set(amendment, [...(amendingMap.get(amendment) ?? []), amendee])
+      } else {
+        amendingMap.set(amendment, [amendee])
+      }
+    })
+  })
+  const regulationsAmendingMoreRegulations: Object[] = []
+  amendingMap.forEach((amendees, amendment) => {
+    if (amendees.length > 1) {
+      regulationsAmendingMoreRegulations.push({ regulation: amendment, amendees: amendees })
+    }
+  })
+  if (regulationsAmendingMoreRegulations.length > 0) {
+    console.log(
+      `\x1b[33mFriendly warning: \x1b[0m ${regulationsAmendingMoreRegulations.length} regulations amend more than one regulation:`
+    )
+    console.log(regulationsAmendingMoreRegulations)
+    // const shouldLog = prompt('should we log all regulations which amend more than one regulation? (y/n)')
+    // if (shouldLog === 'y') {
+    //   console.log(
+    //     'Regulations which amend more than one regulation: ' +
+    //       JSON.stringify(regulationsAmendingMoreRegulations, null, 2)
+    //   )
+    // }
+  } else {
+    console.log('\x1b[32mCHECK PASSED:\x1b[0m no regulation amends more than one regulation')
+  }
+}
+
+export function logCheckIfAllRegulationsHaveMainDocument(regulations: RegulationForMigration[]) {
+  const regulationsWithNoMainDocument: RegulationForMigration[] = []
+  regulations.forEach((regulation) => {
+    if (!regulation.mainDocument) {
+      regulationsWithNoMainDocument.push(regulation)
+    }
+  })
+  if (regulationsWithNoMainDocument.length > 0) {
+    console.log(
+      `\x1b[31mCHECK FAILED: \x1b[0m ${regulationsWithNoMainDocument.length} regulations don't have main document`
+    )
+    const shouldLog = prompt('should we log all regulations with no main document? (y/n)')
+    if (shouldLog === 'y') {
+      console.log('Regulations with no main document: ' + JSON.stringify(regulationsWithNoMainDocument, null, 2))
+    }
+  } else {
+    console.log('\x1b[32mCHECK PASSED:\x1b[0m All ' + regulations.length + ' regulations have main document')
+  }
+}
+
+export function logCheckIfAllRegulationsHaveValidFrom(regulations: RegulationForMigration[]) {
+  const regulationsWithInvalidValidFrom: RegulationForMigration[] = []
+  regulations.forEach((regulation) => {
+    if (!regulation.validFrom) {
+      regulationsWithInvalidValidFrom.push(regulation)
+    }
+  })
+  if (regulationsWithInvalidValidFrom.length > 0) {
+    console.log(
+      `\x1b[31mCHECK FAILED: \x1b[0m ${regulationsWithInvalidValidFrom.length} regulations don't have validFrom`
+    )
+    const shouldLog = prompt('should we log all regulations with no validFrom? (y/n)')
+    if (shouldLog === 'y') {
+      console.log('Regulations with no validFrom value: ' + JSON.stringify(regulationsWithInvalidValidFrom, null, 2))
+    }
+  } else {
+    console.log('\x1b[32mCHECK PASSED:\x1b[0m All ' + regulations.length + ' regulations have validFrom')
+  }
+}
+
+export function logCheckIfAllDocumentsHaveStrapiId(regulations: RegulationForMigration[]) {
+  const documentsWithMissingIds: any[] = []
+  regulations.forEach((regulation) => {
+    if (!regulation.mainDocument?.id) {
+      documentsWithMissingIds.push({
+        regulation: regulation._code,
+        documentType: 'main document',
+        document: { ...regulation.mainDocument },
+      })
+    }
+    regulation.attachmentDocuments?.forEach((attachmentDocument) => {
+      if (!attachmentDocument.id) {
+        documentsWithMissingIds.push({
+          regulation: regulation._code,
+          documentType: 'attachment document',
+          document: { ...attachmentDocument },
+        })
+      }
+    })
+  })
+  if (documentsWithMissingIds.length > 0) {
+    console.log(
+      `\x1b[31mCHECK FAILED: \x1b[0m ${documentsWithMissingIds.length} documents (strapi UploadFiles) which are either main document or attachment document of a regulation don't have strapiId`
+    )
+    const shouldLogUnrecognizedDocuments = prompt('should we log all documents with no strapi id? (y/n)')
+    if (shouldLogUnrecognizedDocuments === 'y') {
+      console.log(
+        'Unrecognized amendments and cancellations for regulation:' + JSON.stringify(documentsWithMissingIds, null, 2)
+      )
+    }
+  } else {
+    console.log(
+      '\x1b[32mCHECK PASSED:\x1b[0m All documents (strapi UploadFiles) which are either main document or attachment document of a regulation have valid id'
+    )
+  }
+}
 
 export function logCheckIfAllAmendmentsAndCancellationsAreRecognized(regulations: RegulationForMigration[]) {
   const unrecognizedAmendments: Object[] = []

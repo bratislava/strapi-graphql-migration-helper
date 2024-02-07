@@ -1,21 +1,39 @@
-query allRegulationtest1s {
+query allRegulationTest1s {
   regulationtest1S(pagination: { limit: -1 }) {
     data {
-      id
-      attributes {
-        Title
-      }
+      ...RegulationTest1Entity
     }
   }
 }
 
-mutation newRegulationTest1ByName($name: String) {
-  createRegulationtest1(data: { Title: $name }) {
+mutation setCancellationToRegulation($regulationId: ID!, $cancellationId: ID!) {
+  updateRegulationtest1(id: $regulationId, data: { cancellation: $cancellationId }) {
     data {
       id
-      attributes {
-        Title
-      }
+    }
+  }
+}
+
+mutation setFullTitleToRegulation($regulationId: ID!, $fullTitle: String) {
+  updateRegulationtest1(id: $regulationId, data: { fullTitle: $fullTitle }) {
+    data {
+      id
+    }
+  }
+}
+
+mutation setAmendmentsToRegulation($regulationId: ID!, $amendmentsIds: [ID!]) {
+  updateRegulationtest1(id: $regulationId, data: { amendments: $amendmentsIds }) {
+    data {
+      id
+    }
+  }
+}
+
+mutation setAmendmentsAndCancellationsToRegulation($regulationId: ID!, $amendmentsIds: [ID!], $cancellationId: ID!) {
+  updateRegulationtest1(id: $regulationId, data: { amendments: $amendmentsIds, cancellation: $cancellationId }) {
+    data {
+      id
     }
   }
 }
@@ -25,5 +43,148 @@ mutation deleteRegulationTest1ById($id: ID!) {
     data {
       id
     }
+  }
+}
+
+mutation createDummyRegulationTest1(
+  $title: String! = "Title from graphql"
+  $validFrom: Date = null
+  $category: ENUM_REGULATIONTEST1_CATEGORY = null
+  $details: String = "ditejl"
+  $mainDocumentId: ID! = "4805"
+  $consolidatedTextId: ID! = "4805"
+  $attachmentsIds: [ID!] = ["4805"]
+  $amendmentsIds: [ID!] = "24"
+  $cancellationId: ID! = "23"
+) {
+  createRegulationtest1(
+    data: {
+      title: $title
+      validFrom: $validFrom
+      category: $category
+      details: $details
+      mainDocument: $mainDocumentId
+      consolidatedText: $consolidatedTextId
+      attachments: $attachmentsIds
+      amendments: $amendmentsIds
+      cancellation: $cancellationId
+    }
+  ) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+mutation createBareRegulationTest1(
+  $title: String!
+  $slug: String
+  $validFrom: Date
+  $category: ENUM_REGULATIONTEST1_CATEGORY
+  $details: String
+  $mainDocumentId: ID
+  $consolidatedTextId: ID
+  $attachmentsIds: [ID]
+) {
+  createRegulationtest1(
+    data: {
+      title: $title
+      slug: $slug
+      validFrom: $validFrom
+      category: $category
+      details: $details
+      mainDocument: $mainDocumentId
+      consolidatedText: $consolidatedTextId
+      attachments: $attachmentsIds
+    }
+  ) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+fragment RegulationTest1Entity on Regulationtest1Entity {
+  id
+  attributes {
+    title
+    fullTitle
+    validFrom
+    category
+    details
+    mainDocument {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    consolidatedText {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    attachments {
+      data {
+        ...UploadFileEntity
+      }
+    }
+    amendments {
+      data {
+        id
+        attributes {
+          title
+          validFrom
+        }
+      }
+    }
+    amending {
+      data {
+        id
+        attributes {
+          title
+          validFrom
+          cancellation {
+            data {
+              id
+              attributes {
+                title
+                validFrom
+              }
+            }
+          }
+        }
+      }
+    }
+    cancellation {
+      data {
+        id
+        attributes {
+          title
+          validFrom
+        }
+      }
+    }
+    cancelling {
+      data {
+        id
+        attributes {
+          title
+          validFrom
+        }
+      }
+    }
+  }
+}
+
+fragment uploadFileVznInfo on UploadFileEntity {
+  id
+  attributes {
+    name
+    url
   }
 }

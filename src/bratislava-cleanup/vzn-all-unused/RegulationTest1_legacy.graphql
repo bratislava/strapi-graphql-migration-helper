@@ -1,0 +1,75 @@
+query allRegulationtest1s {
+  regulationtest1S(pagination: { limit: -1 }) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+query allRegulationTest1sWithAmendments {
+  regulationtest1S(pagination: { limit: -1 }) {
+    data {
+      id
+      attributes {
+        title
+        amendments {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+        amending {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation setRegulationTest1AmendmentByIds($id: ID!, $amendmentIds: [ID!]) {
+  updateRegulationtest1(id: $id, data: { amendments: $amendmentIds }) {
+    data {
+      id
+      attributes {
+        title
+        amendments {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation newRegulationTest1ByName($name: String) {
+  createRegulationtest1(data: { title: $name }) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+}
+
+mutation deleteRegulationTest1ById($id: ID!) {
+  deleteRegulationtest1(id: $id) {
+    data {
+      id
+    }
+  }
+}

@@ -25,6 +25,7 @@ export function getSortedVZNsWithCodes(client: QueryCLient): Promise<any[]> {
         return vznWithCode
       })
       dataWithCodes.sort((a, b) => {
+        if (!a.code || !b.code) return 0
         return a.code.localeCompare(b.code)
       })
       resolve(dataWithCodes)

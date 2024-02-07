@@ -1,9 +1,11 @@
-// FIXME: WSL cd /mnt/c/Users/Adam/Desktop/InoBA/GraphqlHelper/strapi-graphql-migration-helper
+// cd /mnt/c/Users/Adam/Desktop/InoBA/GraphqlHelper/strapi-graphql-migration-helper
 import {
   VznEntity,
   VznEntityFragment,
   UploadFileVznInfoFragment,
   Enum_Vzn_Category,
+  RegulationTest1EntityFragment,
+  UploadFileEntityFragment,
 } from '../../graphql/bratislava-localhost'
 import { stagingClient, productionClient, localhostClient } from '../gql'
 import { logAllRegs, CopyVznsToRegs, deleteAllRegs } from '../vzn-all-unused/vznsToRegulations_legacy'
@@ -15,7 +17,14 @@ import {
   logCheckIfAllAmendmentsAndCancellationsAreRecognized,
   logCheckIfAllAmendmentsHaveRegulations,
   logCheckIfAllCancellationsHaveRegulations,
+  logCheckIfAllDocumentsHaveStrapiId,
+  logCheckIfAllRegulationsHaveValidFrom,
+  logCheckIfAllRegulationsHaveMainDocument,
+  logWarnIfAnyRegulationAmendsMoreRegulations,
+  logCheckForDuplicateRegulations,
+  logCheckIfAnyVznFilesAreNotAssignedToAnyRegulation,
 } from './checks'
+import { assignAmendmentsAndCancellationsFromData, createBareRegulationFromRegulationOject } from './createRegulations'
 
 export type RegulationForMigration = {
   _code: string
@@ -23,8 +32,9 @@ export type RegulationForMigration = {
   _number: number
   _source: string
   title: string
-  mainDocument: UploadFileVznInfoFragment | null
-  attachmentDocuments: UploadFileVznInfoFragment[] | null
+  slug: string
+  mainDocument: UploadFileVznInfoFragment
+  attachmentDocuments: UploadFileVznInfoFragment[]
   validFrom?: any //FIXME: be better than any
   details?: string | null
   category?: Enum_Vzn_Category | null
@@ -37,6 +47,9 @@ export type RegulationForMigration = {
   _amendmentUnrecognizedDocumentsInfo?: UploadFileVznInfoFragment[] | null
 }
 
+//Global RegExps
+const regExpForAttachmentTitle = /[pP]r[ií]loh[ay]/
+const regExpForShortVznTitle = /[vV][zZ][nN]/
 //Setup Maps
 let existenceMap = new Map<string, boolean>()
 let amendedByMap = new Map<string, string[]>()
@@ -50,6 +63,9 @@ const dataCollector: {
   type:
     | 'urlMismatch'
     | 'priloha'
+    | 'priloha - succes'
+    | 'priloha - possible duplicate'
+    | 'priloha - lost'
     | 'invalidTitle'
     | 'noDocument'
     | 'cannotAddToMap'
@@ -68,7 +84,7 @@ async function main() {
 
 // FUNCTIONS
 
-async function doTheWork(client) {
+async function doTheWork(client): Promise<RegulationForMigration[]> {
   // FAZA 0: get data
   const originalVzns: VznEntityFragment[] = await getAllVzns(client)
   const originalUploadFiles = await getAllUploadFiles(client)
@@ -83,9 +99,6 @@ async function doTheWork(client) {
   console.log('\x1b[36mLOG AFTER PHASE 1 - creating regulations from original vzns \x1b[0m')
   logAllMapsSizes('after adding regulations from original vzns')
   logCheckIfExistenceMapIsValid(regulationsFromVzns, existenceMap)
-  logCheckIfAllAmendmentsHaveRegulations(amendedByMap, existenceMap)
-  logCheckIfAllCancellationsHaveRegulations(cancelledByMap, existenceMap)
-  logCheckIfAllAmendmentsAndCancellationsAreRecognized(regulationsFromVzns)
   console.log('////////////////////////////////////////////////////////')
 
   // FAZA 2 regulations from relations
@@ -103,31 +116,70 @@ async function doTheWork(client) {
   logCheckIfExistenceMapIsValid(regulationsFromVznsAndRelations, existenceMap)
   logCheckIfAllAmendmentsHaveRegulations(amendedByMap, existenceMap)
   logCheckIfAllCancellationsHaveRegulations(cancelledByMap, existenceMap)
+  logCheckIfAllDocumentsHaveStrapiId(regulationsFromVznsAndRelations)
+  logCheckIfAllRegulationsHaveValidFrom(regulationsFromVznsAndRelations)
+  logCheckIfAllRegulationsHaveMainDocument(regulationsFromVznsAndRelations)
+  logCheckForDuplicateRegulations(regulationsFromVznsAndRelations)
+  logWarnIfAnyRegulationAmendsMoreRegulations(amendedByMap)
   console.log('////////////////////////////////////////////////////////')
 
+  //sorting so life is easier
+  regulationsFromVznsAndRelations.sort((a, b) => {
+    if (a._code === b._code) return a._source.localeCompare(b._source)
+    return a._code.localeCompare(b._code)
+  })
+  dataCollector.sort((a, b) => {
+    if (a.type === b.type) return a.reason.localeCompare(b.reason)
+    return a.type.localeCompare(b.type)
+  })
+
+  logCheckIfAnyVznFilesAreNotAssignedToAnyRegulation(originalUploadFiles, regulationsFromVznsAndRelations)
+
+  //Write map with names
+  // const nameMap: any[] = []
+  // regulationsFromVznsAndRelations.forEach((regulation) => {
+  //   nameMap.push({
+  //     code: regulation._code,
+  //     fullTitle: regulation.title,
+  //     mainDocumentUrl: regulation.mainDocument.attributes?.url,
+  //   })
+  // })
+  // writeDataToFile(nameMap, '/data-exports/nameMap_' + Date.now())
+
+  // FAZA 3: FILL STRAPI
+  const regulationCreationPromises = regulationsFromVznsAndRelations.map((regulationObject) =>
+    createBareRegulationFromRegulationOject(client, regulationObject)
+  )
+  await Promise.all(regulationCreationPromises)
+    .then(() => {
+      assignAmendmentsAndCancellationsFromData(client, regulationsFromVznsAndRelations)
+    })
+    .then(() => {
+      console.log('\n////////////////////////////////////////////////////////')
+      console.log('\x1b[36mLOG AFTER PHASE 3 - creating regulations in Strapi \x1b[0m')
+      console.log('finished creating new bare Regulations (yet with no links to amendments or cancellations)')
+      console.log('\n////////////////////////////////////////////////////////')
+    })
+
+  // FAZA LOG WRITING
   const shouldWeWrite = true
-  // WRITING ORIGINAL VZNS
   if (shouldWeWrite || ['y', '3'].includes(prompt('Should we write original vzns? (y3/n)') ?? 'noAnswer')) {
     writeDataToFile(originalVzns, '/data-exports/originalVzns_' + Date.now())
     console.log('generated file with original vzns')
   }
-  // WRITING MISSING
   if (
     shouldWeWrite ||
     ['y', '3'].includes(prompt('Should we write log from duplicateDataCollector? (y3/n)') ?? 'noAnswer')
   ) {
-    dataCollector.sort((a, b) => {
-      return a.type.localeCompare(b.type)
-    })
     writeDataToFile(dataCollector, '/data-exports/dataCollector_' + Date.now())
     console.log('generated file wit dataCollector log')
   }
-  // WRITING FINAL REGULATIONS
   if (shouldWeWrite || ['y', '3'].includes(prompt('Should we write final regulations? (y3/n)') ?? 'noAnswer')) {
     writeDataToFile(regulationsFromVznsAndRelations, '/data-exports/finalRegulations_' + Date.now())
     console.log('generated file with final regulations')
   }
-  //checkIfAllAmendmentsHaveRegulations()
+
+  return regulationsFromVznsAndRelations
 }
 
 // MAP FUNCTIONS --------------------------------------------------------------
@@ -147,7 +199,7 @@ function fillCancelledByMapWithRegulations(regulations: RegulationForMigration[]
         if (
           !cancellationCode ||
           cancellationCode === 'invalid' ||
-          cancellation.attributes?.name.match(/[pP]r[ií]loh[ay]/)
+          cancellation.attributes?.name.match(regExpForAttachmentTitle)
         ) {
           dataCollector.push({
             type: 'cannotAddToMap',
@@ -239,14 +291,13 @@ function transformAllVznsRelationsToRegulations(vzns: VznEntityFragment[]): Regu
 
 function transformVznRelationsToRegulations(vzn: VznEntityFragment): RegulationForMigration[] {
   const regulationsFromRelations: RegulationForMigration[] = []
+  const attachmentDocuments: UploadFileVznInfoFragment[] = []
   const vznCode = parseVznCodeFromTitle(vzn.attributes?.title).vznCode
   const relationsFromVzn = [
     ...(vzn.attributes?.amedmentDocument ?? []),
     ...(vzn.attributes?.cancellationDocument ?? []),
   ]
-  //DEBUG:
-
-  //DEBUG:
+  //nahodia sa regulationy
   relationsFromVzn.forEach((relation) => {
     const {
       vznYear: relationYear,
@@ -262,18 +313,8 @@ function transformVznRelationsToRegulations(vzn: VznEntityFragment): RegulationF
       })
       return
     }
-    if (
-      relation.title.match(/[pP]r[ií]loh[ay]/) ||
-      relation.document?.data?.attributes?.name.match(/[pP]r[ií]loh[ay]/)
-    ) {
-      dataCollector.push({
-        type: 'priloha',
-        data: relation,
-        reason:
-          'REMOVE THIS WHEN PRILOHY ARE FUNCTIONING when retrieving relations from original vzn ' +
-          vznCode +
-          ', this relation is a priloha and we skip it',
-      })
+    if (relation.title.match(regExpForAttachmentTitle)) {
+      attachmentDocuments.push({ ...relation.document?.data })
       return
     }
     //We need to check if the relation has valid generated code only
@@ -330,12 +371,60 @@ function transformVznRelationsToRegulations(vzn: VznEntityFragment): RegulationF
       _year: relationYear,
       _number: relationNumber,
       _source: 'relation of original vzn ' + vznCode,
-      title: relation?.title,
+      title: relationNumber + '/' + relationYear,
+      slug: relationNumber + '-' + relationYear,
       validFrom: relation.validFrom,
       mainDocument: relation?.document?.data,
-      attachmentDocuments: null, //FIXME: fill this
+      attachmentDocuments: [],
     }
     regulationsFromRelations.push(regulation)
+    if (!existenceMap.has(relationCode)) {
+      existenceMap.set(relationCode, true)
+    }
+  })
+  //nahodia sa attachments pre dane regulationy
+  attachmentDocuments.forEach((attachment) => {
+    let hasBeenAssigned = false
+    const attachmentCode = parseVznCodeFromTitle(attachment?.attributes?.name, 'includeAttachments').vznCode
+    regulationsFromRelations.forEach((regulationFromRelation) => {
+      if (regulationFromRelation._code === attachmentCode) {
+        regulationFromRelation.attachmentDocuments = [...(regulationFromRelation.attachmentDocuments ?? []), attachment]
+        hasBeenAssigned = true
+      }
+    })
+    regulationsFromVzns.forEach((regulationFromVzn) => {
+      //this checks whether the attachment belongs to an already existing regulation other than the currently processed one
+      if (regulationFromVzn._code === attachmentCode && vznCode !== attachmentCode) {
+        regulationFromVzn.attachmentDocuments = [...(regulationFromVzn.attachmentDocuments ?? []), attachment]
+        hasBeenAssigned = true
+        dataCollector.push({
+          type: 'ZZZ_duplicateStrapiData_uploadFile',
+          data: attachment,
+          reason:
+            'Priloha named: ' +
+            attachment.attributes?.name +
+            ' which was found among attachments of ' +
+            vznCode +
+            ' has been assigned to ' +
+            regulationFromVzn._code +
+            " which has already been created directly from original vzns so it's possible duplicate",
+        })
+      }
+    })
+    //we check here for lost attachment documents that werent assigned neither to the main regulation nor to any of its amendments
+    if (!hasBeenAssigned && attachmentCode !== vznCode) {
+      dataCollector.push({
+        type: 'priloha - lost',
+        data: attachment,
+        reason:
+          'Priloha named: ' +
+          attachment.attributes?.name +
+          ' which was found among attachments of ' +
+          vznCode +
+          ' has no regulation to be assigned to when searched among these relations: ' +
+          JSON.stringify(regulationsFromRelations),
+      })
+    }
   })
   return regulationsFromRelations
 }
@@ -368,9 +457,9 @@ function transformOriginalVznToRegulation(vzn: VznEntityFragment): RegulationFor
   const cancellationUnrecognizedDocumentsData: any[] = []
   if (vzn.attributes?.cancellationDocument?.length)
     vzn.attributes?.cancellationDocument.forEach((file) => {
-      if (file?.title?.match(/[pP]r[ií]loh/)) {
+      if (file?.title?.match(regExpForAttachmentTitle)) {
         cancellationAttachmentDocumentsData.push(file.document?.data)
-      } else if (file?.title?.match(/[vV][zZ][nN]/)) {
+      } else if (file?.title?.match(regExpForShortVznTitle)) {
         cancellationRegulationDocumentsData.push(file.document?.data)
       } else {
         cancellationUnrecognizedDocumentsData.push(file?.document?.data)
@@ -383,9 +472,9 @@ function transformOriginalVznToRegulation(vzn: VznEntityFragment): RegulationFor
   const amendmentUnrecognizedDocumentsData: any[] = []
   if (vzn.attributes?.amedmentDocument?.length)
     vzn.attributes?.amedmentDocument.forEach((file) => {
-      if (file?.title?.match(/[pP]r[ií]loh/)) {
+      if (file?.title?.match(regExpForAttachmentTitle)) {
         amendmentAttachmentDocumentsData.push(file.document?.data)
-      } else if (file?.title?.match(/[vV][zZ][nN]/)) {
+      } else if (file?.title?.match(regExpForShortVznTitle)) {
         amendmentRegulationDocumentsData.push(file.document?.data)
       } else {
         amendmentUnrecognizedDocumentsData.push(file?.document?.data)
@@ -405,7 +494,8 @@ function transformOriginalVznToRegulation(vzn: VznEntityFragment): RegulationFor
     _year: vznYear,
     _number: vznNumber,
     _source: 'original vzn',
-    title: vzn.attributes?.title,
+    title: vznNumber + '/' + vznYear,
+    slug: vznNumber + '-' + vznYear,
     mainDocument: { ...vzn.attributes?.mainDocument?.data },
     attachmentDocuments: attachmentDocuments,
     validFrom: vzn.attributes?.validFrom,

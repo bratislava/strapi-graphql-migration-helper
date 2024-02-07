@@ -9,10 +9,9 @@ import { GraphQLClient } from 'graphql-request'
 
 const URL_LOCALHOST = 'http://localhost:1337/graphql'
 const URL_EIS40 = 'http://192.168.1.16:1337/graphql'
-const URL_OFIS1 = 'http://172.25.37.23:1337/graphql'
-const URL_OFIS2 = 'http://172.25.37.48:1337/graphql'
-const URL_OFIS3 = 'http://172.20.144.1:1337/graphql'
-const localhostBratislavaClient = new GraphQLClient(URL_OFIS3)
+const URL_OFIS = 'http://172.25.37.13:1337/graphql'
+const URL_OFIS2 = 'http://172.20.144.1:1337/graphql'
+const localhostBratislavaClient = new GraphQLClient(URL_EIS40)
 
 // We are connecting to dev, because staging is more used for testing purposes and the database is changed more often
 const productionBratislavaClient = new GraphQLClient('https://bratislava-strapi.bratislava.sk/graphql')
