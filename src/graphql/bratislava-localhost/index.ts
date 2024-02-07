@@ -1772,6 +1772,17 @@ export enum Enum_Regulationtest1_Category {
   UzemnePlanovanie = 'uzemnePlanovanie'
 }
 
+export enum Enum_Regulation_Category {
+  Archiv = 'archiv',
+  DaneAPoplatky = 'daneAPoplatky',
+  Hospodarenie = 'hospodarenie',
+  Ostatne = 'ostatne',
+  PomenovanieUlic = 'pomenovanieUlic',
+  PoriadokACistota = 'poriadokACistota',
+  SocialnaPomocASkolstvo = 'socialnaPomocASkolstvo',
+  UzemnePlanovanie = 'uzemnePlanovanie'
+}
+
 export enum Enum_Vzn_Category {
   Archiv = 'archiv',
   DaneAPoplatky = 'daneAPoplatky',
@@ -1922,7 +1933,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Alert | BlogPost | ComponentAccordionItemsFlatText | ComponentAccordionItemsInstitution | ComponentAccordionItemsInstitutionNarrow | ComponentBlocksBlogPostLink | ComponentBlocksBookmarkLink | ComponentBlocksCommonLink | ComponentBlocksComparisonCard | ComponentBlocksComparisonItem | ComponentBlocksContactCard | ComponentBlocksDocListExtensions | ComponentBlocksFile | ComponentBlocksFileItem | ComponentBlocksFooterColumn | ComponentBlocksFooterContactItem | ComponentBlocksFooterSection | ComponentBlocksGalleryItem | ComponentBlocksHomepageBookmark | ComponentBlocksHomepageHighlightsItem | ComponentBlocksIconWithTitleAndDescription | ComponentBlocksInBa | ComponentBlocksNumericalListItem | ComponentBlocksPageLink | ComponentBlocksProsAndConsCard | ComponentBlocksSpaceInfo | ComponentBlocksSubpage | ComponentBlocksTimelineItem | ComponentBlocksTopServicesItem | ComponentBlocksVideo | ComponentGeneralHeader | ComponentGeneralHeaderLink | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentOsItemsAdvancedAccordionDepartment | ComponentOsItemsAdvancedAccordionItem | ComponentOsItemsAdvancedAccordionSubItem | ComponentOsItemsAdvancedAccordionSubSubItem | ComponentSectionsAccordion | ComponentSectionsBanner | ComponentSectionsBlogPostsByCategory | ComponentSectionsBlogPostsByTags | ComponentSectionsBlogPostsList | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContactsSection | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsHomepageEvents | ComponentSectionsHomepageHighlights | ComponentSectionsHomepageMayorAndCouncil | ComponentSectionsHomepageTabs | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsInbaArticlesList | ComponentSectionsInbaReleases | ComponentSectionsLinks | ComponentSectionsNarrowText | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsSubpageList | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsTopServices | ComponentSectionsVideos | ComponentSectionsWaves | Footer | General | Homepage | I18NLocale | InbaArticle | InbaRelease | InbaTag | Menu | Page | PageCategory | PageSubcategory | Regulationtest1 | Tag | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vzn;
+export type GenericMorph = Alert | BlogPost | ComponentAccordionItemsFlatText | ComponentAccordionItemsInstitution | ComponentAccordionItemsInstitutionNarrow | ComponentBlocksBlogPostLink | ComponentBlocksBookmarkLink | ComponentBlocksCommonLink | ComponentBlocksComparisonCard | ComponentBlocksComparisonItem | ComponentBlocksContactCard | ComponentBlocksDocListExtensions | ComponentBlocksFile | ComponentBlocksFileItem | ComponentBlocksFooterColumn | ComponentBlocksFooterContactItem | ComponentBlocksFooterSection | ComponentBlocksGalleryItem | ComponentBlocksHomepageBookmark | ComponentBlocksHomepageHighlightsItem | ComponentBlocksIconWithTitleAndDescription | ComponentBlocksInBa | ComponentBlocksNumericalListItem | ComponentBlocksPageLink | ComponentBlocksProsAndConsCard | ComponentBlocksSpaceInfo | ComponentBlocksSubpage | ComponentBlocksTimelineItem | ComponentBlocksTopServicesItem | ComponentBlocksVideo | ComponentGeneralHeader | ComponentGeneralHeaderLink | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentOsItemsAdvancedAccordionDepartment | ComponentOsItemsAdvancedAccordionItem | ComponentOsItemsAdvancedAccordionSubItem | ComponentOsItemsAdvancedAccordionSubSubItem | ComponentSectionsAccordion | ComponentSectionsBanner | ComponentSectionsBlogPostsByCategory | ComponentSectionsBlogPostsByTags | ComponentSectionsBlogPostsList | ComponentSectionsCalculator | ComponentSectionsColumnedText | ComponentSectionsComparisonSection | ComponentSectionsContactsSection | ComponentSectionsDivider | ComponentSectionsDocumentList | ComponentSectionsFeaturedBlogPosts | ComponentSectionsFileList | ComponentSectionsGallery | ComponentSectionsHomepageEvents | ComponentSectionsHomepageHighlights | ComponentSectionsHomepageMayorAndCouncil | ComponentSectionsHomepageTabs | ComponentSectionsIconTitleDesc | ComponentSectionsIframe | ComponentSectionsInbaArticlesList | ComponentSectionsInbaReleases | ComponentSectionsLinks | ComponentSectionsNarrowText | ComponentSectionsNumericalList | ComponentSectionsOfficialBoard | ComponentSectionsOrganizationalStructure | ComponentSectionsProsAndConsSection | ComponentSectionsSpace | ComponentSectionsSubpageList | ComponentSectionsTextWithImage | ComponentSectionsTimeline | ComponentSectionsTopServices | ComponentSectionsVideos | ComponentSectionsWaves | Footer | General | Homepage | I18NLocale | InbaArticle | InbaRelease | InbaTag | Menu | Page | PageCategory | PageSubcategory | Regulation | Regulationtest1 | Tag | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vzn;
 
 export type Homepage = {
   __typename?: 'Homepage';
@@ -2402,6 +2413,7 @@ export type Mutation = {
   createPageLocalization?: Maybe<PageEntityResponse>;
   createPageSubcategory?: Maybe<PageSubcategoryEntityResponse>;
   createPageSubcategoryLocalization?: Maybe<PageSubcategoryEntityResponse>;
+  createRegulation?: Maybe<RegulationEntityResponse>;
   createRegulationtest1?: Maybe<Regulationtest1EntityResponse>;
   createTag?: Maybe<TagEntityResponse>;
   createTagLocalization?: Maybe<TagEntityResponse>;
@@ -2424,6 +2436,7 @@ export type Mutation = {
   deletePage?: Maybe<PageEntityResponse>;
   deletePageCategory?: Maybe<PageCategoryEntityResponse>;
   deletePageSubcategory?: Maybe<PageSubcategoryEntityResponse>;
+  deleteRegulation?: Maybe<RegulationEntityResponse>;
   deleteRegulationtest1?: Maybe<Regulationtest1EntityResponse>;
   deleteTag?: Maybe<TagEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -2457,6 +2470,7 @@ export type Mutation = {
   updatePage?: Maybe<PageEntityResponse>;
   updatePageCategory?: Maybe<PageCategoryEntityResponse>;
   updatePageSubcategory?: Maybe<PageSubcategoryEntityResponse>;
+  updateRegulation?: Maybe<RegulationEntityResponse>;
   updateRegulationtest1?: Maybe<Regulationtest1EntityResponse>;
   updateTag?: Maybe<TagEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -2595,6 +2609,11 @@ export type MutationCreatePageSubcategoryLocalizationArgs = {
 };
 
 
+export type MutationCreateRegulationArgs = {
+  data: RegulationInput;
+};
+
+
 export type MutationCreateRegulationtest1Args = {
   data: Regulationtest1Input;
 };
@@ -2701,6 +2720,11 @@ export type MutationDeletePageCategoryArgs = {
 export type MutationDeletePageSubcategoryArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteRegulationArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -2861,6 +2885,12 @@ export type MutationUpdatePageSubcategoryArgs = {
   data: PageSubcategoryInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateRegulationArgs = {
+  data: RegulationInput;
+  id: Scalars['ID'];
 };
 
 
@@ -3242,6 +3272,8 @@ export type Query = {
   pageSubcategories?: Maybe<PageSubcategoryEntityResponseCollection>;
   pageSubcategory?: Maybe<PageSubcategoryEntityResponse>;
   pages?: Maybe<PageEntityResponseCollection>;
+  regulation?: Maybe<RegulationEntityResponse>;
+  regulations?: Maybe<RegulationEntityResponseCollection>;
   regulationtest1?: Maybe<Regulationtest1EntityResponse>;
   regulationtest1S?: Maybe<Regulationtest1EntityResponseCollection>;
   tag?: Maybe<TagEntityResponse>;
@@ -3400,6 +3432,18 @@ export type QueryPagesArgs = {
 };
 
 
+export type QueryRegulationArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryRegulationsArgs = {
+  filters?: InputMaybe<RegulationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryRegulationtest1Args = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -3484,6 +3528,110 @@ export type QueryVznsArgs = {
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type Regulation = {
+  __typename?: 'Regulation';
+  amending?: Maybe<RegulationRelationResponseCollection>;
+  amendments?: Maybe<RegulationRelationResponseCollection>;
+  attachments?: Maybe<UploadFileRelationResponseCollection>;
+  cancellation?: Maybe<RegulationEntityResponse>;
+  cancelling?: Maybe<RegulationRelationResponseCollection>;
+  category?: Maybe<Enum_Regulation_Category>;
+  code: Scalars['String'];
+  consolidatedText?: Maybe<UploadFileEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  effectiveFrom?: Maybe<Scalars['Date']>;
+  fullTitle: Scalars['String'];
+  isFullTextRegulation: Scalars['Boolean'];
+  mainDocument: UploadFileEntityResponse;
+  slug: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type RegulationAmendingArgs = {
+  filters?: InputMaybe<RegulationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type RegulationAmendmentsArgs = {
+  filters?: InputMaybe<RegulationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type RegulationAttachmentsArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type RegulationCancellingArgs = {
+  filters?: InputMaybe<RegulationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type RegulationEntity = {
+  __typename?: 'RegulationEntity';
+  attributes?: Maybe<Regulation>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type RegulationEntityResponse = {
+  __typename?: 'RegulationEntityResponse';
+  data?: Maybe<RegulationEntity>;
+};
+
+export type RegulationEntityResponseCollection = {
+  __typename?: 'RegulationEntityResponseCollection';
+  data: Array<RegulationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type RegulationFiltersInput = {
+  amending?: InputMaybe<RegulationFiltersInput>;
+  amendments?: InputMaybe<RegulationFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<RegulationFiltersInput>>>;
+  cancellation?: InputMaybe<RegulationFiltersInput>;
+  cancelling?: InputMaybe<RegulationFiltersInput>;
+  category?: InputMaybe<StringFilterInput>;
+  code?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  effectiveFrom?: InputMaybe<DateFilterInput>;
+  fullTitle?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  isFullTextRegulation?: InputMaybe<BooleanFilterInput>;
+  not?: InputMaybe<RegulationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<RegulationFiltersInput>>>;
+  slug?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type RegulationInput = {
+  amending?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  amendments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  attachments?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  cancellation?: InputMaybe<Scalars['ID']>;
+  cancelling?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  category?: InputMaybe<Enum_Regulation_Category>;
+  code?: InputMaybe<Scalars['String']>;
+  consolidatedText?: InputMaybe<Scalars['ID']>;
+  effectiveFrom?: InputMaybe<Scalars['Date']>;
+  fullTitle?: InputMaybe<Scalars['String']>;
+  isFullTextRegulation?: InputMaybe<Scalars['Boolean']>;
+  mainDocument?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
+};
+
+export type RegulationRelationResponseCollection = {
+  __typename?: 'RegulationRelationResponseCollection';
+  data: Array<RegulationEntity>;
 };
 
 export type Regulationtest1 = {
@@ -4134,18 +4282,31 @@ export type VznRelationResponseCollection = {
   data: Array<VznEntity>;
 };
 
-export type AllRegulationTest1sQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllRegulationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllRegulationTest1sQuery = { __typename?: 'Query', regulationtest1S?: { __typename?: 'Regulationtest1EntityResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, fullTitle?: string | null, validFrom?: any | null, category?: Enum_Regulationtest1_Category | null, details?: string | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'Regulationtest1RelationResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null }> } | null, amending?: { __typename?: 'Regulationtest1RelationResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null, cancellation?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null } | null } | null } | null }> } | null, cancellation?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'Regulationtest1RelationResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null }> } | null } | null }> } | null };
+export type AllRegulationsQuery = { __typename?: 'Query', regulations?: { __typename?: 'RegulationEntityResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, slug: string, fullTitle: string, effectiveFrom?: any | null, category?: Enum_Regulation_Category | null, isFullTextRegulation: boolean, mainDocument: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null }, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null } | null }> } | null } | null }> } | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null } | null }> } | null };
 
-export type SetCancellationToRegulationMutationVariables = Exact<{
-  regulationId: Scalars['ID'];
-  cancellationId: Scalars['ID'];
+export type RegulationByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
 }>;
 
 
-export type SetCancellationToRegulationMutation = { __typename?: 'Mutation', updateRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null } | null } | null };
+export type RegulationByIdQuery = { __typename?: 'Query', regulation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, slug: string, fullTitle: string, effectiveFrom?: any | null, category?: Enum_Regulation_Category | null, isFullTextRegulation: boolean, mainDocument: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null }, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null } | null }> } | null } | null }> } | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null } | null } | null } | null };
+
+export type RegulationBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type RegulationBySlugQuery = { __typename?: 'Query', regulations?: { __typename?: 'RegulationEntityResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, slug: string, fullTitle: string, effectiveFrom?: any | null, category?: Enum_Regulation_Category | null, isFullTextRegulation: boolean, mainDocument: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null }, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null } | null }> } | null } | null }> } | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null } | null }> } | null };
+
+export type RegulationByYearQueryVariables = Exact<{
+  year?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type RegulationByYearQuery = { __typename?: 'Query', regulations?: { __typename?: 'RegulationEntityResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, slug: string, fullTitle: string, effectiveFrom?: any | null, category?: Enum_Regulation_Category | null, isFullTextRegulation: boolean, mainDocument: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null }, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null } | null }> } | null } | null }> } | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null } | null }> } | null };
 
 export type SetFullTitleToRegulationMutationVariables = Exact<{
   regulationId: Scalars['ID'];
@@ -4153,7 +4314,15 @@ export type SetFullTitleToRegulationMutationVariables = Exact<{
 }>;
 
 
-export type SetFullTitleToRegulationMutation = { __typename?: 'Mutation', updateRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null } | null } | null };
+export type SetFullTitleToRegulationMutation = { __typename?: 'Mutation', updateRegulation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null } | null } | null };
+
+export type SetCancellationToRegulationMutationVariables = Exact<{
+  regulationId: Scalars['ID'];
+  cancellationId: Scalars['ID'];
+}>;
+
+
+export type SetCancellationToRegulationMutation = { __typename?: 'Mutation', updateRegulation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null } | null } | null };
 
 export type SetAmendmentsToRegulationMutationVariables = Exact<{
   regulationId: Scalars['ID'];
@@ -4161,61 +4330,38 @@ export type SetAmendmentsToRegulationMutationVariables = Exact<{
 }>;
 
 
-export type SetAmendmentsToRegulationMutation = { __typename?: 'Mutation', updateRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null } | null } | null };
+export type SetAmendmentsToRegulationMutation = { __typename?: 'Mutation', updateRegulation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null } | null } | null };
 
-export type SetAmendmentsAndCancellationsToRegulationMutationVariables = Exact<{
-  regulationId: Scalars['ID'];
-  amendmentsIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  cancellationId: Scalars['ID'];
-}>;
-
-
-export type SetAmendmentsAndCancellationsToRegulationMutation = { __typename?: 'Mutation', updateRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null } | null } | null };
-
-export type DeleteRegulationTest1ByIdMutationVariables = Exact<{
+export type DeleteRegulationByIdMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DeleteRegulationTest1ByIdMutation = { __typename?: 'Mutation', deleteRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null } | null } | null };
+export type DeleteRegulationByIdMutation = { __typename?: 'Mutation', deleteRegulation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null } | null } | null };
 
-export type CreateDummyRegulationTest1MutationVariables = Exact<{
-  title?: Scalars['String'];
-  validFrom?: InputMaybe<Scalars['Date']>;
-  category?: InputMaybe<Enum_Regulationtest1_Category>;
-  details?: InputMaybe<Scalars['String']>;
-  mainDocumentId?: Scalars['ID'];
-  consolidatedTextId?: Scalars['ID'];
-  attachmentsIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  amendmentsIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  cancellationId?: Scalars['ID'];
-}>;
-
-
-export type CreateDummyRegulationTest1Mutation = { __typename?: 'Mutation', createRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string } | null } | null } | null };
-
-export type CreateBareRegulationTest1MutationVariables = Exact<{
-  title: Scalars['String'];
-  slug?: InputMaybe<Scalars['String']>;
-  validFrom?: InputMaybe<Scalars['Date']>;
-  category?: InputMaybe<Enum_Regulationtest1_Category>;
-  details?: InputMaybe<Scalars['String']>;
+export type CreateBareRegulationMutationVariables = Exact<{
+  code: Scalars['String'];
+  slug: Scalars['String'];
+  fullTitle?: InputMaybe<Scalars['String']>;
+  effectiveFrom?: InputMaybe<Scalars['Date']>;
+  category?: InputMaybe<Enum_Regulation_Category>;
+  isFullTextRegulation?: InputMaybe<Scalars['Boolean']>;
   mainDocumentId?: InputMaybe<Scalars['ID']>;
   consolidatedTextId?: InputMaybe<Scalars['ID']>;
   attachmentsIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
 }>;
 
 
-export type CreateBareRegulationTest1Mutation = { __typename?: 'Mutation', createRegulationtest1?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string } | null } | null } | null };
+export type CreateBareRegulationMutation = { __typename?: 'Mutation', createRegulation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string } | null } | null } | null };
 
-export type RegulationTest1EntityFragment = { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, fullTitle?: string | null, validFrom?: any | null, category?: Enum_Regulationtest1_Category | null, details?: string | null, mainDocument?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'Regulationtest1RelationResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null }> } | null, amending?: { __typename?: 'Regulationtest1RelationResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null, cancellation?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null } | null } | null } | null }> } | null, cancellation?: { __typename?: 'Regulationtest1EntityResponse', data?: { __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'Regulationtest1RelationResponseCollection', data: Array<{ __typename?: 'Regulationtest1Entity', id?: string | null, attributes?: { __typename?: 'Regulationtest1', title: string, validFrom?: any | null } | null }> } | null } | null };
-
-export type UploadFileVznInfoFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null };
+export type RegulationEntityFragment = { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, slug: string, fullTitle: string, effectiveFrom?: any | null, category?: Enum_Regulation_Category | null, isFullTextRegulation: boolean, mainDocument: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null }, consolidatedText?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null } | null } | null, attachments?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, ext?: string | null, size: number, createdAt?: any | null, updatedAt?: any | null } | null }> } | null, amendments?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, amending?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null } | null }> } | null } | null }> } | null, cancellation?: { __typename?: 'RegulationEntityResponse', data?: { __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null } | null } | null, cancelling?: { __typename?: 'RegulationRelationResponseCollection', data: Array<{ __typename?: 'RegulationEntity', id?: string | null, attributes?: { __typename?: 'Regulation', code: string, effectiveFrom?: any | null } | null }> } | null } | null };
 
 export type AllFilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AllFilesQuery = { __typename?: 'Query', uploadFiles?: { __typename?: 'UploadFileEntityResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null }> } | null };
+
+export type UploadFileVznInfoFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', name: string, url: string } | null };
 
 export type AllVzNsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4248,15 +4394,16 @@ export const UploadFileEntityFragmentDoc = gql`
   }
 }
     `;
-export const RegulationTest1EntityFragmentDoc = gql`
-    fragment RegulationTest1Entity on Regulationtest1Entity {
+export const RegulationEntityFragmentDoc = gql`
+    fragment RegulationEntity on RegulationEntity {
   id
   attributes {
-    title
+    code
+    slug
     fullTitle
-    validFrom
+    effectiveFrom
     category
-    details
+    isFullTextRegulation
     mainDocument {
       data {
         ...UploadFileEntity
@@ -4276,8 +4423,8 @@ export const RegulationTest1EntityFragmentDoc = gql`
       data {
         id
         attributes {
-          title
-          validFrom
+          code
+          effectiveFrom
         }
       }
     }
@@ -4285,14 +4432,31 @@ export const RegulationTest1EntityFragmentDoc = gql`
       data {
         id
         attributes {
-          title
-          validFrom
+          code
+          effectiveFrom
           cancellation {
             data {
               id
               attributes {
-                title
-                validFrom
+                code
+                effectiveFrom
+              }
+            }
+          }
+          amending {
+            data {
+              id
+              attributes {
+                code
+                cancellation {
+                  data {
+                    id
+                    attributes {
+                      code
+                      effectiveFrom
+                    }
+                  }
+                }
               }
             }
           }
@@ -4303,8 +4467,8 @@ export const RegulationTest1EntityFragmentDoc = gql`
       data {
         id
         attributes {
-          title
-          validFrom
+          code
+          effectiveFrom
         }
       }
     }
@@ -4312,8 +4476,8 @@ export const RegulationTest1EntityFragmentDoc = gql`
       data {
         id
         attributes {
-          title
-          validFrom
+          code
+          effectiveFrom
         }
       }
     }
@@ -4401,27 +4565,54 @@ export const VznEntityFragmentDoc = gql`
   }
 }
     ${UploadFileEntityFragmentDoc}`;
-export const AllRegulationTest1sDocument = gql`
-    query allRegulationTest1s {
-  regulationtest1S(pagination: {limit: -1}) {
+export const AllRegulationsDocument = gql`
+    query allRegulations {
+  regulations(pagination: {limit: -1}) {
     data {
-      ...RegulationTest1Entity
+      ...RegulationEntity
     }
   }
 }
-    ${RegulationTest1EntityFragmentDoc}`;
-export const SetCancellationToRegulationDocument = gql`
-    mutation setCancellationToRegulation($regulationId: ID!, $cancellationId: ID!) {
-  updateRegulationtest1(id: $regulationId, data: {cancellation: $cancellationId}) {
+    ${RegulationEntityFragmentDoc}`;
+export const RegulationByIdDocument = gql`
+    query RegulationById($id: ID!) {
+  regulation(id: $id) {
+    data {
+      ...RegulationEntity
+    }
+  }
+}
+    ${RegulationEntityFragmentDoc}`;
+export const RegulationBySlugDocument = gql`
+    query RegulationBySlug($slug: String) {
+  regulations(filters: {slug: {eq: $slug}}) {
+    data {
+      ...RegulationEntity
+    }
+  }
+}
+    ${RegulationEntityFragmentDoc}`;
+export const RegulationByYearDocument = gql`
+    query RegulationByYear($year: String) {
+  regulations(filters: {slug: {endsWith: $year}}) {
+    data {
+      ...RegulationEntity
+    }
+  }
+}
+    ${RegulationEntityFragmentDoc}`;
+export const SetFullTitleToRegulationDocument = gql`
+    mutation setFullTitleToRegulation($regulationId: ID!, $fullTitle: String) {
+  updateRegulation(id: $regulationId, data: {fullTitle: $fullTitle}) {
     data {
       id
     }
   }
 }
     `;
-export const SetFullTitleToRegulationDocument = gql`
-    mutation setFullTitleToRegulation($regulationId: ID!, $fullTitle: String) {
-  updateRegulationtest1(id: $regulationId, data: {fullTitle: $fullTitle}) {
+export const SetCancellationToRegulationDocument = gql`
+    mutation setCancellationToRegulation($regulationId: ID!, $cancellationId: ID!) {
+  updateRegulation(id: $regulationId, data: {cancellation: $cancellationId}) {
     data {
       id
     }
@@ -4430,57 +4621,31 @@ export const SetFullTitleToRegulationDocument = gql`
     `;
 export const SetAmendmentsToRegulationDocument = gql`
     mutation setAmendmentsToRegulation($regulationId: ID!, $amendmentsIds: [ID!]) {
-  updateRegulationtest1(id: $regulationId, data: {amendments: $amendmentsIds}) {
+  updateRegulation(id: $regulationId, data: {amendments: $amendmentsIds}) {
     data {
       id
     }
   }
 }
     `;
-export const SetAmendmentsAndCancellationsToRegulationDocument = gql`
-    mutation setAmendmentsAndCancellationsToRegulation($regulationId: ID!, $amendmentsIds: [ID!], $cancellationId: ID!) {
-  updateRegulationtest1(
-    id: $regulationId
-    data: {amendments: $amendmentsIds, cancellation: $cancellationId}
-  ) {
+export const DeleteRegulationByIdDocument = gql`
+    mutation deleteRegulationById($id: ID!) {
+  deleteRegulation(id: $id) {
     data {
       id
     }
   }
 }
     `;
-export const DeleteRegulationTest1ByIdDocument = gql`
-    mutation deleteRegulationTest1ById($id: ID!) {
-  deleteRegulationtest1(id: $id) {
-    data {
-      id
-    }
-  }
-}
-    `;
-export const CreateDummyRegulationTest1Document = gql`
-    mutation createDummyRegulationTest1($title: String! = "Title from graphql", $validFrom: Date = null, $category: ENUM_REGULATIONTEST1_CATEGORY = null, $details: String = "ditejl", $mainDocumentId: ID! = "4805", $consolidatedTextId: ID! = "4805", $attachmentsIds: [ID!] = ["4805"], $amendmentsIds: [ID!] = "24", $cancellationId: ID! = "23") {
-  createRegulationtest1(
-    data: {title: $title, validFrom: $validFrom, category: $category, details: $details, mainDocument: $mainDocumentId, consolidatedText: $consolidatedTextId, attachments: $attachmentsIds, amendments: $amendmentsIds, cancellation: $cancellationId}
+export const CreateBareRegulationDocument = gql`
+    mutation createBareRegulation($code: String!, $slug: String!, $fullTitle: String, $effectiveFrom: Date, $category: ENUM_REGULATION_CATEGORY, $isFullTextRegulation: Boolean, $mainDocumentId: ID, $consolidatedTextId: ID, $attachmentsIds: [ID]) {
+  createRegulation(
+    data: {code: $code, slug: $slug, fullTitle: $fullTitle, effectiveFrom: $effectiveFrom, category: $category, isFullTextRegulation: $isFullTextRegulation, mainDocument: $mainDocumentId, consolidatedText: $consolidatedTextId, attachments: $attachmentsIds}
   ) {
     data {
       id
       attributes {
-        title
-      }
-    }
-  }
-}
-    `;
-export const CreateBareRegulationTest1Document = gql`
-    mutation createBareRegulationTest1($title: String!, $slug: String, $validFrom: Date, $category: ENUM_REGULATIONTEST1_CATEGORY, $details: String, $mainDocumentId: ID, $consolidatedTextId: ID, $attachmentsIds: [ID]) {
-  createRegulationtest1(
-    data: {title: $title, slug: $slug, validFrom: $validFrom, category: $category, details: $details, mainDocument: $mainDocumentId, consolidatedText: $consolidatedTextId, attachments: $attachmentsIds}
-  ) {
-    data {
-      id
-      attributes {
-        title
+        code
       }
     }
   }
@@ -4531,29 +4696,32 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    allRegulationTest1s(variables?: AllRegulationTest1sQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllRegulationTest1sQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<AllRegulationTest1sQuery>(AllRegulationTest1sDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'allRegulationTest1s', 'query');
+    allRegulations(variables?: AllRegulationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllRegulationsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AllRegulationsQuery>(AllRegulationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'allRegulations', 'query');
     },
-    setCancellationToRegulation(variables: SetCancellationToRegulationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SetCancellationToRegulationMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<SetCancellationToRegulationMutation>(SetCancellationToRegulationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'setCancellationToRegulation', 'mutation');
+    RegulationById(variables: RegulationByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RegulationByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RegulationByIdQuery>(RegulationByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RegulationById', 'query');
+    },
+    RegulationBySlug(variables?: RegulationBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RegulationBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RegulationBySlugQuery>(RegulationBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RegulationBySlug', 'query');
+    },
+    RegulationByYear(variables?: RegulationByYearQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RegulationByYearQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RegulationByYearQuery>(RegulationByYearDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RegulationByYear', 'query');
     },
     setFullTitleToRegulation(variables: SetFullTitleToRegulationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SetFullTitleToRegulationMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<SetFullTitleToRegulationMutation>(SetFullTitleToRegulationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'setFullTitleToRegulation', 'mutation');
     },
+    setCancellationToRegulation(variables: SetCancellationToRegulationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SetCancellationToRegulationMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SetCancellationToRegulationMutation>(SetCancellationToRegulationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'setCancellationToRegulation', 'mutation');
+    },
     setAmendmentsToRegulation(variables: SetAmendmentsToRegulationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SetAmendmentsToRegulationMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<SetAmendmentsToRegulationMutation>(SetAmendmentsToRegulationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'setAmendmentsToRegulation', 'mutation');
     },
-    setAmendmentsAndCancellationsToRegulation(variables: SetAmendmentsAndCancellationsToRegulationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SetAmendmentsAndCancellationsToRegulationMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<SetAmendmentsAndCancellationsToRegulationMutation>(SetAmendmentsAndCancellationsToRegulationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'setAmendmentsAndCancellationsToRegulation', 'mutation');
+    deleteRegulationById(variables: DeleteRegulationByIdMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteRegulationByIdMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteRegulationByIdMutation>(DeleteRegulationByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteRegulationById', 'mutation');
     },
-    deleteRegulationTest1ById(variables: DeleteRegulationTest1ByIdMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteRegulationTest1ByIdMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<DeleteRegulationTest1ByIdMutation>(DeleteRegulationTest1ByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteRegulationTest1ById', 'mutation');
-    },
-    createDummyRegulationTest1(variables?: CreateDummyRegulationTest1MutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateDummyRegulationTest1Mutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateDummyRegulationTest1Mutation>(CreateDummyRegulationTest1Document, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createDummyRegulationTest1', 'mutation');
-    },
-    createBareRegulationTest1(variables: CreateBareRegulationTest1MutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateBareRegulationTest1Mutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CreateBareRegulationTest1Mutation>(CreateBareRegulationTest1Document, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createBareRegulationTest1', 'mutation');
+    createBareRegulation(variables: CreateBareRegulationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateBareRegulationMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateBareRegulationMutation>(CreateBareRegulationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createBareRegulation', 'mutation');
     },
     AllFiles(variables?: AllFilesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllFilesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllFilesQuery>(AllFilesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AllFiles', 'query');
