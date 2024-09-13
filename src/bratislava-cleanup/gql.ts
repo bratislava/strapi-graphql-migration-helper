@@ -13,4 +13,4 @@ const localhostBratislavaClient = new GraphQLClient('http://localhost:1337/graph
 const stagingBratislavaClient = new GraphQLClient('https://bratislava-strapi.bratislava.sk/graphql')
 
 export const localhostClient = localhostGetSdk(localhostBratislavaClient)
-export const stagingClient = stagingGetSdk(stagingBratislavaClient)
+export const stagingClient = stagingGetSdk(localhostBratislavaClient)

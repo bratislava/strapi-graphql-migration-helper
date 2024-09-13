@@ -8,71 +8,6 @@ fragment IconTitleDescriptionBlock on ComponentBlocksIconWithTitleAndDescription
   }
 }
 
-fragment DocumentListSection on ComponentSectionsDocumentList {
-  vzns {
-    data {
-      id
-      attributes {
-        category
-        details
-        amedmentDocument {
-          id
-          title
-          validFrom
-          document {
-            data {
-              attributes {
-                url
-                size
-                ext
-                createdAt
-              }
-            }
-          }
-        }
-        cancellationDocument {
-          id
-          title
-          validFrom
-          document {
-            data {
-              attributes {
-                url
-                size
-                ext
-                createdAt
-              }
-            }
-          }
-        }
-        title
-        validFrom
-        mainDocument {
-          data {
-            attributes {
-              url
-              size
-              ext
-              createdAt
-            }
-          }
-        }
-        consolidatedText {
-          data {
-            id
-            attributes {
-              url
-              size
-              ext
-              createdAt
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 fragment GalleryItemBlock on ComponentBlocksGalleryItem {
   imgTitle
   imgSubtitle
@@ -216,16 +151,16 @@ fragment LinksSection on ComponentSectionsLinks {
   }
 }
 
-fragment ContactSection on ComponentSectionsContact {
-  title
-  hasBackground
-  description
-  phone
-  phoneLabel
-  email
-  emailLabel
-  address
-}
+#fragment ContactSection on ComponentSectionsContact {
+#  title
+#  hasBackground
+#  description
+#  phone
+#  phoneLabel
+#  email
+#  emailLabel
+#  address
+#}
 
 fragment ComponentAccordionItemsInstitutionNarrow on ComponentAccordionItemsInstitutionNarrow {
   title
@@ -399,10 +334,6 @@ fragment Sections on PageSectionsDynamicZone {
     ...IconTitleDescSection
   }
 
-  ... on ComponentSectionsDocumentList {
-    ...DocumentListSection
-  }
-
   ... on ComponentSectionsDivider {
     ...DividerSection
   }
@@ -438,9 +369,9 @@ fragment Sections on PageSectionsDynamicZone {
   ... on ComponentSectionsLinks {
     ...LinksSection
   }
-  ... on ComponentSectionsContact {
-    ...ContactSection
-  }
+  #  ... on ComponentSectionsContact {
+  #    ...ContactSection
+  #  }
 
   ... on ComponentSectionsAccordion {
     ...AccordionSection

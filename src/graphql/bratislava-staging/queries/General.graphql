@@ -55,9 +55,9 @@ fragment FooterColumnBlock on ComponentBlocksFooterColumn {
 
 fragment Footer on Footer {
   address
-  phone
-  email
-  mediaEmail
+  #  phone
+  #  email
+  #  mediaEmail
   facebookUrl
   instagramUrl
   columns {
@@ -169,11 +169,6 @@ fragment General on General {
     }
   }
   vznPage {
-    data {
-      ...GeneralPageRelation
-    }
-  }
-  showUaChatPages {
     data {
       ...GeneralPageRelation
     }

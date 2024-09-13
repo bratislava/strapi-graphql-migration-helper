@@ -30,6 +30,44 @@ mutation UpdatePage($id: ID!, $data: PageInput!) {
   }
 }
 
+fragment PageSeoEntity on PageEntity {
+  id
+  attributes {
+    slug
+    title
+    subtext
+    metaDiscription
+    keywords
+    locale
+    localizations {
+      ...Localization
+    }
+  }
+}
+
+query AllPageForSeo($locale: I18NLocaleCode!) {
+  pages(locale: $locale , pagination: {start: 0, limit: -1}) {
+    data {
+      ...PageSeoEntity
+    }
+  }
+}
+
+query AllPageForSections($locale: I18NLocaleCode!, $limit: Int = -1) {
+  pages(locale: $locale , pagination: {start: 0, limit: $limit}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        sections {
+          __typename
+        }
+      }
+    }
+  }
+}
+
 
 #fragment PageEntity on PageEntity {
 #  id

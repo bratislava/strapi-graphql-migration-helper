@@ -53,9 +53,9 @@ async function sections() {
         (section) => section?.__typename === 'ComponentSectionsCalculator'
       )
 
-      const ComponentSectionsContact = page.attributes.sections?.filter(
-        (section) => section?.__typename === 'ComponentSectionsContact'
-      )
+      // const ComponentSectionsContact = page.attributes.sections?.filter(
+      //   (section) => section?.__typename === 'ComponentSectionsContact'
+      // )
 
       const ComponentSectionsDivider = page.attributes.sections?.filter(
         (section) => section?.__typename === 'ComponentSectionsDivider'
@@ -85,9 +85,22 @@ async function sections() {
         (section) => section?.__typename === 'ComponentSectionsColumnedText'
       )
 
-      const ComponentSectionsNewsletter = page.attributes.sections?.filter(
-        (section) => section?.__typename === 'ComponentSectionsNewsletter'
-      )
+      // const ComponentSectionsNewsletter = page.attributes.sections?.filter(
+      //   (section) => section?.__typename === 'ComponentSectionsNewsletter'
+      // )
+
+      // const ComponentSectionsDocumentList = page.attributes.sections?.filter(
+      //   (section) => section?.__typename === 'ComponentSectionsDocumentList'
+      // )
+      //
+      // if (ComponentSectionsDocumentList?.length) {
+      //   const HOST = 'https://bratislava.sk/'
+      //   console.log(
+      //     page.id,
+      //     `${HOST}${locale === 'en' ? 'en/' : ''}${page.attributes.slug}`,
+      //     ComponentSectionsDocumentList.length
+      //   )
+      // }
 
       // if (ComponentSectionsFileList.length) {
       //   const sectionsSet = new Set(
@@ -122,14 +135,14 @@ async function sections() {
       //   }
       // }
 
-      if (ComponentSectionsContact?.length) {
-        const HOST = 'https://bratislava.sk/'
-        console.log(
-          page.id,
-          `${HOST}${locale === 'en' ? 'en/' : ''}${page.attributes.slug}`,
-          ComponentSectionsContact.length
-        )
-      }
+      // if (ComponentSectionsContact?.length) {
+      //   const HOST = 'https://bratislava.sk/'
+      //   console.log(
+      //     page.id,
+      //     `${HOST}${locale === 'en' ? 'en/' : ''}${page.attributes.slug}`,
+      //     ComponentSectionsContact.length
+      //   )
+      // }
 
       // if (ComponentSectionsIconTitleDesc.length) {
       //   console.log(
